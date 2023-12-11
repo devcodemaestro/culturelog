@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
 
 const Main = () => {
   return (
-    <div>Main</div>
-  )
-}
+    <>
+      <Header sub={false}>Culture Log</Header>
+      <div>Main</div>
+      <Footer></Footer>
+    </>
+  );
+};
 
-export default Main
+export default Main;

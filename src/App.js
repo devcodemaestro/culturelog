@@ -5,7 +5,10 @@ import NotFound from "./pages/NotFound";
 import Intro from "./pages/Intro";
 import Main from "./pages/Main";
 import PastLog from "./pages/mylog/PastLog";
-
+import UpcomingLog from "./pages/mylog/UpcomingLog";
+import ViewLog from "./pages/culturelog/ViewLog";
+import EditLog from "./pages/culturelog/EditLog";
+import WriteLog from "./pages/culturelog/WriteLog";
 function App() {
   return (
     <Wrap maxw="393">
@@ -16,10 +19,15 @@ function App() {
         <Route path="/" element={<Main></Main>}></Route>
         {/* 컬쳐로그 기록 */}
 
+        <Route path="/culturelog">
+          <Route path="view" element={<ViewLog></ViewLog>} />
+          <Route path="write" element={<WriteLog></WriteLog>} />
+          <Route path="edit" element={<EditLog></EditLog>} />
+        </Route>
         {/* 마이로그 */}
         <Route path="/mylog" element={<Outlet></Outlet>}>
           <Route path="past" index element={<PastLog></PastLog>} />
-          <Route path="upcoming" element={<></>} />
+          <Route path="upcoming" element={<UpcomingLog></UpcomingLog>} />
         </Route>
         {/* 잘못된 경로 */}
         <Route path="*" element={<NotFound />}></Route>
