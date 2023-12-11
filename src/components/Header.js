@@ -1,8 +1,8 @@
 import React from "react";
 import { HeaderWrap, Inner } from "../styles/basic";
 
-const Header = () => {
-  return <HeaderWrap maxw="393">Header</HeaderWrap>;
+const Header = props => {
+  return <HeaderWrap maxw="393">{props.children}</HeaderWrap>;
 };
 
 export default Header;
