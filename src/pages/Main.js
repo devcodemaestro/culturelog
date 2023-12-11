@@ -1,15 +1,9 @@
-import React from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import React from 'react'
 
 const Main = () => {
   return (
-    <>
-      <Header></Header>
-      <div>Main</div>
-      <Footer></Footer>
-    </>
-  );
-};
+    <div>Main</div>
+  )
+}
 
-export default Main;
+export default Main
