@@ -46,36 +46,3 @@ button {
   border: 0;
   cursor: pointer;
 }
-
-.ViewLogWrap {
-  margin-top: 3rem;
-}
-
-.ViewSlider {
-  max-width: 15.5rem;
-  margin: 0 auto;
-}
-
-.viewInfo {
-  position: relative;
-}
-
-.viewInfo li {
-  border-bottom: 1px solid #ebebeb;
-  padding: 1rem;
-  font-size: 1.2rem;
-}
-.viewInfo dl {
-  display: flex;
-  flex-wrap: wrap;
-}
-.viewInfo dt {
-  color: #555;
-  width: 5rem;
-  border-right: 1px solid #ebebeb;
-  margin-right: 2rem;
-  font-weight: 500;
-}
-.viewInfo dd {
-  font-weight: 300;
-}

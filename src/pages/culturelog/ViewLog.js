@@ -3,10 +3,11 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import styled from "@emotion/styled";
+import Star from "../../components/Star";
+import { ViewInfo, ViewLogWrap, ViewSlider } from "../../styles/viewlog";
 
 const ViewLog = () => {
   const ImgBox = styled.div`
@@ -18,13 +19,20 @@ const ViewLog = () => {
   return (
     <>
       <Header sub={true}>Culture Log</Header>
-      <div className="ViewLogWrap">
-        <div className="ViewSlider">
+      <ViewLogWrap>
+        <ViewSlider>
           <Swiper
             spaceBetween={50}
             slidesPerView={1}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={swiper => console.log(swiper)}
+            loop="true"
+            pagination={{
+              type: "fraction",
+            }}
+            navigation={{
+              nextEl: ".slide-btn.next",
+              prevEl: ".slide-btn.prev",
+            }}
+            modules={[Pagination, Navigation]}
           >
             <SwiperSlide>
               <ImgBox>
@@ -37,8 +45,20 @@ const ViewLog = () => {
               </ImgBox>
             </SwiperSlide>
           </Swiper>
-        </div>
-        <div className="ViewInfo">
+          <button className="slide-btn prev">
+            <img
+              src={process.env.PUBLIC_URL + "/images/slide_btn_prev.svg"}
+              alt="이전"
+            />
+          </button>
+          <button className="slide-btn next">
+            <img
+              src={process.env.PUBLIC_URL + "/images/slide_btn_next.svg"}
+              alt="다음"
+            />
+          </button>
+        </ViewSlider>
+        <ViewInfo>
           <h4>싱글 인 서울</h4>
           <ul>
             <li>
@@ -57,37 +77,22 @@ const ViewLog = () => {
               <dl>
                 <dt>평점</dt>
                 <dd>
-                  <i>
-                    <img
-                      src={process.env.PUBLIC_URL + "/images/icon_star.svg"}
-                    ></img>
-                    <img
-                      src={process.env.PUBLIC_URL + "/images/icon_star.svg"}
-                    ></img>
-                    <img
-                      src={process.env.PUBLIC_URL + "/images/icon_star.svg"}
-                    ></img>
-                    <img
-                      src={process.env.PUBLIC_URL + "/images/icon_star.svg"}
-                    ></img>
-                    <img
-                      src={
-                        process.env.PUBLIC_URL + "/images/icon_star_half.svg"
-                      }
-                    ></img>
-                  </i>
+                  <Star num="9" />
                 </dd>
               </dl>
             </li>
             <li>
               <dl>
                 <dt>감상평</dt>
-                <dd></dd>
+                <dd>재밌었당!</dd>
               </dl>
             </li>
           </ul>
-        </div>
-      </div>
+          <div>
+            <button></button>
+          </div>
+        </ViewInfo>
+      </ViewLogWrap>
       <Footer />
     </>
   );
