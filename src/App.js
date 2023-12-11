@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<Main></Main>}></Route>
         {/* 컬쳐로그 기록 */}
 
-        <Route path="/culturelog">
+        <Route path="/culturelog" element={<Outlet></Outlet>}>
           <Route path="view" element={<ViewLog></ViewLog>} />
           <Route path="write" element={<WriteLog></WriteLog>} />
           <Route path="edit" element={<EditLog></EditLog>} />
