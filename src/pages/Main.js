@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 const Main = () => {
   return (
     <>
-      <Header></Header>
+      <Header sub={false}>Culture Log</Header>
       <div>Main</div>
       <Footer></Footer>
     </>
