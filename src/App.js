@@ -18,15 +18,16 @@ function App() {
         {/* 메인 */}
         <Route path="/" element={<Main></Main>}></Route>
         {/* 컬쳐로그 기록 */}
-
         <Route path="/culturelog" element={<Outlet></Outlet>}>
+          <Route index element={<Main></Main>} />
           <Route path="view" element={<ViewLog></ViewLog>} />
           <Route path="write" element={<WriteLog></WriteLog>} />
           <Route path="edit" element={<EditLog></EditLog>} />
         </Route>
         {/* 마이로그 */}
         <Route path="/mylog" element={<Outlet></Outlet>}>
-          <Route path="past" index element={<PastLog></PastLog>} />
+          <Route index element={<PastLog></PastLog>} />
+          <Route index path="past" element={<PastLog></PastLog>} />
           <Route path="upcoming" element={<UpcomingLog></UpcomingLog>} />
         </Route>
         {/* 잘못된 경로 */}
