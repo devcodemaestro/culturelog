@@ -31,11 +31,23 @@ export const ImgUrl = styled.div`
 `;
 export const Dropdown = styled.div`
   margin-top: 2rem;
+  .evaluate{
+    color: gold;
+    font-size: 1.5rem;
+  }
   select {
     width: 100%;
     height: 38px;
+    font-size: 1.3rem;
     border: solid ${colors.secondary};
-  }
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 30px;
+    }
+    select::after{
+        
+    }
 `;
 export const Bticon = styled.div`
   margin-top: 2rem;
