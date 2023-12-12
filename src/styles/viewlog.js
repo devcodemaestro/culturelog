@@ -74,3 +74,16 @@ export const ViewInfo = styled.div`
     min-height: 6rem;
   }
 `;
+
+export const ImgBox = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-height: 22.2rem;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  img {
+    max-height: 22.2rem;
+  }
+`;

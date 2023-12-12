@@ -1,6 +1,6 @@
 import React from "react";
 import { HeaderWrap, Inner } from "../styles/basic";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Header = ({ children, sub }) => {

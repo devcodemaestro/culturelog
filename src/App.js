@@ -26,8 +26,8 @@ function App() {
         </Route>
         {/* 마이로그 */}
         <Route path="/mylog" element={<Outlet></Outlet>}>
-          <Route index element={<PastLog></PastLog>} />
-          <Route index path="past" element={<PastLog></PastLog>} />
+          <Route index element={<UpcomingLog></UpcomingLog>} />
+          <Route path="past" element={<PastLog></PastLog>} />
           <Route path="upcoming" element={<UpcomingLog></UpcomingLog>} />
         </Route>
         {/* 잘못된 경로 */}

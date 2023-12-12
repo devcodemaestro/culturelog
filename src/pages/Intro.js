@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { IntroLogo, IntroWrap } from "../styles/intro";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Intro = () => {
   const navigate = useNavigate();
