@@ -49,17 +49,22 @@ export const LogTotal = styled.div`
   }
 `;
 
-export const PastLogList = styled.ul`
+export const LogList = styled.ul`
   margin-top: 10px;
   width: 100%;
 `;
-export const PastLogItem = styled.li`
+export const LogItem = styled.li`
   height: 90px;
   border-radius: 5px;
   border: 1px solid ${colors.secondary};
   background: ${colors.main};
   display: flex;
   align-items: center;
+  :hover {
+    border-radius: 5px;
+    border: 1px solid ${colors.point};
+    background: ${colors.main};
+  }
 `;
 export const LogItemImg = styled.div`
   position: relative;
@@ -68,6 +73,10 @@ export const LogItemImg = styled.div`
   border-radius: 5px 0px 0px 5px;
   background: #000;
   img {
+    width: 100%;
+    border-radius: 5px 0px 0px 5px;
+  }
+  img.on {
     width: 100%;
     border-radius: 5px 0px 0px 5px;
     opacity: 0.5;
@@ -86,10 +95,7 @@ export const LogText = styled.div`
   width: 186px;
   margin-right: auto;
   padding: 10px;
-  img {
-    height: 11px;
-    margin-bottom: 5px;
-  }
+
   p {
     font-size: 14px;
     font-weight: 500;
@@ -112,5 +118,9 @@ export const LogMore = styled.div`
 
     color: ${colors.gray};
     background-color: ${colors.tab};
+    :hover {
+      background-color: ${colors.point};
+      color: ${colors.main};
+    }
   }
 `;
