@@ -75,6 +75,7 @@ export const ViewInfo = styled.div`
   }
 `;
 
+
 export const ImgBox = styled.div`
   position: relative;
   display: flex;
@@ -87,3 +88,4 @@ export const ImgBox = styled.div`
     max-height: 22.2rem;
   }
 `;
+

@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 
+
 const Star = ({ num, width }) => {
   const starView = num * 10 + "px";
   const StarWrap = styled.div`
