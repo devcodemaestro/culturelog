@@ -8,6 +8,7 @@ export const colors = {
   error: "#ff6345",
   placeholder: "#cccccc",
   gray: "#555555",
+  black: "#000",
 };
 
 export const shadow = {
