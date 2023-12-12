@@ -1,67 +1,12 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
-import { Rate } from "antd";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { Bticon, Dropdown, FileWrap, ImgUrl, ImgWrite, Loadicon, TextArea } from "../../styles/writelog";
 
-const ImgWrite = styled.div`
-  padding-top: 2rem;
-  font-size: 1.2rem;
-  width: 100%;
-`;
-const FileWrap = styled.div`
-  padding-top: 2rem;
-  width: 100%;
-  display: flex;
-`;
-const ImgUrl = styled.div`
-  padding-top: 2rem;
-  .imgurl {
-    margin-top: 20px;
-    width: 100%;
-    height: 38px;
-  }
-`;
-const Dropdown = styled.div`
-  margin-top: 2rem;
-  select {
-    width: 100%;
-    height: 38px;
-  }
-`;
-const Bticon = styled.div`
-  margin-top: 2rem;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 46px;
-  div {
-    border: 1px solid #e5e5e5;
-    width: 150px;
-    height: 46px;
-    border-radius: 2.5rem;
-    text-align: center;
-    cursor: pointer;
-  }
-`;
-const TextArea = styled.div`
-  margin-top: 2rem;
-`;
-const Loadicon = styled.div`
-  margin-top: 2rem;
-  width: 100%;
-  height: 46px;
-  div {
-    border: 1px solid #e5e5e5;
-    width: 100%;
-    height: 100%;
-    border-radius: 2.5rem;
-    text-align: center;
-    cursor: pointer;
-  }
-`;
 
-const WriteLog = () => {
+
+
+const WriteLog = props => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleDropdownChange = e => {
@@ -73,18 +18,31 @@ const WriteLog = () => {
   const handleTextChange = e => {
     setText(e.target.value);
   };
+  const fileInput = React.useRef(null);
+
+  const handleButtonClick = e => {
+    fileInput.current.click();
+  };
+  const handleChange = e => {
+    console.log(e.target.files[0]);
+  };
+
 
   return (
     <>
       <Header sub={true}>Write Log</Header>
       <ImgWrite>이미지 등록</ImgWrite>
       <FileWrap>
-        <input type="file"></input>
-        <input type="file"></input>
-        <input type="file"></input>
-        <input type="file"></input>
+        <button className="icon-file" onClick={handleButtonClick}>미리 보기</button>
+        <input type="file" style={{ display: "none" }} ref={fileInput}  onChange={handleChange} className="icon-file"></input>
+        <button className="icon-file" onClick={handleButtonClick}>미리 보기</button>
+        <input type="file" style={{ display: "none" }} ref={fileInput}  onChange={handleChange} className="icon-file"></input>
+        <button className="icon-file" onClick={handleButtonClick}>미리 보기</button>
+        <input type="file" style={{ display: "none" }} ref={fileInput}  onChange={handleChange} className="icon-file"></input>
+        <button className="icon-file" onClick={handleButtonClick}>미리 보기</button>
+        <input type="file" style={{ display: "none" }} ref={fileInput}  onChange={handleChange} className="icon-file"></input>
       </FileWrap>
-      <ImgUrl>
+      <ImgUrl>  
         <input
           type="text"
           placeholder="이미지 URL을 추가해주세요."
@@ -116,7 +74,7 @@ const WriteLog = () => {
       </Dropdown>
       <Bticon>
         <div>볼 거에요</div>
-        <div>봤어요</div>
+        <div className="saw">봤어요</div>
       </Bticon>
       <Dropdown>
         <label htmlFor="dropdown"></label>
@@ -135,10 +93,11 @@ const WriteLog = () => {
         <label htmlFor="textArea"></label>
         <textarea
           id="textArea"
+          placeholder="감상평을 남겨주세요. (500자 내외)"
           value={text}
           onChange={handleTextChange}
           rows="9" // 원하는 높이를 설정할 수 있습니다.
-          cols="48" // 원하는 너비를 설정할 수 있습니다.
+          cols="46" // 원하는 너비를 설정할 수 있습니다.
         />
       </TextArea>
       <Loadicon>
