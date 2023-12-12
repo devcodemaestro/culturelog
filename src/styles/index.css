@@ -46,3 +46,35 @@ button {
   border: 0;
   cursor: pointer;
 }
+
+.WarningWrap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 99;
+}
+
+.WarningBox {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 3rem;
+  text-align: center;
+  border-radius: 1rem;
+}
+
+.WarningBox h5 {
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin: 1rem 0;
+}
+.WarningBox p {
+  font-weight: 200;
+  font-size: 1.2rem;
+  color: #555;
+}
