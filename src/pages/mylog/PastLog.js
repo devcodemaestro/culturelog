@@ -2,15 +2,16 @@ import React from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import {
+  LogItem,
   LogItemImg,
+  LogList,
   LogMore,
   LogTab,
   LogText,
   LogTotal,
-  PastLogItem,
-  PastLogList,
-} from "../../styles/pastlog";
-import { useNavigate } from "react-router";
+} from "../../styles/mylog";
+import { useNavigate } from "react-router-dom";
+import Star from "../../components/Star";
 
 const PastLog = () => {
   const navigate = useNavigate();
@@ -21,26 +22,29 @@ const PastLog = () => {
     <>
       <Header sub={true}>My Log</Header>
       <LogTab>
-        <button className="">볼 거예요</button>
+        <button
+          className=""
+          onClick={() => {
+            navigate("/mylog/upcoming");
+          }}
+        >
+          볼 거예요
+        </button>
         <button className="on">봤어요</button>
       </LogTab>
       <LogTotal>
         총 기록 <em>1</em> 건
       </LogTotal>
-      <PastLogList>
-        <PastLogItem>
+      <LogList>
+        <LogItem>
           <LogItemImg>
             <img
               src="https://cdn.newsculture.press/news/photo/202311/537130_670817_5031.jpg"
               alt=""
             />
-            <span>d-day</span>
           </LogItemImg>
           <LogText>
-            <img
-              src={process.env.PUBLIC_URL + "/images/icon_star_yellow.svg"}
-              alt=""
-            />
+            <Star num="5" width={70} />
             <p>서울의 봄</p>
             <span>2023-12-01</span>
           </LogText>
@@ -53,8 +57,8 @@ const PastLog = () => {
               More
             </button>
           </LogMore>
-        </PastLogItem>
-      </PastLogList>
+        </LogItem>
+      </LogList>
       <Footer />
     </>
   );

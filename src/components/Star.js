@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-const Star = ({ num }) => {
+const Star = ({ num, width }) => {
   const starView = num * 10 + "px";
   const StarWrap = styled.div`
     overflow: hidden;
@@ -12,7 +12,7 @@ const Star = ({ num }) => {
     .point-star {
       z-index: 10;
       height: 19px;
-      width: 100px;
+      width: ${width ? width : "100"}px;
     }
   `;
   return (
