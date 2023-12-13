@@ -25,10 +25,11 @@ export const shadow = {
 export const Wrap = styled.div`
   position: relative;
   max-width: ${props => props.maxw + "px"};
-  height: 100vh;
+  /* height: 100vh; */
+  min-height: 100vh;
   overflow-x: auto;
   margin: 0 auto;
-  padding: 6rem 1.5% 10rem;
+  padding: 6rem 1.5% 13rem;
 
   input,
   textarea {
@@ -127,6 +128,10 @@ export const FooterAddBtn = styled.div`
 `;
 
 export const FooterCopyRight = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 9rem;
   text-align: center;
   small {
     display: block;
@@ -135,6 +140,7 @@ export const FooterCopyRight = styled.div`
   }
   a {
     display: inline-block;
+    min-width: 18rem;
     padding: 0.7rem 2rem;
     margin-bottom: 1rem;
     font-size: 1.2rem;

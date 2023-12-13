@@ -12,9 +12,6 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <>
-      <FooterCopyRight>
-        <Link to="/about">copyright Team-Name</Link>
-      </FooterCopyRight>
       <FooterWrap maxw="393">
         <Inner>
           <FooterBtnWrap>
@@ -42,6 +39,9 @@ const Footer = () => {
           </FooterBtnWrap>
         </Inner>
       </FooterWrap>
+      <FooterCopyRight>
+        <Link to="/about">copyright Team-Name</Link>
+      </FooterCopyRight>
     </>
   );
 };
