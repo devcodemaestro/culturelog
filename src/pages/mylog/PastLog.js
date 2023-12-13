@@ -1,23 +1,35 @@
 import React from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { LogTab } from "../../styles/ui/logtab";
 import {
+  LogList,
   LogItem,
   LogItemImg,
-  LogList,
-  LogMore,
-  LogTab,
   LogText,
-  LogTotal,
-} from "../../styles/mylog";
+  LogMore,
+} from "../../styles/ui/loglist";
 import { useNavigate } from "react-router-dom";
 import Star from "../../components/Star";
+import styled from "@emotion/styled";
+import { colors } from "../../styles/basic";
 
 const PastLog = () => {
   const navigate = useNavigate();
   const handleClickView = () => {
     navigate("/culturelog/view");
   };
+  const LogTotal = styled.div`
+    width: 100%;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    border-bottom: 1px solid ${colors.secondary};
+    em {
+      font-size: 12px;
+      font-weight: 500;
+    }
+  `;
   return (
     <>
       <Header sub={true}>My Log</Header>

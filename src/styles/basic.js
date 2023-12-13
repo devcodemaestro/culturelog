@@ -5,6 +5,7 @@ export const colors = {
   main: "#ffffff",
   secondary: "#ebebeb",
   point: "#273F7C",
+  tab: "#f7f7f7",
   error: "#ff6345",
   placeholder: "#cccccc",
   gray: "#555555",
