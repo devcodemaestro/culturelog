@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import { colors, shadow } from "./basic";
 
+// 상세페이지 전체 레이아웃
 export const ViewLogWrap = styled.div`
-  margin-top: 3rem;
+  padding: 3rem 0 8rem;
 `;
 
+// 슬라이드
 export const ViewSlider = styled.div`
   position: relative;
   max-width: 15.5rem;
@@ -33,6 +35,21 @@ export const ViewSlider = styled.div`
   }
 `;
 
+// 슬라이드 이미지
+export const ImgBox = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-height: 22.2rem;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  img {
+    max-height: 22.2rem;
+  }
+`;
+
+// 상세보기
 export const ViewInfo = styled.div`
   position: relative;
   margin-top: 2rem;
@@ -48,44 +65,29 @@ export const ViewInfo = styled.div`
     border-bottom: 1px solid #ebebeb;
     padding: 1rem;
     font-size: 1.4rem;
+    &.wd100 dt {
+      border-right: 0;
+    }
+    &.wd100 dd {
+      width: 100%;
+      margin-top: 1rem;
+      min-height: 6rem;
+    }
   }
 
   dl {
     display: flex;
     flex-wrap: wrap;
-  }
-  dt {
-    color: #555;
-    width: 5rem;
-    border-right: 1px solid #ebebeb;
-    margin-right: 2rem;
-    font-weight: 400;
-  }
-  dd {
-    font-weight: 400;
-    width: calc(100% - 7rem);
-  }
-  li:last-child dt {
-    border-right: 0;
-  }
-  li:last-child dd {
-    width: 100%;
-    margin-top: 1rem;
-    min-height: 6rem;
+    dt {
+      color: #555;
+      width: 5rem;
+      border-right: 1px solid #ebebeb;
+      margin-right: 2rem;
+      font-weight: 400;
+    }
+    dd {
+      font-weight: 400;
+      width: calc(100% - 7rem);
+    }
   }
 `;
-
-
-export const ImgBox = styled.div`
-  position: relative;
-  display: flex;
-  width: 100%;
-  max-height: 22.2rem;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  img {
-    max-height: 22.2rem;
-  }
-`;
-

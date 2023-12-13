@@ -3,10 +3,10 @@ import { colors, shadow } from "../basic";
 import styled from "@emotion/styled";
 
 export const SubmitBtn = css`
-    margin-top: 2rem;
-    width: 100%;
-    height: 46px;
-    div {
+  margin-top: 2rem;
+  width: 100%;
+  height: 46px;
+  div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,8 +18,9 @@ export const SubmitBtn = css`
     cursor: pointer;
     background-color: ${colors.point};
     color: ${colors.main};
+  }
 `;
-    
+
 export const BtnWrap = styled.div`
   position: relative;
   &.half {
@@ -68,7 +69,6 @@ export const GrayBtn = styled.button`
   font-size: 1.4rem;
   font-weight: 200;
   text-align: center;
-  ${shadow.light}
   transition: 0.2s;
 
   &:hover {
@@ -92,4 +92,3 @@ export const RedBtn = styled.button`
     ${shadow.bold}
   }
 `;
-

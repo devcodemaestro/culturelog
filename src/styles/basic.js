@@ -1,6 +1,6 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+// 기본색상
 export const colors = {
   main: "#ffffff",
   secondary: "#ebebeb",
@@ -11,6 +11,7 @@ export const colors = {
   black: "#000",
 };
 
+// 그림자효과
 export const shadow = {
   light: { boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.10)" },
   bold: {
@@ -19,13 +20,14 @@ export const shadow = {
   },
 };
 
+// 전체 레이아웃
 export const Wrap = styled.div`
   position: relative;
   max-width: ${props => props.maxw + "px"};
   height: 100vh;
   overflow-x: auto;
   margin: 0 auto;
-  padding: 6rem 1.5%;
+  padding: 6rem 1.5% 10rem;
 
   input,
   textarea {
@@ -41,9 +43,10 @@ export const Wrap = styled.div`
 `;
 
 export const Inner = styled.div`
-  padding: 0 3%;
+  padding: 0 5%;
 `;
 
+// header 레이아웃
 export const HeaderWrap = styled.header`
   position: fixed;
   max-width: ${props => props.maxw + "px"};
@@ -53,6 +56,7 @@ export const HeaderWrap = styled.header`
   width: 100%;
   height: 6rem;
   background: url(${process.env.PUBLIC_URL + "/images/nav_bg.jpg"}) center/cover;
+  z-index: 99999;
   h3 {
     font-size: 1.8rem;
     text-align: center;
@@ -76,6 +80,7 @@ export const HeaderWrap = styled.header`
   }
 `;
 
+// footer 레이아웃
 export const FooterWrap = styled.footer`
   position: fixed;
   max-width: ${props => props.maxw + "px"};
@@ -90,6 +95,7 @@ export const FooterWrap = styled.footer`
   line-height: 6rem;
   color: ${colors.point};
   background: url(${process.env.PUBLIC_URL + "/images/nav_bg.jpg"}) center/cover;
+  z-index: 99999;
 `;
 
 export const FooterBtnWrap = styled.div`
@@ -98,6 +104,11 @@ export const FooterBtnWrap = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+export const FooterBtn = styled.div`
+  img {
+    margin-bottom: 0.5rem;
+  }
+`;
 
 export const FooterAddBtn = styled.div`
   width: 7.2rem;
@@ -105,6 +116,34 @@ export const FooterAddBtn = styled.div`
   background: ${colors.main};
   border: 1px solid ${colors.secondary};
   border-radius: 50%;
+  margin-top: -5.5rem;
   ${shadow.light}
-  margin-top: -2.5rem;
+  a {
+    display: block;
+    width: 7.2rem;
+    height: 7.2rem;
+  }
+`;
+
+export const FooterCopyRight = styled.div`
+  text-align: center;
+  small {
+    display: block;
+    font-size: 1.2rem;
+    color: ${colors.placeholder};
+  }
+  a {
+    display: inline-block;
+    padding: 0.7rem 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    border: 1px solid ${colors.placeholder};
+    color: ${colors.placeholder};
+    transition: 0.3s;
+    border-radius: 4rem;
+    &:hover {
+      border-color: ${colors.gray};
+      color: ${colors.gray};
+    }
+  }
 `;
