@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { animationRound } from "./animation";
+import { colors } from "./basic";
 
 export const IntroWrap = styled.div`
   position: absolute;
@@ -25,4 +26,13 @@ export const IntroLogo = styled.div`
     top: 50%;
     transform: translate(-50%, -50%);
   }
+`;
+
+export const IntroCopyRight = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 3%;
+  transform: translateX(-50%);
+  font-size: 1.4rem;
+  color: ${colors.placeholder};
 `;

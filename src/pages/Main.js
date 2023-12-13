@@ -25,7 +25,7 @@ const Main = () => {
     {
       id: 2,
       title: "일정 2",
-      date: "2023-12-13",
+      date: "2023-12-31",
       image:
         "https://img.imbc.com/template/2023/07/program_91d1c748-cc1d-4493-b56d-0b2b06564ea2.jpg",
     },
@@ -36,6 +36,27 @@ const Main = () => {
   const onPanelChange = (value, mode) => {
     console.log(value);
     // console.log(value.format("YYYY-MM-DD"), mode);
+  };
+
+  // 캘린더 이미지 표시 기능 영역
+  const dateCellRender = value => {
+    const dateString = value.format("YYYY-MM-DD");
+    const matchingData = jsonData.find(data => data.date === dateString);
+
+    return (
+      <style>
+        {`
+          .ant-picker-cell[title="${dateString}"] {
+            background-image: url(${matchingData ? matchingData.image : ""});
+            background-size: cover;
+            background-repeat:no-repeat;
+
+          .ant-picker-calendar-date-content{
+            height:60px;
+          }
+        `}
+      </style>
+    );
   };
 
   // Drawer 영역
@@ -68,23 +89,14 @@ const Main = () => {
         onPanelChange={onPanelChange}
         locale={locale}
         onSelect={handleSelect}
+        cellRender={dateCellRender}
       />
 
       <Footer></Footer>
       <Drawer
-        title={
-          <>
-            Selected Date
-            <Button
-              type="text"
-              icon={<CloseOutlined />}
-              onClick={handleCloseDrawer}
-              style={{ float: "right" }}
-            />
-          </>
-        }
+        title={<>기록을 선택해주세요!</>}
         placement="bottom"
-        closable={false}
+        closable={true}
         onClose={handleCloseDrawer}
         open={open}
         getContainer={false}
@@ -114,5 +126,5 @@ const Main = () => {
     </>
   );
 };
-
+// 다음 작업에 ConfigProvider를 통한 레이아웃 css를 handleSelect와 연결해서 제어하기
 export default Main;

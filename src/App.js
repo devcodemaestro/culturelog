@@ -10,6 +10,7 @@ import ViewLog from "./pages/culturelog/ViewLog";
 import EditLog from "./pages/culturelog/EditLog";
 import WriteLog from "./pages/culturelog/WriteLog";
 import Login from "./pages/Login";
+import About from "./pages/About";
 function App() {
   return (
     <Wrap maxw="393">
@@ -18,7 +19,10 @@ function App() {
         <Route path="/intro" element={<Intro></Intro>}></Route>
         {/* 메인 */}
         <Route path="/" element={<Main></Main>}></Route>
+        {/* 로그인 */}
         <Route path="/login" element={<Login></Login>}></Route>
+        {/* 어바웃 */}
+        <Route path="/about" element={<About></About>}></Route>
         {/* 컬쳐로그 기록 */}
         <Route path="/culturelog" element={<Outlet></Outlet>}>
           <Route index element={<Main></Main>} />
