@@ -22,6 +22,7 @@ export const SubmitBtn = css`
     
 export const BtnWrap = styled.div`
   position: relative;
+  min-width: 300px;
   &.half {
     width: 100%;
     display: flex;
