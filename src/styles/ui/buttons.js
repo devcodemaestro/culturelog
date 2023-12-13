@@ -19,7 +19,7 @@ export const SubmitBtn = css`
     background-color: ${colors.point};
     color: ${colors.main};
 `;
-    
+
 export const BtnWrap = styled.div`
   position: relative;
   &.half {
@@ -92,4 +92,3 @@ export const RedBtn = styled.button`
     ${shadow.bold}
   }
 `;
-

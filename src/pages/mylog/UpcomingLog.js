@@ -1,14 +1,14 @@
 import React from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { LogTab } from "../../styles/ui/logtab";
 import {
+  LogList,
   LogItem,
   LogItemImg,
-  LogList,
-  LogMore,
-  LogTab,
   LogText,
-} from "../../styles/mylog";
+  LogMore,
+} from "../../styles/ui/loglist";
 import { useNavigate } from "react-router-dom";
 
 const UpcomingLog = () => {

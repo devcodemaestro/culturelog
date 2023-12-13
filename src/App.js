@@ -9,6 +9,7 @@ import UpcomingLog from "./pages/mylog/UpcomingLog";
 import ViewLog from "./pages/culturelog/ViewLog";
 import EditLog from "./pages/culturelog/EditLog";
 import WriteLog from "./pages/culturelog/WriteLog";
+import Login from "./pages/Login";
 function App() {
   return (
     <Wrap maxw="393">
@@ -17,6 +18,7 @@ function App() {
         <Route path="/intro" element={<Intro></Intro>}></Route>
         {/* 메인 */}
         <Route path="/" element={<Main></Main>}></Route>
+        <Route path="/login" element={<Login></Login>}></Route>
         {/* 컬쳐로그 기록 */}
         <Route path="/culturelog" element={<Outlet></Outlet>}>
           <Route index element={<Main></Main>} />
