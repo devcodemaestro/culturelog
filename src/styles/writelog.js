@@ -11,11 +11,12 @@ export const FileWrap = styled.div`
   width: 100%;
   display: flex;
   .icon-file {
-    margin-right: 0.5rem;
+    border-radius: 5px;
+    margin: 0 auto;
     height: 10.2rem;
-    background-color: transparent;
-    border: 2px solid ${colors.secondary};
-    width: 9rem;
+    background-color: #FAFAFA;
+    border: 1px solid ${colors.secondary};
+    width: 7.5rem;
     color: ${colors.secondary};
     font-size: 1.5rem;
     
@@ -25,21 +26,34 @@ export const ImgUrl = styled.div`
   padding-top: 2rem;
   .imgurl {
     margin-top: 20px;
+    padding-left: 1rem;
     width: 100%;
     height: 38px;
   }
 `;
 export const Dropdown = styled.div`
   margin-top: 2rem;
+  position: relative;
+  ::after{ 
+    content: '';
+    background-image: url(${process.env.PUBLIC_URL + "/images/dropdown.svg"});
+    width: 13px;
+    height: 6px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
   .evaluate{
     color: gold;
     font-size: 1.5rem;
   }
   select {
+    padding-left: 1rem;
     width: 100%;
     height: 38px;
     font-size: 1.3rem;
-    border: solid ${colors.secondary};
+    border: 1px solid ${colors.secondary};
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -71,6 +85,10 @@ export const Bticon = styled.div`
     color: ${colors.main};
   }
 `;
+export const StarRate = styled.div`
+  margin-top: 2rem;
+`;
+
 export const TextArea = styled.div`
   margin-top: 2rem;
 `;
@@ -78,7 +96,7 @@ export const Loadicon = styled.div`
   margin-top: 2rem;
   width: 100%;
   height: 46px;
-  div {
+  .londing{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,3 +110,27 @@ export const Loadicon = styled.div`
     color: ${colors.main};
   }
 `;
+  export const BtDown = styled.div`
+
+  .custom-dropdown{
+    width: 100%;
+    height: 36px;
+    border: 1px solid ${colors.secondary};
+    text-align: justify;
+    border-radius: 0px;
+    ::after{ 
+    content: '';
+    background-image: url(${process.env.PUBLIC_URL + "/images/dropdown.svg"});
+    width: 13px;
+    height: 6px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+    div{
+      display: inline-block;
+      margin-left: auto ;
+    }
+  }
+  `;

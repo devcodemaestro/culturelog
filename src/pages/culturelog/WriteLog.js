@@ -8,10 +8,12 @@ import {
   ImgUrl,
   ImgWrite,
   Loadicon,
+  StarRate,
   TextArea,
 } from "../../styles/writelog";
 import { LogTab } from "../../styles/pastlog";
-import Starfrom from "../../components/starfrom";
+import Stardrop from "../../components/Stardrop";
+import { useNavigate } from "react-router-dom";
 
 
 const WriteLog = props => {
@@ -37,10 +39,10 @@ const WriteLog = props => {
   const [look, setLook] = useState(false);
 
   const handleLookClick = () => {
-    setLook(true);
+    setLook(false);
   };
   const handleNoLookClick = () => {
-    setLook(false);
+    setLook(true);
   };
 
 
@@ -49,7 +51,11 @@ const WriteLog = props => {
   const handleRatingChange = (e) => {
     setRating(parseInt(e.target.value));
   };
-
+  
+  const navigate = useNavigate();
+  const hadleClickEdit = () => {
+    navigate("/culturelog/Edit")
+  }
   return (
     <>
       <Header sub={true}>Write Log</Header>
@@ -108,8 +114,7 @@ const WriteLog = props => {
           className="imgurl"
         ></input>
         <input
-          type="text"
-          placeholder="날짜 입력하세요."
+          type="date"
           className="imgurl"
         ></input>
       </ImgUrl>
@@ -123,35 +128,22 @@ const WriteLog = props => {
           <option value="option1">장르</option>
           <option value="option2">영화</option>
           <option value="option3">드라마</option>
-          <option value="option3">뮤지컬</option>
+          <option value="option4">뮤지컬</option>
         </select>
       </Dropdown>
       <LogTab>
-        <button className="" onClick={handleLookClick} disabled={look}>
+        <button className={!look ? "on" : ""} onClick={handleLookClick} disabled={!look}>
           볼 거에요
         </button>
-        <button className="on" onClick={handleNoLookClick} disabled={!look}>
+        <button className={look ? "on" : ""} onClick={handleNoLookClick} disabled={look}>
           봤어요
         </button>
       </LogTab>
       {look && (
         <>
-          <Dropdown>
-            <label className="starlabel" htmlFor="ratingSelect"></label>
-            <select
-              className="evaluate"
-              id="starSelect"
-              value={rating}
-              onChange={handleRatingChange}
-            >
-          
-            <option value="5">★★★★★ </option>
-            <option value="4">★★★★☆</option>
-            <option value="3">★★★☆☆</option>
-            <option value="2">★★☆☆☆</option>
-            <option value="1">★☆☆☆☆</option>
-            </select>
-          </Dropdown>
+          <StarRate>
+          <Stardrop/>
+          </StarRate>
           <TextArea>
             <label htmlFor="textArea"></label>
             <textarea
@@ -160,7 +152,8 @@ const WriteLog = props => {
               value={text}
               onChange={handleTextChange}
               rows="9" // 원하는 높이를 설정할 수 있습니다.
-              cols="46" // 원하는 너비를 설정할 수 있습니다.
+              cols="100%" // 원하는 너비를 설정할 수 있습니다.
+              style={{ width: '100%', padding:"1rem 1rem" }}
             />
           </TextArea>
 
@@ -169,9 +162,11 @@ const WriteLog = props => {
         
       )}
            <Loadicon>
-            <div>등록</div>
+
+            <button className="londing" onClick={() => {hadleClickEdit();}}>등록</button>
           </Loadicon>
-          <Starfrom/>
+        
+         
       <Footer />
     </>
   );
