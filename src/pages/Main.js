@@ -6,12 +6,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import dayjs from "dayjs";
 import locale from "antd/es/date-picker/locale/ko_KR";
-import { CloseOutlined } from "@ant-design/icons";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 const Main = () => {
   const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(dayjs());
   const [matchingData, setMatchingData] = useState(null); // 이미지 주소 상태 추가
   // JSON 테스트용 데이터
   const jsonData = [
@@ -32,9 +32,12 @@ const Main = () => {
     // ... 기타 데이터
   ];
 
+  useEffect(() => {
+    handleSelect(selectedDate);
+  }, []); // 빈 배열을 전달하여 최초 렌더링 시에만 실행되도록 설정
+
   // 캘린더 영역
   const onPanelChange = (value, mode) => {
-    console.log(value);
     // console.log(value.format("YYYY-MM-DD"), mode);
   };
 
@@ -59,6 +62,16 @@ const Main = () => {
     );
   };
 
+  // 월 변경 버튼 클릭 시 실행되는 함수
+  const onMonthChange = direction => {
+    // 현재 선택된 날짜를 기준으로 월을 변경
+    const newDate =
+      direction === "prev"
+        ? selectedDate.subtract(1, "month")
+        : selectedDate.add(1, "month");
+    handleSelect(newDate);
+  };
+
   // Drawer 영역
 
   const handleSelect = value => {
@@ -81,15 +94,40 @@ const Main = () => {
     setOpen(false);
   };
 
+  const decrementMonth = value => value.subtract(1, "month");
+  const incrementMonth = value => value.add(1, "month");
+
   return (
     <>
       <Header sub={false}>Culture Log</Header>
       <Calendar
-        defaultValue={dayjs("ko").date()}
+        defaultValue={selectedDate}
         onPanelChange={onPanelChange}
         locale={locale}
         onSelect={handleSelect}
         cellRender={dateCellRender}
+        headerRender={({ value, onChange }) => (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "8px 0",
+            }}
+          >
+            <Button
+              onClick={() => onChange(decrementMonth(value))}
+              icon={<LeftOutlined />}
+            />
+            <div style={{ fontSize: "18px", margin: "0 16px" }}>
+              {dayjs(value).format("YYYY년 MM월")}
+            </div>
+            <Button
+              onClick={() => onChange(incrementMonth(value))}
+              icon={<RightOutlined />}
+            />
+          </div>
+        )}
       />
 
       <Footer></Footer>
