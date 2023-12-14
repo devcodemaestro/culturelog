@@ -29,7 +29,7 @@ export const Wrap = styled.div`
   min-height: 100vh;
   overflow-x: auto;
   margin: 0 auto;
-  padding: 6rem 1.5% 13rem;
+  padding: 6rem 1.5% 16rem;
 
   input,
   textarea {

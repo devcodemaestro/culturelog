@@ -13,6 +13,8 @@ import {
 import { BlueBtn, BtnWrap, GrayBtn, RedBtn } from "../../styles/ui/buttons";
 import { useNavigate } from "react-router-dom";
 import { WarningBox, WarningWrap } from "../../styles/ui/warning";
+import { useEffect } from "react";
+import { getDteilMedia } from "../../api/culutrelog_api";
 
 const ViewLog = () => {
   //네비게이션 사용
@@ -48,6 +50,10 @@ const ViewLog = () => {
   const handleClickDelete = () => {
     navigate("/");
   };
+
+  useEffect(() => {
+    getDteilMedia();
+  }, []);
 
   return (
     <>
