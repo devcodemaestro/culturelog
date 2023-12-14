@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { colors } from "../basic";
 
-export const LogList = styled.ul`
+export const LogListWrap = styled.ul`
   margin-top: 10px;
   width: 100%;
 `;
@@ -38,7 +38,7 @@ export const LogItemImg = styled.div`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    font-size: 12px;
+    font-size: 1.2rem;
     font-weight: 400;
     color: ${colors.main};
   }

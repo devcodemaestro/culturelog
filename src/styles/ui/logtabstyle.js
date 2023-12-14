@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { colors } from "../basic";
 
-export const LogTab = styled.div`
+export const LogTabBt = styled.div`
   padding: 3px;
   border-radius: 100px;
   margin-top: 35px;
