@@ -97,6 +97,72 @@ const Main = () => {
   const decrementMonth = value => value.subtract(1, "month");
   const incrementMonth = value => value.add(1, "month");
 
+  const DrawerContent = ({ matchingData, onCloseDrawer }) => (
+    <Drawer
+      title={<>기록을 선택해주세요!</>}
+      placement="bottom"
+      closable={true}
+      onClose={onCloseDrawer}
+      open={open}
+      getContainer={false}
+      height="50%"
+    >
+      {matchingData ? (
+        <List
+          itemLayout="horizontal"
+          dataSource={[matchingData]}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src={item.image} />}
+                title={item.title}
+                description={item.date}
+              />
+              <Link to={`/details/${item.id}`}>
+                <Button type="text">더보기</Button>
+              </Link>
+            </List.Item>
+          )}
+        />
+      ) : (
+        <></>
+      )}
+    </Drawer>
+  );
+
+  const handleCalendarChange = (direction, value) => {
+    if (direction === "prev") {
+      return decrementMonth(value);
+    } else if (direction === "next") {
+      return incrementMonth(value);
+    }
+  };
+
+  const renderCalendarHeader = ({ value, onChange }) => (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "8px 0",
+      }}
+    >
+      <Button
+        onClick={() => onChange(handleCalendarChange("prev", value))}
+        icon={<LeftOutlined />}
+        shape="circle"
+      />
+      <div style={{ fontSize: "18px", margin: "0 16px" }}>
+        {dayjs(value).format("YYYY년 MM월")}
+      </div>
+      <Button
+        onClick={() => onChange(handleCalendarChange("next", value))}
+        icon={<RightOutlined />}
+        shape="circle"
+      />
+    </div>
+  );
+
   return (
     <>
       <Header sub={false}>Culture Log</Header>
@@ -106,63 +172,16 @@ const Main = () => {
         locale={locale}
         onSelect={handleSelect}
         cellRender={dateCellRender}
-        headerRender={({ value, onChange }) => (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: "8px 0",
-            }}
-          >
-            <Button
-              onClick={() => onChange(decrementMonth(value))}
-              icon={<LeftOutlined />}
-            />
-            <div style={{ fontSize: "18px", margin: "0 16px" }}>
-              {dayjs(value).format("YYYY년 MM월")}
-            </div>
-            <Button
-              onClick={() => onChange(incrementMonth(value))}
-              icon={<RightOutlined />}
-            />
-          </div>
-        )}
+        headerRender={renderCalendarHeader}
       />
 
       <Footer></Footer>
-      <Drawer
-        title={<>기록을 선택해주세요!</>}
-        placement="bottom"
-        closable={true}
-        onClose={handleCloseDrawer}
-        open={open}
-        getContainer={false}
-        height="30%"
-      >
-        {matchingData ? (
-          <List
-            itemLayout="horizontal"
-            dataSource={[matchingData]} // JSON 데이터를 리스트에 전달
-            renderItem={item => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar src={item.image} />}
-                  title={item.title}
-                  description={item.date}
-                />
-                <Link to={`/details/${item.id}`}>
-                  <Button type="text">더보기</Button>
-                </Link>
-              </List.Item>
-            )}
-          />
-        ) : (
-          <></>
-        )}
-      </Drawer>
+      <DrawerContent
+        matchingData={matchingData}
+        onCloseDrawer={handleCloseDrawer}
+      />
     </>
   );
 };
-// 다음 작업에 ConfigProvider를 통한 레이아웃 css를 handleSelect와 연결해서 제어하기
+
 export default Main;
