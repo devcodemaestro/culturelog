@@ -13,46 +13,53 @@ import {
 import { BlueBtn, BtnWrap, GrayBtn, RedBtn } from "../../styles/ui/buttons";
 import { useNavigate } from "react-router-dom";
 import { WarningBox, WarningWrap } from "../../styles/ui/warning";
-import { useEffect } from "react";
-import { getDteilMedia } from "../../api/culutrelog_api";
+import { useEffect, useState } from "react";
+import { delMedia, getDetailMedia } from "../../api/culutrelog_api";
+
+const initGetState = {
+  imedia: 0,
+  title: "string",
+  comment: "string",
+  date: "string",
+  pics: ["string"],
+  issaw: 0,
+  star: 0,
+};
+
+const initDeleteState = {
+  iuser: 0,
+  imedia: 0,
+};
 
 const ViewLog = () => {
   //네비게이션 사용
   const navigate = useNavigate();
 
-  // view 데이터 가져오기
-  const viewData = {
-    imedia: 1,
-    title: "제목",
-    comment: "재밌다",
-    date: "2023-12-12",
-    genre: "드라마",
-    pic: [
-      "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201602/19/htm_20160219171437117902.jpg",
-      "https://marketplace.canva.com/EADxVDYfU6E/2/0/1131w/canva-%ED%9D%91%EB%B0%B1-%EC%97%B0%EC%A3%BC%ED%99%A9%EC%83%89-%EC%96%B4%EB%91%90%EC%9A%B4-%EC%98%81%ED%99%94-%ED%8F%AC%EC%8A%A4%ED%84%B0-rfPXp4tWD8M.jpg",
-      "https://entertainimg.kbsmedia.co.kr/cms/uploads/CONTENTS_20210423093411_18a0c4c6fe376b3670c67b94520e4448.jpg",
-      "https://i.namu.wiki/i/knBPT7KKEBsRPQnebCJ9TGAPwnkEQ4D6vtu_gtHMwWBFKjUb1cyslAMui3FzSTPwl2mC2acrAzxEcjJ1pOFPfg.webp",
-    ],
-    isSaw: 1,
-    star: 5,
-  };
+  // 상세정보 state
+  const [viewData, setViewData] = useState(initGetState);
 
   // 삭제버튼 클릭 시 경고창 노출
   const handleClickWarning = () => {
     document.getElementById("warning-wrap").style.left = "0";
   };
 
-  // 삭제 취소 시 경고창 안보임
+  // 삭제 취소 시 경고창 제거
   const handleClickCancel = () => {
     document.getElementById("warning-wrap").style.left = "-100%";
   };
+
   //기록삭제 후 메인 화면으로 이동
   const handleClickDelete = () => {
-    navigate("/");
+    const resultAction = () => {
+      alert("삭제가 완료되었습니다. \n메인페이지로 이동합니다.");
+    };
+
+    delMedia(0, 0, resultAction);
+    // navigate("/");
   };
 
   useEffect(() => {
-    getDteilMedia();
+    getDetailMedia(7, 1, setViewData);
   }, []);
 
   return (
@@ -73,15 +80,16 @@ const ViewLog = () => {
             }}
             modules={[Pagination, Navigation]}
           >
-            {viewData.pic.map((item, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <ImgBox>
-                    <img src={item} alt={`image${index + 1}`}></img>
-                  </ImgBox>
-                </SwiperSlide>
-              );
-            })}
+            {Array.isArray(viewData.pics) &&
+              viewData.pics.map((item, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <ImgBox>
+                      <img src={item} alt={`image${index + 1}`}></img>
+                    </ImgBox>
+                  </SwiperSlide>
+                );
+              })}
           </Swiper>
           <button className="slide-btn prev">
             <img
@@ -97,9 +105,7 @@ const ViewLog = () => {
           </button>
         </ViewSlider>
         <ViewInfo>
-          <h4>
-            {viewData.isSaw === 0 ? "볼거예요" : "봤어요"} {viewData.title}
-          </h4>
+          <h4>{viewData.title}</h4>
           <ul>
             <li>
               <dl>
@@ -110,7 +116,17 @@ const ViewLog = () => {
             <li>
               <dl>
                 <dt>장르</dt>
-                <dd>{viewData.genre}</dd>
+                <dd>
+                  {viewData.genrepk === 1
+                    ? "영화"
+                    : viewData.genrepk === 2
+                    ? "드라마"
+                    : viewData.genrepk === 3
+                    ? "공연"
+                    : viewData.genrepk === 4
+                    ? "기타"
+                    : ""}
+                </dd>
               </dl>
             </li>
             {viewData.isSaw === 0 ? (

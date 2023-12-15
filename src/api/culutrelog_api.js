@@ -5,7 +5,7 @@ const path = `${SERVER_URL}/api/media`;
 // 메인페이지 가져오기
 export const getMediaAll = async () => {
   try {
-    const res = await axios.get(`${path}/ym`);
+    const res = await axios.get(`${path}`);
     console.log(res.data);
   } catch (error) {
     console.log(error);
@@ -15,7 +15,7 @@ export const getMediaAll = async () => {
 // 날짜별 미디어 리스트 가져오기
 export const getDayMedia = async () => {
   try {
-    const res = await axios.get(`${path}/day`);
+    const res = await axios.get(`${path}/day?iuser=1&date=1`);
     console.log(res.data);
   } catch (error) {
     console.log(error);
@@ -33,9 +33,11 @@ export const getMedia = async () => {
 };
 
 // 로그 뷰(상세) 가져오기
-export const getDteilMedia = async imedia => {
+export const getDetailMedia = async (imedia, iuser, setViewData) => {
   try {
-    const res = await axios.get(`${path}`);
+    // http://192.168.0.144:5211/api/media/0?iuser=0
+    const res = await axios.get(`${path}/${imedia}?iuser=${iuser}`);
+    setViewData(res.data);
     console.log(res.data);
   } catch (error) {
     console.log(error);
@@ -73,10 +75,11 @@ export const putMedia = async () => {
 };
 
 // 삭제
-export const delMedia = async () => {
+export const delMedia = async (imedia, iuser, resultAction) => {
   try {
+    // http://192.168.0.144:5211/api/media?iuser=0&imedia=0
     const res = await axios.delete(`${path}`);
-    console.log(res.data);
+    console.log(res.data.result);
   } catch (error) {
     console.log(error);
   }
