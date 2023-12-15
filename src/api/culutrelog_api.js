@@ -65,12 +65,23 @@ export const patchIsSaw = async () => {
 };
 
 // 수정
-export const putMedia = async () => {
+export const putMedia = async fn => {
+  const obj = {
+    imedia: 0,
+    iuser: 0,
+    genrepk: 0,
+    title: "string",
+    date: "string",
+    comment: "string",
+    star: 0,
+    pics: ["string"],
+  };
   try {
-    const res = await axios.put(`${path}`);
+    const res = await axios.put(`${path}`, obj);
     console.log(res.data);
   } catch (error) {
     console.log(error);
+    fn(-500);
   }
 };
 
