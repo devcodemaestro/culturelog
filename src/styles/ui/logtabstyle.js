@@ -20,11 +20,7 @@ export const LogTabBt = styled.div`
     background-color: ${colors.tab};
   }
   button.on {
-    width: 49%;
-    height: 40px;
     color: ${colors.main};
-    text-align: center;
-    border-radius: 100px;
     background: #425997;
   }
 `;

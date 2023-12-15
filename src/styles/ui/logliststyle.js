@@ -1,17 +1,31 @@
 import styled from "@emotion/styled";
 import { colors } from "../basic";
 
+export const LogTotal = styled.div`
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  border-bottom: 1px solid ${colors.secondary};
+  em {
+    font-size: 12px;
+    font-weight: 500;
+  }
+`;
+
 export const LogListWrap = styled.ul`
   margin-top: 10px;
   width: 100%;
 `;
 export const LogItem = styled.li`
   height: 90px;
+  margin-bottom: 10px;
   border-radius: 5px;
   border: 1px solid ${colors.secondary};
   background: ${colors.main};
   display: flex;
   align-items: center;
+
   :hover {
     border-radius: 5px;
     border: 1px solid ${colors.point};
@@ -22,19 +36,23 @@ export const LogItemImg = styled.div`
   position: relative;
   width: 63px;
   height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px 0px 0px 5px;
   background: #000;
   img {
-    width: 100%;
+    width: auto;
+    height: 100%;
     border-radius: 5px 0px 0px 5px;
   }
   img.on {
-    width: 100%;
-    border-radius: 5px 0px 0px 5px;
     opacity: 0.5;
   }
   span {
     position: absolute;
+    white-space: nowrap;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

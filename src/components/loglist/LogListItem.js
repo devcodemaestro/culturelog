@@ -8,7 +8,7 @@ import {
 import Star from "../Star";
 import { useNavigate } from "react-router-dom";
 
-const LogListItem = ({ on }) => {
+const LogListItem = ({ on, pic, title, date, star }) => {
   const navigate = useNavigate();
   const handleClickView = () => {
     navigate("/culturelog/view");
@@ -19,14 +19,15 @@ const LogListItem = ({ on }) => {
         <LogItemImg>
           <img
             className={on === "upcoming" ? "on" : ""}
-            src="https://cdn.newsculture.press/news/photo/202311/537130_670817_5031.jpg"
-            alt=""
+            src={`${pic}`}
+            alt={`${title}`}
           />
+          {on === "upcoming" && <span>D-day</span>}
         </LogItemImg>
         <LogText>
-          <Star num="5" width={70} />
-          <p>서울의 봄</p>
-          <span>2023-12-01</span>
+          {on === "past" && <Star num={star} width={70} />}
+          <p>{`${title}`}</p>
+          <span>{`${date}`}</span>
         </LogText>
         <LogMore>
           <button

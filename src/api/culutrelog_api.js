@@ -23,12 +23,13 @@ export const getDayMedia = async () => {
 };
 
 // 마이로그(볼 거예요 / 봤어요) 가져오기
-export const getMedia = async () => {
+export const getMedia = async setLogList => {
   try {
-    const res = await axios.get(`${path}`);
+    const res = await axios.get(`/getloglist.json`);
+    setLogList(res.data);
     console.log(res.data);
   } catch (error) {
-    console.log(error);
+    console.log("로그 리스트 에러", error);
   }
 };
 

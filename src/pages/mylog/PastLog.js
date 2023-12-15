@@ -1,24 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { LogListWrap } from "../../styles/ui/logliststyle";
-import styled from "@emotion/styled";
-import { colors } from "../../styles/basic";
+import { LogListWrap, LogTotal } from "../../styles/ui/logliststyle";
 import LogTab from "../../components/loglist/LogTab";
 import LogListItem from "../../components/loglist/LogListItem";
+import { getMedia } from "../../api/culutrelog_api";
 
+const initPastLog = {
+  imedia: 0,
+  title: "string",
+  date: "string",
+  pic: "string",
+  star: 0,
+};
 const PastLog = () => {
-  const LogTotal = styled.div`
-    width: 100%;
-    padding: 10px;
-    font-size: 12px;
-    font-weight: 400;
-    border-bottom: 1px solid ${colors.secondary};
-    em {
-      font-size: 12px;
-      font-weight: 500;
-    }
-  `;
+  const [loglist, setLogList] = useState([initPastLog]);
+  useEffect(() => {
+    getMedia(setLogList);
+  }, []);
   return (
     <>
       <Header sub={true}>My Log</Header>
@@ -27,7 +26,16 @@ const PastLog = () => {
         총 기록 <em>1</em> 건
       </LogTotal>
       <LogListWrap>
-        <LogListItem></LogListItem>
+        {loglist.map(item => (
+          <LogListItem
+            on="past"
+            key={item.imedia}
+            pic={item.pic}
+            title={item.title}
+            date={item.date}
+            star={item.star}
+          />
+        ))}
       </LogListWrap>
       <Footer />
     </>
