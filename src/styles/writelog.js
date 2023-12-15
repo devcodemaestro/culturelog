@@ -14,12 +14,11 @@ export const FileWrap = styled.div`
     border-radius: 5px;
     margin: 0 auto;
     height: 10.2rem;
-    background-color: #FAFAFA;
+    background-color: #fafafa;
     border: 1px solid ${colors.secondary};
     width: 7.5rem;
     color: ${colors.secondary};
     font-size: 1.5rem;
-    
   }
 `;
 export const ImgUrl = styled.div`
@@ -31,11 +30,37 @@ export const ImgUrl = styled.div`
     height: 38px;
   }
 `;
+export const DateDiary = styled.div`
+  .date-wrap {
+    padding-top: 2rem;
+    width: 100%;
+    margin: 0 auto;
+    input {
+      padding-left: 1rem;
+      margin: 0 auto;
+      width: 100%;
+      height: 38px;
+      position: relative;
+
+      &::-webkit-calendar-picker-indicator {
+        position: absolute;
+        right: 2px;
+        top: 0;
+        cursor: pointer;
+        transform: translateY(10px);
+        padding-left: 3000px;
+        height: 100%;
+      }
+    }
+  }
+`;
+
 export const Dropdown = styled.div`
   margin-top: 2rem;
   position: relative;
-  ::after{ 
-    content: '';
+
+  ::after {
+    content: "";
     background-image: url(${process.env.PUBLIC_URL + "/images/dropdown.svg"});
     width: 13px;
     height: 6px;
@@ -44,7 +69,7 @@ export const Dropdown = styled.div`
     top: 50%;
     transform: translateY(-50%);
   }
-  .evaluate{
+  .evaluate {
     color: gold;
     font-size: 1.5rem;
   }
@@ -58,31 +83,7 @@ export const Dropdown = styled.div`
     -webkit-appearance: none;
     -moz-appearance: none;
     padding-right: 30px;
-    }
-    select::after{
-        
-    }
-`;
-export const Bticon = styled.div`
-  margin-top: 2rem;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 46px;
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #e5e5e5;
-    width: 150px;
-    height: 46px;
-    border-radius: 2.5rem;
-    text-align: center;
     cursor: pointer;
-  }
-  .saw {
-    background-color: ${colors.point};
-    color: ${colors.main};
   }
 `;
 export const StarRate = styled.div`
@@ -96,7 +97,7 @@ export const Loadicon = styled.div`
   margin-top: 2rem;
   width: 100%;
   height: 46px;
-  .londing{
+  .londing {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,27 +111,26 @@ export const Loadicon = styled.div`
     color: ${colors.main};
   }
 `;
-  export const BtDown = styled.div`
-
-  .custom-dropdown{
+export const BtDown = styled.div`
+  .custom-dropdown {
     width: 100%;
     height: 36px;
     border: 1px solid ${colors.secondary};
     text-align: justify;
     border-radius: 0px;
-    ::after{ 
-    content: '';
-    background-image: url(${process.env.PUBLIC_URL + "/images/dropdown.svg"});
-    width: 13px;
-    height: 6px;
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-    div{
+    ::after {
+      content: "";
+      background-image: url(${process.env.PUBLIC_URL + "/images/dropdown.svg"});
+      width: 13px;
+      height: 6px;
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    div {
       display: inline-block;
-      margin-left: auto ;
+      margin-left: auto;
     }
   }
-  `;
+`;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import {
-  Bticon,
+  DateDiary,
   Dropdown,
   FileWrap,
   ImgUrl,
@@ -11,51 +11,43 @@ import {
   StarRate,
   TextArea,
 } from "../../styles/writelog";
-import { LogTab } from "../../styles/pastlog";
 import Stardrop from "../../components/Stardrop";
 import { useNavigate } from "react-router-dom";
+import { LogTabBt } from "../../styles/ui/logtabstyle";
 
-
-const WriteLog = props => {
+const WriteLog = () => {
+  const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
+  const [text, setText] = useState("");
+  const [look, setLook] = useState(false);
+  const fileInput = React.useRef(null);
 
   const handleDropdownChange = e => {
     setSelectedOption(e.target.value);
   };
-
-  const [text, setText] = useState("");
-
   const handleTextChange = e => {
     setText(e.target.value);
-  };
-  const fileInput = React.useRef(null);
-
-  const handleButtonClick = e => {
-    fileInput.current.click();
   };
   const handleChange = e => {
     console.log(e.target.files[0]);
   };
-  const [look, setLook] = useState(false);
-
+  const handleButtonClick = () => {
+    fileInput.current.click();
+  };
   const handleLookClick = () => {
     setLook(false);
   };
   const handleNoLookClick = () => {
     setLook(true);
   };
-
-
-  const [rating, setRating] = useState(0);
-
-  const handleRatingChange = (e) => {
-    setRating(parseInt(e.target.value));
-  };
-  
-  const navigate = useNavigate();
   const hadleClickEdit = () => {
-    navigate("/culturelog/Edit")
-  }
+    navigate("/culturelog/Edit");
+  };
+
+
+
+
+
   return (
     <>
       <Header sub={true}>Write Log</Header>
@@ -113,36 +105,46 @@ const WriteLog = props => {
           placeholder="제목을 입력하세요."
           className="imgurl"
         ></input>
-        <input
-          type="date"
-          className="imgurl"
-        ></input>
       </ImgUrl>
+      <DateDiary>
+        <div className="date-wrap">
+          <input type="date" className="date" />
+        </div>
+      </DateDiary>
       <Dropdown>
-        <label htmlFor="dropdown"></label>
-        <select
-          id="dropdown"
-          value={selectedOption}
-          onChange={handleDropdownChange}
-        >
-          <option value="option1">장르</option>
-          <option value="option2">영화</option>
-          <option value="option3">드라마</option>
-          <option value="option4">뮤지컬</option>
-        </select>
+        <label htmlFor="dropdown">
+          <select
+            id="dropdown"
+            value={selectedOption}
+            onChange={handleDropdownChange}
+          >
+            <option value="option1">장르</option>
+            <option value="option2">영화</option>
+            <option value="option3">드라마</option>
+            <option value="option4">뮤지컬</option>
+          </select>
+        </label>
       </Dropdown>
-      <LogTab>
-        <button className={!look ? "on" : ""} onClick={handleLookClick} disabled={!look}>
+      <LogTabBt>
+        <button
+          className={!look ? "on" : ""}
+          onClick={handleLookClick}
+          disabled={!look}
+        >
           볼 거에요
         </button>
-        <button className={look ? "on" : ""} onClick={handleNoLookClick} disabled={look}>
+        <button
+          className={look ? "on" : ""}
+          onClick={handleNoLookClick}
+          disabled={look}
+        >
           봤어요
         </button>
-      </LogTab>
+      </LogTabBt>
       {look && (
         <>
           <StarRate>
-          <Stardrop/>
+            <Stardrop />
           </StarRate>
           <TextArea>
             <label htmlFor="textArea"></label>
@@ -153,20 +155,21 @@ const WriteLog = props => {
               onChange={handleTextChange}
               rows="9" // 원하는 높이를 설정할 수 있습니다.
               cols="100%" // 원하는 너비를 설정할 수 있습니다.
-              style={{ width: '100%', padding:"1rem 1rem" }}
+              style={{ width: "100%", padding: "1rem 1rem" }}
             />
           </TextArea>
-
-     
         </>
-        
       )}
-           <Loadicon>
-
-            <button className="londing" onClick={() => {hadleClickEdit();}}>등록</button>
-          </Loadicon>
-        
-         
+      <Loadicon>
+        <button
+          className="londing"
+          onClick={() => {
+            hadleClickEdit();
+          }}
+        >
+          등록
+        </button>
+      </Loadicon>
       <Footer />
     </>
   );
