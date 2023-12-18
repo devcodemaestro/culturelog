@@ -118,13 +118,13 @@ const Main = () => {
 
   const renderCalendarHeader = ({ value }) => {
     const handlePrevBtnClick = () => {
-      newDate = value.clone().subtract(1, "month");
+      newDate = value.clone().subtract(1, "month"); // 여기서부터 다시
       setDate(newDate.format("YYYY년 MM월"));
       // console.log(date);
     };
 
     const handleNextBtnClick = () => {
-      newDate = value.clone().add(1, "month");
+      newDate = value.clone().add(1, "month"); // 여기서부터 다시
       setDate(newDate.format("YYYY년 MM월"));
       // console.log(date);
     };
