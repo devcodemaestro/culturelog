@@ -11,19 +11,24 @@ const initPastLog = {
   title: "string",
   date: "string",
   pic: "string",
-  star: 0,
+  sawInfo: {
+    star: 5,
+    comment: "string",
+  },
 };
 const PastLog = () => {
   const [loglist, setLogList] = useState([initPastLog]);
   useEffect(() => {
-    getMedia(setLogList);
+    getMedia(setLogList, 1, 1);
   }, []);
+
+  const totalLogList = loglist.length;
   return (
     <>
       <Header sub={true}>My Log</Header>
       <LogTab on="past"></LogTab>
       <LogTotal>
-        총 기록 <em>1</em> 건
+        총 기록 <em>{totalLogList}</em> 건
       </LogTotal>
       <LogListWrap>
         {loglist.map(item => (
@@ -33,7 +38,9 @@ const PastLog = () => {
             pic={item.pic}
             title={item.title}
             date={item.date}
-            star={item.star}
+            star={item.sawInfo.star}
+            imedia={item.imedia}
+            iuser={1}
           />
         ))}
       </LogListWrap>

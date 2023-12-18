@@ -11,13 +11,16 @@ const initUpcomingLog = {
   title: "string",
   date: "string",
   pic: "string",
-  star: 0,
+  sawInfo: {
+    star: 5,
+    comment: "string",
+  },
 };
 
 const UpcomingLog = () => {
   const [loglist, setLogList] = useState([initUpcomingLog]);
   useEffect(() => {
-    getMedia(setLogList);
+    getMedia(setLogList, 1, 0);
   }, []);
   return (
     <>
@@ -31,7 +34,7 @@ const UpcomingLog = () => {
             pic={item.pic}
             title={item.title}
             date={item.date}
-            star={item.star}
+            star={item.sawInfo.star}
           ></LogListItem>
         ))}
       </LogListWrap>
