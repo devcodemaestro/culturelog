@@ -11,7 +11,7 @@ import {
   ViewSlider,
 } from "../../styles/viewlog";
 import { BlueBtn, BtnWrap, GrayBtn, RedBtn } from "../../styles/ui/buttons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { WarningBox, WarningWrap } from "../../styles/ui/warning";
 import { useEffect, useState } from "react";
 import { delMedia, getDetailMedia } from "../../api/culutrelog_api";
@@ -26,12 +26,13 @@ const initGetState = {
   star: 0,
 };
 
-const initDeleteState = {
-  iuser: 0,
-  imedia: 0,
-};
-
 const ViewLog = () => {
+  // imedia 가져오기
+  const params = useParams();
+  // iuser 가져오기
+  const [search, setSearch] = useSearchParams();
+  const iuser = search.get("iuser");
+
   //네비게이션 사용
   const navigate = useNavigate();
 
@@ -52,14 +53,13 @@ const ViewLog = () => {
   const handleClickDelete = () => {
     const resultAction = () => {
       alert("삭제가 완료되었습니다. \n메인페이지로 이동합니다.");
+      navigate("/");
     };
-
-    delMedia(0, 0, resultAction);
-    // navigate("/");
+    delMedia(params.imedia, iuser, resultAction);
   };
 
   useEffect(() => {
-    getDetailMedia(7, 1, setViewData);
+    getDetailMedia(params.imedia, iuser, setViewData);
   }, []);
 
   return (
@@ -160,7 +160,7 @@ const ViewLog = () => {
             </GrayBtn>
             <BlueBtn
               onClick={() => {
-                navigate("/culturelog/edit");
+                navigate(`/culturelog/edit/${params.imedia}?iuser=${iuser}`);
               }}
             >
               수정

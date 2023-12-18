@@ -41,6 +41,8 @@ export const getDetailMedia = async (imedia, iuser, setViewData) => {
     setViewData(res.data);
     console.log(res.data);
   } catch (error) {
+    const demo = await axios.get(`/getview.json`);
+    setViewData(demo.data);
     console.log(error);
   }
 };
@@ -90,9 +92,9 @@ export const putMedia = async fn => {
 export const delMedia = async (imedia, iuser, resultAction) => {
   try {
     // http://192.168.0.144:5211/api/media?iuser=0&imedia=0
-    const res = await axios.delete(`${path}`);
-    console.log(res.data.result);
+    const res = await axios.delete(`${path}?iuser=${iuser}&imedia=${imedia}`);
+    resultAction(res.data.result);
   } catch (error) {
-    console.log(error);
+    resultAction(-5555);
   }
 };

@@ -16,5 +16,6 @@
 - react-router
 - react-router-dom
 - axios
+- swiper
 
 ## 3. 프로젝트 후기
