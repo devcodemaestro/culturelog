@@ -18,10 +18,10 @@ import { delMedia, getDetailMedia } from "../../api/culutrelog_api";
 
 const initGetState = {
   imedia: 0,
-  title: "string",
-  comment: "string",
-  date: "string",
-  pics: ["string"],
+  title: "",
+  comment: "",
+  date: "",
+  pics: [""],
   issaw: 0,
   star: 0,
 };
@@ -51,9 +51,15 @@ const ViewLog = () => {
 
   //기록삭제 후 메인 화면으로 이동
   const handleClickDelete = () => {
-    const resultAction = () => {
-      alert("삭제가 완료되었습니다. \n메인페이지로 이동합니다.");
-      navigate("/");
+    const resultAction = result => {
+      if (result === 0) {
+        alert("삭제가 완료되었습니다. \n메인페이지로 이동합니다.");
+        navigate("/");
+        return;
+      } else {
+        alert("기록을 삭제하지 못했습니다. \n다시 시도해주세요.");
+        return;
+      }
     };
     delMedia(params.imedia, iuser, resultAction);
   };

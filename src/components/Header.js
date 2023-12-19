@@ -7,6 +7,12 @@ const Header = ({ children, sub }) => {
   const navigate = useNavigate();
   const handleClickBack = () => {
     navigate(-1);
+    return;
+  };
+  const handleClickSignout = () => {
+    alert("로그아웃 완료");
+    navigate("/login");
+    return;
   };
 
   return (
@@ -23,6 +29,14 @@ const Header = ({ children, sub }) => {
         ></img>
       </button>
       <h3>{sub ? children : <Link to="/intro">{children}</Link>}</h3>
+      <button
+        onClick={() => {
+          handleClickSignout();
+        }}
+        className={sub === "signup" ? "" : "signout"}
+      >
+        로그아웃
+      </button>
     </HeaderWrap>
   );
 };
