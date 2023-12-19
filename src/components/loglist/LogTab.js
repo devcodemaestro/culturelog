@@ -1,24 +1,22 @@
 import React from "react";
 import { LogTabBt } from "../../styles/ui/logtabstyle";
-import { useNavigate } from "react-router-dom";
 
-const LogTab = ({ on }) => {
-  const navigate = useNavigate();
+const LogTab = ({ tabClickOn, tabClick }) => {
   return (
     <>
       <LogTabBt>
         <button
-          className={on === "upcoming" ? "on" : ""}
+          className={tabClick && "on"}
           onClick={() => {
-            navigate("/mylog/upcoming");
+            tabClickOn(true);
           }}
         >
           볼 거예요
         </button>
         <button
-          className={on === "past" ? "on" : ""}
+          className={!tabClick && "on"}
           onClick={() => {
-            navigate("/mylog/past");
+            tabClickOn(false);
           }}
         >
           봤어요

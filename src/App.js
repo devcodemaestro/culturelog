@@ -4,8 +4,7 @@ import { Wrap } from "./styles/basic";
 import NotFound from "./pages/NotFound";
 import Intro from "./pages/Intro";
 import Main from "./pages/Main";
-import PastLog from "./pages/mylog/PastLog";
-import UpcomingLog from "./pages/mylog/UpcomingLog";
+import MyLog from "./pages/mylog/MyLog";
 import ViewLog from "./pages/culturelog/ViewLog";
 import EditLog from "./pages/culturelog/EditLog";
 import WriteLog from "./pages/culturelog/WriteLog";
@@ -47,11 +46,7 @@ function App() {
           />
         </Route>
         {/* 마이로그 */}
-        <Route path="/mylog" element={<Outlet></Outlet>}>
-          <Route index element={<UpcomingLog></UpcomingLog>} />
-          <Route path="past" element={<PastLog></PastLog>} />
-          <Route path="upcoming" element={<UpcomingLog></UpcomingLog>} />
-        </Route>
+        <Route path="/mylog" element={<MyLog />}></Route>
         {/* 잘못된 경로(404) */}
         <Route path="*" element={<NotFound />}></Route>
         <Route path="/error " element={<Error />}></Route>
