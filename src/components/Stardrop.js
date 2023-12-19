@@ -112,11 +112,12 @@ const StyledMenu = styled(Menu)`
   /* 메뉴에 추가적인 스타일링을 할 수 있습니다. */
 `;
 
-const Stardrop = () => {
+const Stardrop = ({onChange}) => {
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const handleMenuClick = (e) => {
-    setSelectedItem(e.key);
+  const handleMenuClick = (value) => {
+    setSelectedItem(value.key);
+    onChange(value);
   };
 
   const menu = (

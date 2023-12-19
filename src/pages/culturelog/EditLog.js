@@ -16,17 +16,16 @@ import { useNavigate } from "react-router-dom";
 import { WarningBox, WarningWrap } from "../../styles/ui/warning";
 import { LogTabBt } from "../../styles/ui/logtabstyle";
 
-const EditLog = () => {
+const EditLog = ({ iuser }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [text, setText] = useState("");
   const [look, setLook] = useState(false);
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
   const fileInput = React.useRef(null);
 
   const handleDropdownChange = e => {
-    setSelectedOption(e.target.value);
-  };
-  const handleTextChange = e => {
-    setText(e.target.value);
+    setSelectedOption(e.target.value);808
   };
   const handleChange = e => {
     console.log(e.target.files[0]);
@@ -53,10 +52,50 @@ const EditLog = () => {
   const handleClickDelete = () => {
     navigate("/culturelog/write");
   };
-
+  const handleChangeTitle = e => {
+    // console.log(e.target.value)
+    setTitle(e.target.value);
+  };
+  const handleChangeDate = e => {
+    // console.log(e.target.value)
+    setDate(e.target.value);
+  };
+  const handleTextChange = e => {
+    // console.log(e.target.value);
+    setText(e.target.value);
+  };
+  const obj = {
+    imedia: 0,
+    iuser: { iuser },
+    genrePk: 0,
+    title: { title },
+    date: {date},
+    comment: {text},
+    star: 0,
+    isSaw: 0,
+    pics: ["string"],
+  };
+  console.log(obj);
   return (
     <>
       <Header sub={true}>Edit Log</Header>
+      
+      <LogTabBt>
+        <button
+          className={!look ? "on" : ""}
+          onClick={handleLookClick}
+          disabled={!look}
+        >
+          볼 거에요
+        </button>
+        <button
+          className={look ? "on" : ""}
+          onClick={handleNoLookClick}
+          disabled={look}
+        >
+          봤어요
+        </button>
+      </LogTabBt>
       <ImgWrite>이미지 등록</ImgWrite>
       <FileWrap>
         <button className="icon-file" onClick={handleButtonClick}>
@@ -110,11 +149,16 @@ const EditLog = () => {
           type="text"
           placeholder="제목을 입력하세요."
           className="imgurl"
+          onChange={e => {
+            handleChangeTitle(e);
+          }}
         ></input>
       </ImgUrl>
       <DateDiary>
         <div className="date-wrap">
-          <input type="date" className="date" />
+          <input type="date" className="date"    onChange={e => {
+              handleChangeDate(e);
+            }}/>
         </div>
       </DateDiary>
       <Dropdown>
@@ -130,22 +174,7 @@ const EditLog = () => {
           <option value="option4">뮤지컬</option>
         </select>
       </Dropdown>
-      <LogTabBt>
-        <button
-          className={!look ? "on" : ""}
-          onClick={handleLookClick}
-          disabled={!look}
-        >
-          볼 거에요
-        </button>
-        <button
-          className={look ? "on" : ""}
-          onClick={handleNoLookClick}
-          disabled={look}
-        >
-          봤어요
-        </button>
-      </LogTabBt>
+     
       {look && (
         <>
           <StarRate>
@@ -157,7 +186,9 @@ const EditLog = () => {
               id="textArea"
               placeholder="감상평을 남겨주세요. (500자 내외)"
               value={text}
-              onChange={handleTextChange}
+              onChange={e => {
+                handleTextChange(e);
+              }}
               rows="9" // 원하는 높이를 설정할 수 있습니다.
               cols="100%" // 원하는 너비를 설정할 수 있습니다.
               style={{ width: "100%" }}
