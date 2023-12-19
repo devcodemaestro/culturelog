@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Button, Calendar, Drawer, List } from "antd";
+import { Avatar, Button, Calendar, ConfigProvider, Drawer, List } from "antd";
 import "dayjs/locale/ko";
-import { css } from "@emotion/react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import dayjs from "dayjs";
 import locale from "antd/es/date-picker/locale/ko_KR";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Main = () => {
   let newDate = "";
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [matchingData, setMatchingData] = useState(null); // 이미지 주소 상태 추가
@@ -56,7 +54,7 @@ const Main = () => {
     );
   };
 
-  // Drawer 영역
+  // 하단 Drawer 영역
   const handleSelect = value => {
     const matchingData = jsonData.find(data =>
       dayjs(data.date).isSame(value, "date"),
@@ -69,11 +67,6 @@ const Main = () => {
     } else {
       // matchingData가 없으면 Drawer를 열지 않음
       setOpen(false);
-
-      // 이 부분에서 버튼을 클릭한 경우에만 navigate("/culturelog/Edit") 실행
-      if (value instanceof dayjs && value.isValid()) {
-        navigate("/culturelog/Edit");
-      }
     }
   };
 
@@ -103,7 +96,6 @@ const Main = () => {
                 title={item.title}
                 description={item.date}
               />
-              {/* <Link to={`/details/${item.id}`}> */}
               <Link to={`culturelog/view`}>
                 <Button type="text">더보기</Button>
               </Link>
@@ -116,44 +108,43 @@ const Main = () => {
     </Drawer>
   );
 
-  const renderCalendarHeader = ({ value }) => {
-    const handlePrevBtnClick = () => {
-      newDate = value.clone().subtract(1, "month"); // 여기서부터 다시
-      setDate(newDate.format("YYYY년 MM월"));
-      // console.log(date);
-    };
+  const decrementMonth = value => value.subtract(1, "month");
+  const incrementMonth = value => value.add(1, "month");
 
-    const handleNextBtnClick = () => {
-      newDate = value.clone().add(1, "month"); // 여기서부터 다시
-      setDate(newDate.format("YYYY년 MM월"));
-      // console.log(date);
-    };
-
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          margin: "8px 16px",
-        }}
-      >
-        <Button
-          size="small"
-          icon={<LeftOutlined />}
-          onClick={handlePrevBtnClick}
-          shape="circle"
-        />
-        <div style={{ fontSize: "16px", margin: "0 16px" }}>{date}</div>
-        <Button
-          size="small"
-          icon={<RightOutlined />}
-          onClick={handleNextBtnClick}
-          shape="circle"
-        />
-      </div>
-    );
+  const handleCalendarChange = (direction, value) => {
+    if (direction === "prev") {
+      return decrementMonth(value);
+    } else if (direction === "next") {
+      return incrementMonth(value);
+    }
   };
+
+  const renderCalendarHeader = ({ value, onChange }) => (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "8px 0",
+      }}
+    >
+      <Button
+        onClick={() => onChange(handleCalendarChange("prev", value))}
+        icon={<LeftOutlined />}
+        shape="circle"
+        size="small"
+      />
+      <div style={{ fontSize: "16px", margin: "0 16px" }}>
+        {dayjs(value).format("YYYY년 MM월")}
+      </div>
+      <Button
+        onClick={() => onChange(handleCalendarChange("next", value))}
+        icon={<RightOutlined />}
+        shape="circle"
+        size="small"
+      />
+    </div>
+  );
   // 캘린더 영역
 
   const onPanelChange = (value, mode) => {
@@ -163,23 +154,34 @@ const Main = () => {
 
   return (
     <>
-      <Header sub={false}>Culture Log</Header>
-      {/* <button onClick={console.log(dayjs().format("YYYY-MM-DD"))}>좌측 버튼</button> */}
-      {/* <div>날짜 영역</div>
-      <button>우측 버튼</button> */}
-      <Calendar
-        defaultValue={selectedDate}
-        onPanelChange={onPanelChange}
-        locale={locale}
-        onSelect={handleSelect}
-        cellRender={value => dateCellRender(value)}
-        headerRender={renderCalendarHeader}
-      />
-      <Footer></Footer>
-      <DrawerContent
-        matchingData={matchingData}
-        onCloseDrawer={handleCloseDrawer}
-      />
+      <ConfigProvider
+        // 디자인 토큰으로 상세 css 설정 하는 영역
+        theme={{
+          components: {
+            Calendar: {
+              itemActiveBg: "none",
+              // "fullPanelBg":"none",
+              // "fullBg" : "none",
+            },
+          },
+        }}
+      >
+        <Header sub={false}>Culture Log</Header>
+        <Calendar
+          defaultValue={selectedDate}
+          onPanelChange={onPanelChange}
+          locale={locale}
+          onSelect={handleSelect}
+          cellRender={value => dateCellRender(value)}
+          headerRender={renderCalendarHeader}
+        />
+        <Footer></Footer>
+        <DrawerContent
+          matchingData={matchingData}
+          onCloseDrawer={handleCloseDrawer}
+        />
+        ...
+      </ConfigProvider>
     </>
   );
 };
