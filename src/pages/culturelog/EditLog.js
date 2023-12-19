@@ -50,7 +50,7 @@ const EditLog = ({ iuser }) => {
     navigate("/mylog/past");
   };
   const handleClickDelete = () => {
-    navigate("/culturelog/write");
+    navigate("/culturelog/view/:imedia");
   };
   const handleChangeTitle = e => {
     // console.log(e.target.value)

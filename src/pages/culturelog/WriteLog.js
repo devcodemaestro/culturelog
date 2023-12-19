@@ -33,14 +33,23 @@ const WriteLog = ({ iuser }) => {
     console.log(e.target.value);
     setSelectedOption(e.target.value);
   };
+  
   const handleLookClick = () => {
     setLook(false);
+    
+  
   };
   const handleNoLookClick = () => {
     setLook(true);
+  
   };
   const hadleClickEdit = () => {
-    navigate("/culturelog/Edit");
+    if(look){
+      navigate("/mylog/past");
+    }else{
+      navigate("/mylog");
+    }
+    
   };
   const handleChangeTitle = e => {
     // console.log(e.target.value)
