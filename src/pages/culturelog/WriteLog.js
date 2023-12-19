@@ -44,10 +44,6 @@ const WriteLog = () => {
     navigate("/culturelog/Edit");
   };
 
-
-
-
-
   return (
     <>
       <Header sub={true}>Write Log</Header>

@@ -18,6 +18,11 @@ export const LoginWrap = styled.div`
 `;
 export const LoginLogo = styled.div`
   margin-bottom: 30px;
+  p {
+    font-size: 1.4rem;
+    color: ${colors.gray};
+    margin-top: 2rem;
+  }
 `;
 export const LoginInput = styled.div`
   input {
@@ -27,6 +32,12 @@ export const LoginInput = styled.div`
     font-size: 1.2rem;
     font-weight: 400;
     margin-bottom: 8px;
+  }
+  a {
+    display: block;
+    font-size: 1.4rem;
+    color: ${colors.point};
+    margin-top: 1rem;
   }
 `;
 export const LoginBt = styled.button`
