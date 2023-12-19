@@ -41,10 +41,11 @@ export const getDetailMedia = async (imedia, iuser, setViewData) => {
     // http://192.168.0.144:5211/api/media/0?iuser=0
     const res = await axios.get(`${path}/${imedia}?iuser=${iuser}`);
     setViewData(res.data);
-    console.log(res.data);
+    // console.log(res.data);
   } catch (error) {
     const demo = await axios.get(`/getview.json`);
     setViewData(demo.data);
+    alert("정보를 가져오지 못했습니다. \n임시데이터로 출력됩니다.");
     console.log(error);
   }
 };

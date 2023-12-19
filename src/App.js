@@ -36,10 +36,7 @@ function App() {
             path="view/:imedia"
             element={<ViewLog iuser={iuser}></ViewLog>}
           />
-          <Route
-            path="write/:imedia"
-            element={<WriteLog iuser={iuser}></WriteLog>}
-          />
+          <Route path="write" element={<WriteLog iuser={iuser}></WriteLog>} />
           <Route
             path="edit/:imedia"
             element={<EditLog iuser={iuser}></EditLog>}

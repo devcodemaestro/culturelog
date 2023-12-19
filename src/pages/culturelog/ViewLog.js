@@ -51,9 +51,13 @@ const ViewLog = () => {
 
   //기록삭제 후 메인 화면으로 이동
   const handleClickDelete = () => {
-    const resultAction = () => {
-      alert("삭제가 완료되었습니다. \n메인페이지로 이동합니다.");
-      navigate("/");
+    const resultAction = result => {
+      if (result === 0) {
+        alert("삭제가 완료되었습니다. \n메인페이지로 이동합니다.");
+        navigate("/");
+      } else if (result === -5555) {
+        alert("기록을 삭제하지 못했습니다. \n다시 시도해주세요.");
+      }
     };
     delMedia(params.imedia, iuser, resultAction);
   };
