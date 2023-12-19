@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import styled from "@emotion/styled";
 
 // 기본색상
@@ -78,6 +79,23 @@ export const HeaderWrap = styled.header`
     transform: translateY(-50%);
     &.on {
       display: block;
+    }
+    &.signout {
+      display: block;
+      left: initial;
+      right: 5%;
+      width: 2.8rem;
+      height: 2.8rem;
+      background: url(${process.env.PUBLIC_URL + "/images/icon_signout.svg"})
+        no-repeat center/100%;
+      font-size: 0;
+      transition: 0.2s;
+      &:hover {
+        background: url(${process.env.PUBLIC_URL + "/images/icon_signout.svg"});
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+      }
     }
   }
 `;

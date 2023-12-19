@@ -1,5 +1,6 @@
 import axios from "axios";
 import { SERVER_URL } from "./config";
+import Error from "../pages/Error";
 const path = `${SERVER_URL}/api/media`;
 
 // 메인페이지 가져오기
@@ -45,7 +46,7 @@ export const getDetailMedia = async (imedia, iuser, setViewData) => {
   } catch (error) {
     const demo = await axios.get(`/getview.json`);
     setViewData(demo.data);
-    console.log(error);
+    alert("정보를 가져오지 못했습니다. \n임시데이터로 출력됩니다.");
   }
 };
 

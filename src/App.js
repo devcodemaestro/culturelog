@@ -12,21 +12,25 @@ import WriteLog from "./pages/culturelog/WriteLog";
 import Login from "./pages/Login";
 import About from "./pages/About";
 import { useState } from "react";
+import SignUp from "./pages/SignUp";
+import Error from "./pages/Error";
 function App() {
   const [iuser, setIuser] = useState(1);
   const [password, setPassword] = useState("1111");
   return (
     <Wrap maxw="393">
       <Routes>
-        {/* 인트로 */}
-        <Route path="/intro" element={<Intro></Intro>}></Route>
-        {/* 메인 */}
-        <Route path="/" element={<Main></Main>}></Route>
         {/* 로그인 */}
         <Route
           path="/login"
           element={<Login iuser={iuser} password={password}></Login>}
         ></Route>
+        {/* 회원가입 */}
+        <Route path="/signup" element={<SignUp></SignUp>}></Route>
+        {/* 인트로 */}
+        <Route path="/intro" element={<Intro></Intro>}></Route>
+        {/* 메인 */}
+        <Route path="/" element={<Main></Main>}></Route>
         {/* 어바웃 */}
         <Route path="/about" element={<About></About>}></Route>
         {/* 컬쳐로그 기록 */}
@@ -36,10 +40,7 @@ function App() {
             path="view/:imedia"
             element={<ViewLog iuser={iuser}></ViewLog>}
           />
-          <Route
-            path="write"
-            element={<WriteLog iuser={iuser}></WriteLog>}
-          />
+          <Route path="write" element={<WriteLog iuser={iuser}></WriteLog>} />
           <Route
             path="edit"
             element={<EditLog iuser={iuser}></EditLog>}
@@ -51,8 +52,9 @@ function App() {
           <Route path="past" element={<PastLog></PastLog>} />
           <Route path="upcoming" element={<UpcomingLog></UpcomingLog>} />
         </Route>
-        {/* 잘못된 경로 */}
+        {/* 잘못된 경로(404) */}
         <Route path="*" element={<NotFound />}></Route>
+        <Route path="/error " element={<Error />}></Route>
       </Routes>
     </Wrap>
   );
