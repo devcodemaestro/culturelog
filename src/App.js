@@ -11,7 +11,10 @@ import EditLog from "./pages/culturelog/EditLog";
 import WriteLog from "./pages/culturelog/WriteLog";
 import Login from "./pages/Login";
 import About from "./pages/About";
+import { useState } from "react";
 function App() {
+  const [iuser, setIuser] = useState(1);
+  const [password, setPassword] = useState("1111");
   return (
     <Wrap maxw="393">
       <Routes>
@@ -20,15 +23,27 @@ function App() {
         {/* 메인 */}
         <Route path="/" element={<Main></Main>}></Route>
         {/* 로그인 */}
-        <Route path="/login" element={<Login></Login>}></Route>
+        <Route
+          path="/login"
+          element={<Login iuser={iuser} password={password}></Login>}
+        ></Route>
         {/* 어바웃 */}
         <Route path="/about" element={<About></About>}></Route>
         {/* 컬쳐로그 기록 */}
         <Route path="/culturelog" element={<Outlet></Outlet>}>
           <Route index element={<Main></Main>} />
-          <Route path="view" element={<ViewLog></ViewLog>} />
-          <Route path="write" element={<WriteLog></WriteLog>} />
-          <Route path="edit" element={<EditLog></EditLog>} />
+          <Route
+            path="view/:imedia"
+            element={<ViewLog iuser={iuser}></ViewLog>}
+          />
+          <Route
+            path="write/:imedia"
+            element={<WriteLog iuser={iuser}></WriteLog>}
+          />
+          <Route
+            path="edit/:imedia"
+            element={<EditLog iuser={iuser}></EditLog>}
+          />
         </Route>
         {/* 마이로그 */}
         <Route path="/mylog" element={<Outlet></Outlet>}>
