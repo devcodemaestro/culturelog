@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { colors, shadow } from "./basic";
 import { animationFadeIn, animationFadeUp } from "./animation";
 
-export const NotFoundWrap = styled.div`
+export const ErrorWrap = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -18,7 +18,7 @@ export const NotFoundWrap = styled.div`
   text-align: center;
 `;
 
-export const NotFoundTop = styled.div`
+export const ErrorTop = styled.div`
   margin-bottom: 2rem;
   animation: ${animationFadeIn} 0.8s ease-in-out;
 
@@ -30,7 +30,7 @@ export const NotFoundTop = styled.div`
   }
 `;
 
-export const NotFoundBot = styled.div`
+export const ErrorBot = styled.div`
   font-size: 1.4rem;
   font-weight: 200;
   line-height: 1.5;

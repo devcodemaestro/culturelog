@@ -25,11 +25,16 @@ export const LogItem = styled.li`
   background: ${colors.main};
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   :hover {
     border-radius: 5px;
     border: 1px solid ${colors.point};
     background: ${colors.main};
+    button {
+      background-color: ${colors.point};
+      color: ${colors.main};
+    }
   }
 `;
 export const LogItemImg = styled.div`
@@ -88,9 +93,5 @@ export const LogMore = styled.div`
 
     color: ${colors.gray};
     background-color: ${colors.tab};
-    :hover {
-      background-color: ${colors.point};
-      color: ${colors.main};
-    }
   }
 `;
