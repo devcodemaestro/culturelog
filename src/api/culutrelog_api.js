@@ -51,10 +51,9 @@ export const getDetailMedia = async (imedia, iuser, setViewData) => {
 };
 
 // 로그 등록
-export const postMedia = async (obj) => {
-  
+export const postMedia = async obj => {
   try {
-    const res = await axios.post(`${path},obj`);
+    const res = await axios.post(`${path}`, obj);
     console.log(res.data);
   } catch (error) {
     console.log(error);
@@ -72,23 +71,12 @@ export const patchIsSaw = async () => {
 };
 
 // 수정
-export const putMedia = async fn => {
-  const obj = {
-    imedia: 0,
-    iuser: 0,
-    genrepk: 0,
-    title: "string",
-    date: "string",
-    comment: "string",
-    star: 0,
-    pics: ["string"],
-  };
+export const putMedia = async obj => {
   try {
     const res = await axios.put(`${path}`, obj);
     console.log(res.data);
   } catch (error) {
     console.log(error);
-    fn(-500);
   }
 };
 

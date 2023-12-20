@@ -14,8 +14,7 @@ import Stardrop from "../../components/Stardrop";
 import { useNavigate } from "react-router-dom";
 import { LogTabBt } from "../../styles/ui/logtabstyle";
 import { postMedia } from "../../api/culutrelog_api";
-import ImgCrop from "antd-img-crop";
-import Upload from "antd/es/upload/Upload";
+import Board from "../board/Board";
 
 const WriteLog = ({ iuser }) => {
   useEffect(() => {
@@ -33,23 +32,15 @@ const WriteLog = ({ iuser }) => {
     console.log(e.target.value);
     setSelectedOption(e.target.value);
   };
-  
+
   const handleLookClick = () => {
     setLook(false);
-    
-  
   };
   const handleNoLookClick = () => {
     setLook(true);
-  
   };
   const hadleClickEdit = () => {
-    if(look){
-      navigate("/mylog/past");
-    }else{
-      navigate("/mylog");
-    }
-    
+    navigate("/mylog");
   };
   const handleChangeTitle = e => {
     // console.log(e.target.value)
@@ -69,54 +60,22 @@ const WriteLog = ({ iuser }) => {
   };
   const starpoint = Number(star.key);
   const obj = {
-    iuser:  iuser ,
-    genrepk:  selectedOption ,
-    title:  title ,
-    date: date ,
-    comment:  text ,
-    star:  starpoint ,
-    isSaw: 0,
+    iuser: iuser,
+    genrepk: selectedOption,
+    title: title,
+    date: date,
+    comment: text,
+    star: starpoint,
+    isSaw: look ? 1 : 0,
     pics: ["string"],
   };
   console.log(obj);
-
-  const [fileList, setFileList] = useState([]);
-  const onChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
-  const onPreview = async file => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise(resolve => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
-  console.log(fileList);
 
   return (
     <>
       <Header sub={true}>Write Log</Header>
       <ImgWrite>이미지 등록</ImgWrite>
-      <div style={{ marginTop: "30px", paddingLeft: "3px" }}>
-        <ImgCrop rotationSlider aspect={71 / 102}>
-          <Upload
-            action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-            listType="picture-card"
-            fileList={fileList}
-            onChange={onChange}
-            onPreview={onPreview}
-          >
-            {fileList.length < 4 && "+"}
-          </Upload>
-        </ImgCrop>
-      </div>
+      <Board />
       <ImgUrl>
         <input
           type="text"

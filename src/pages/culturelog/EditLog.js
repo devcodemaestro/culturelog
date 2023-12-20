@@ -4,7 +4,6 @@ import Footer from "../../components/Footer";
 import {
   DateDiary,
   Dropdown,
-  FileWrap,
   ImgUrl,
   ImgWrite,
   StarRate,
@@ -15,6 +14,7 @@ import { BlueBtn, BtnWrap, GrayBtn, RedBtn } from "../../styles/ui/buttons";
 import { useNavigate } from "react-router-dom";
 import { WarningBox, WarningWrap } from "../../styles/ui/warning";
 import { LogTabBt } from "../../styles/ui/logtabstyle";
+import Board from "../board/Board";
 
 const EditLog = ({ iuser }) => {
   const [selectedOption, setSelectedOption] = useState("");
@@ -22,16 +22,10 @@ const EditLog = ({ iuser }) => {
   const [look, setLook] = useState(false);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const fileInput = React.useRef(null);
+  const [star, setStar] = useState({});
 
   const handleDropdownChange = e => {
-    setSelectedOption(e.target.value);808
-  };
-  const handleChange = e => {
-    console.log(e.target.files[0]);
-  };
-  const handleButtonClick = () => {
-    fileInput.current.click();
+    setSelectedOption(e.target.value);
   };
   const handleLookClick = () => {
     setLook(false);
@@ -47,7 +41,7 @@ const EditLog = ({ iuser }) => {
   };
   const navigate = useNavigate();
   const handleClickChange = () => {
-    navigate("/mylog/past");
+    navigate("/mylog");
   };
   const handleClickDelete = () => {
     navigate("/culturelog/view/:imedia");
@@ -64,22 +58,28 @@ const EditLog = ({ iuser }) => {
     // console.log(e.target.value);
     setText(e.target.value);
   };
+  const handleChangeStar = value => {
+    // console.log(e.target.value);
+    setStar(value);
+  };
+  const starpoint = Number(star.key);
   const obj = {
     imedia: 0,
-    iuser: { iuser },
-    genrePk: 0,
-    title: { title },
-    date: {date},
-    comment: {text},
-    star: 0,
-    isSaw: 0,
+    iuser: iuser,
+    genrePk: selectedOption,
+    title: title,
+    date: date,
+    comment: text,
+    star: isNaN(starpoint) ? 0 : starpoint,
+    isSaw: look ? 1 : 0,
     pics: ["string"],
   };
   console.log(obj);
+
   return (
     <>
       <Header sub={true}>Edit Log</Header>
-      
+
       <LogTabBt>
         <button
           className={!look ? "on" : ""}
@@ -97,48 +97,7 @@ const EditLog = ({ iuser }) => {
         </button>
       </LogTabBt>
       <ImgWrite>이미지 등록</ImgWrite>
-      <FileWrap>
-        <button className="icon-file" onClick={handleButtonClick}>
-          미리 보기
-        </button>
-        <input
-          type="file"
-          style={{ display: "none" }}
-          ref={fileInput}
-          onChange={handleChange}
-          className="icon-file"
-        ></input>
-        <button className="icon-file" onClick={handleButtonClick}>
-          미리 보기
-        </button>
-        <input
-          type="file"
-          style={{ display: "none" }}
-          ref={fileInput}
-          onChange={handleChange}
-          className="icon-file"
-        ></input>
-        <button className="icon-file" onClick={handleButtonClick}>
-          미리 보기
-        </button>
-        <input
-          type="file"
-          style={{ display: "none" }}
-          ref={fileInput}
-          onChange={handleChange}
-          className="icon-file"
-        ></input>
-        <button className="icon-file" onClick={handleButtonClick}>
-          미리 보기
-        </button>
-        <input
-          type="file"
-          style={{ display: "none" }}
-          ref={fileInput}
-          onChange={handleChange}
-          className="icon-file"
-        ></input>
-      </FileWrap>
+      <Board />
       <ImgUrl>
         <input
           type="text"
@@ -156,9 +115,13 @@ const EditLog = ({ iuser }) => {
       </ImgUrl>
       <DateDiary>
         <div className="date-wrap">
-          <input type="date" className="date"    onChange={e => {
+          <input
+            type="date"
+            className="date"
+            onChange={e => {
               handleChangeDate(e);
-            }}/>
+            }}
+          />
         </div>
       </DateDiary>
       <Dropdown>
@@ -168,17 +131,21 @@ const EditLog = ({ iuser }) => {
           value={selectedOption}
           onChange={handleDropdownChange}
         >
-          <option value="option1">장르</option>
-          <option value="option2">영화</option>
-          <option value="option3">드라마</option>
-          <option value="option4">뮤지컬</option>
+          <option value="1">장르</option>
+          <option value="2">영화</option>
+          <option value="3">드라마</option>
+          <option value="4">뮤지컬</option>
         </select>
       </Dropdown>
-     
+
       {look && (
         <>
           <StarRate>
-            <Stardrop />
+            <Stardrop
+              onChange={value => {
+                handleChangeStar(value);
+              }}
+            />
           </StarRate>
           <TextArea>
             <label htmlFor="textArea"></label>
