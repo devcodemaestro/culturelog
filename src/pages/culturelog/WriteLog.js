@@ -33,23 +33,19 @@ const WriteLog = ({ iuser }) => {
     console.log(e.target.value);
     setSelectedOption(e.target.value);
   };
-  
+
   const handleLookClick = () => {
     setLook(false);
-    
-  
   };
   const handleNoLookClick = () => {
     setLook(true);
-  
   };
   const hadleClickEdit = () => {
-    if(look){
+    if (look) {
       navigate("/mylog/past");
-    }else{
+    } else {
       navigate("/mylog");
     }
-    
   };
   const handleChangeTitle = e => {
     // console.log(e.target.value)
@@ -69,12 +65,12 @@ const WriteLog = ({ iuser }) => {
   };
   const starpoint = Number(star.key);
   const obj = {
-    iuser:  iuser ,
-    genrepk:  selectedOption ,
-    title:  title ,
-    date: date ,
-    comment:  text ,
-    star:  starpoint ,
+    iuser: iuser,
+    genrepk: selectedOption,
+    title: title,
+    date: date,
+    comment: text,
+    star: starpoint,
     isSaw: 0,
     pics: ["string"],
   };

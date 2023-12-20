@@ -51,8 +51,7 @@ export const getDetailMedia = async (imedia, iuser, setViewData) => {
 };
 
 // 로그 등록
-export const postMedia = async (obj) => {
-  
+export const postMedia = async obj => {
   try {
     const res = await axios.post(`${path},obj`);
     console.log(res.data);
