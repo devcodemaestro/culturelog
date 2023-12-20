@@ -40,16 +40,13 @@ function App() {
             element={<ViewLog iuser={iuser}></ViewLog>}
           />
           <Route path="write" element={<WriteLog iuser={iuser}></WriteLog>} />
-          <Route
-            path="edit"
-            element={<EditLog iuser={iuser}></EditLog>}
-          />
+          <Route path="edit" element={<EditLog iuser={iuser}></EditLog>} />
         </Route>
         {/* 마이로그 */}
         <Route path="/mylog" element={<MyLog />}></Route>
         {/* 잘못된 경로(404) */}
         <Route path="*" element={<NotFound />}></Route>
-        <Route path="/error " element={<Error />}></Route>
+        <Route path="/error" element={<Error />}></Route>
       </Routes>
     </Wrap>
   );

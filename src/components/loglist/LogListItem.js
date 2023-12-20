@@ -31,7 +31,11 @@ const LogListItem = ({ on, pic, title, date, star, imedia, iuser }) => {
   }, [targetDateStr]);
 
   return (
-    <LogItem>
+    <LogItem
+      onClick={() => {
+        handleClickView();
+      }}
+    >
       <LogItemImg>
         <img
           className={on === "upcoming" ? "on" : ""}
@@ -46,13 +50,7 @@ const LogListItem = ({ on, pic, title, date, star, imedia, iuser }) => {
         <span>{`${date}`}</span>
       </LogText>
       <LogMore>
-        <button
-          onClick={() => {
-            handleClickView();
-          }}
-        >
-          More
-        </button>
+        <button>More</button>
       </LogMore>
     </LogItem>
   );
