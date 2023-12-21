@@ -12,10 +12,7 @@ const initLog = [
     title: "",
     date: "",
     pic: "",
-    sawInfo: {
-      star: 0,
-      comment: "",
-    },
+    star: 0,
   },
 ];
 
@@ -28,9 +25,9 @@ const MyLog = () => {
   // 탭 기능
   const [tabClick, setTabClick] = useState(true);
 
-  const tabClickOn = _flag => {
+  const tabClickOn = _clicked => {
     // console.log(_flag);
-    setTabClick(_flag);
+    setTabClick(_clicked);
   };
 
   const totalLogList = loglist.length;

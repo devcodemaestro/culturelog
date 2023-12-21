@@ -9,10 +9,7 @@ const initUpcomingLog = [
     title: "",
     date: "",
     pic: "",
-    sawInfo: {
-      star: 0,
-      comment: "",
-    },
+    star: 0,
   },
 ];
 const UpcomingLogList = () => {
@@ -30,7 +27,9 @@ const UpcomingLogList = () => {
             pic={item.pic}
             title={item.title}
             date={item.date}
-            star={item.sawInfo.star}
+            star={item.star}
+            imedia={item.imedia}
+            iuser={1}
           ></LogListItem>
         ))}
       </LogListWrap>
