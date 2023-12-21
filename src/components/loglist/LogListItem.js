@@ -15,6 +15,7 @@ const LogListItem = ({ on, pic, title, date, star, imedia, iuser }) => {
   };
 
   const [dDay, setDDay] = useState(null);
+
   const targetDateStr = `${date}`;
 
   const calcDDay = targetDate => {
@@ -30,6 +31,8 @@ const LogListItem = ({ on, pic, title, date, star, imedia, iuser }) => {
     setDDay(dDayValue);
   }, [targetDateStr]);
 
+  const defaultImg = process.env.PUBLIC_URL + "/images/icon_home.svg";
+
   return (
     <LogItem
       onClick={() => {
@@ -39,11 +42,13 @@ const LogListItem = ({ on, pic, title, date, star, imedia, iuser }) => {
       <LogItemImg>
         <img
           className={on === "upcoming" ? "on" : ""}
-          src={`${pic}`}
-          alt={`${title}`}
+          src={pic === "string" ? defaultImg : pic}
+          alt={title}
         />
+
         {on === "upcoming" && <span>{`D${dDay > 0 ? "+" : ""}${dDay}`}</span>}
       </LogItemImg>
+
       <LogText>
         {on === "past" && <Star num={star} width={70} />}
         <p>{`${title}`}</p>

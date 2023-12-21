@@ -1,20 +1,5 @@
-import React, { useEffect, useState } from "react";
 import { LogListWrap, LogTotal } from "../../styles/ui/logliststyle";
 import LogListItem from "./LogListItem";
-import { getMedia } from "../../api/culutrelog_api";
-
-const initPastLog = [
-  {
-    imedia: 0,
-    title: "",
-    date: "",
-    pic: "",
-    sawInfo: {
-      star: 0,
-      comment: "",
-    },
-  },
-];
 
 const PastLogList = props => {
   return (
@@ -30,7 +15,7 @@ const PastLogList = props => {
             pic={item.pic}
             title={item.title}
             date={item.date}
-            star={item.sawInfo.star}
+            star={item.star}
             imedia={item.imedia}
             iuser={1}
           />

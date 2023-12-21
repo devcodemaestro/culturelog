@@ -6,7 +6,7 @@ const LogTab = ({ tabClickOn, tabClick }) => {
     <>
       <LogTabBt>
         <button
-          className={tabClick && "on"}
+          className={tabClick ? "on" : ""}
           onClick={() => {
             tabClickOn(true);
           }}
@@ -14,7 +14,7 @@ const LogTab = ({ tabClickOn, tabClick }) => {
           볼 거예요
         </button>
         <button
-          className={!tabClick && "on"}
+          className={!tabClick ? "on" : ""}
           onClick={() => {
             tabClickOn(false);
           }}
