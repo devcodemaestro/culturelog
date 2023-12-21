@@ -62,10 +62,8 @@ function App() {
               <WriteLog iuser={iuser} loginCheck={loginCheck}></WriteLog>
             }
           />
-          <Route
-            path="edit"
-            element={<EditLog iuser={iuser} loginCheck={loginCheck}></EditLog>}
-          />
+          <Route path="write" element={<WriteLog iuser={iuser}></WriteLog>} />
+          <Route path="edit/:imedia" element={<EditLog iuser={iuser}></EditLog>} />
         </Route>
         {/* 마이로그 */}
         <Route

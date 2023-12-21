@@ -2,106 +2,47 @@ import React, { useState } from "react";
 import { Button, Dropdown, Menu } from "antd";
 import styled from "@emotion/styled";
 import { BtDown } from "../styles/writelog";
+import Star from "./Star";
 const items = [
   {
     key: "1",
-    label: (
-      <>
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-      </>
-    ),
+    label: <Star num={1} />,
   },
   {
     key: "2",
-    label: (
-      <>
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star_half.svg" alt="" />
-      </>
-    ),
+    label: <Star num={2} />,
   },
   {
     key: "3",
-    label: (
-      <>
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-      </>
-    ),
+    label: <Star num={3} />,
   },
   {
     key: "4",
-    label: (
-      <>
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star_half.svg" alt="" />
-      </>
-    ),
+    label: <Star num={4} />,
   },
   {
     key: "5",
-    label: (
-      <>
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-      </>
-    ),
+    label: <Star num={5} />,
   },
   {
     key: "6",
-    label: (
-      <>
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star_half.svg" alt="" />
-      </>
-    ),
+    label: <Star num={6} />,
   },
   {
     key: "7",
-    label: (
-      <>
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star.svg" alt="" />
-      </>
-    ),
+    label: <Star num={7} />,
   },
   {
     key: "8",
-    label: (
-      <>
-        <img src="/images/icon_star.svg" alt="" />
-        <img src="/images/icon_star_half.svg" alt="" />
-      </>
-    ),
+    label: <Star num={8} />,
   },
   {
     key: "9",
-    label: (
-      <>
-        <img src="/images/icon_star.svg" alt="" />
-      </>
-    ),
+    label: <Star num={9} />,
   },
   {
     key: "10",
-    label: (
-      <>
-        <img src="/images/icon_star_half.svg" alt="" />
-      </>
-    ),
+    label: <Star num={10} />,
   },
 ];
 
