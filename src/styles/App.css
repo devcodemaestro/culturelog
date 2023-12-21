@@ -1,14 +1,15 @@
 .ant-upload-wrapper {
   font-size: 12px !important;
   color: #ccc !important;
+  margin-left: 4px;
 }
 
 .ant-upload-list-item,
 .ant-upload-list-item-done,
 .ant-upload-select,
 .ant-upload-list-item-container {
-  width: 82px !important;
-  height: 120px !important;
+  width: 80px !important;
+  height: 118px !important;
 }
 .ant-upload-list-item::before {
   width: 100% !important;

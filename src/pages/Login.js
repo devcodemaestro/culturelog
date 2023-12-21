@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoginBt, LoginInput, LoginLogo, LoginWrap } from "../styles/login";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { postSignin } from "../api/user_api";
-import { Result } from "antd";
+import { getUser, postSignin, postUser } from "../api/user_api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,19 +22,23 @@ const Login = () => {
       upw: pw,
     };
     const resultAction = result => {
-      if (result === 3) {
+      if (result === -2) {
         alert("아이디 또는 비밀번호를 확인해주세요.");
         return;
-      } else if (result === 2) {
+      } else if (result === -1) {
         alert("비밀번호를 확인해주세요.");
         return;
       } else {
+        postUser(result);
         navigate("/");
         return;
       }
     };
     postSignin(obj, resultAction);
   };
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <LoginWrap>

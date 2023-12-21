@@ -1,6 +1,5 @@
 import axios from "axios";
 import { SERVER_URL } from "./config";
-import Error from "../pages/Error";
 const path = `${SERVER_URL}/api/media`;
 
 // 메인페이지 가져오기
@@ -27,7 +26,6 @@ export const getDayMedia = async () => {
 export const getMedia = async (setLogList, iuser, is_saw) => {
   try {
     const res = await axios.get(`${path}?is_saw=${is_saw}&iuser=${iuser}`);
-
     setLogList(res.data);
     // console.log(res.data);
   } catch (error) {
@@ -54,41 +52,21 @@ export const getDetailMedia = async (imedia, iuser, setViewData) => {
 // 로그 등록
 export const postMedia = async obj => {
   try {
-    const res = await axios.post(`${path},obj`);
+    const res = await axios.post(`${path}`, obj);
     console.log(res.data);
   } catch (error) {
     console.log(error);
   }
 };
 
-// 상태(볼 거예요 / 봤어요) 수정
-export const patchIsSaw = async () => {
-  try {
-    const res = await axios.patch(`${path}`);
-    console.log(res.data);
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 // 수정
-export const putMedia = async fn => {
-  const obj = {
-    imedia: 0,
-    iuser: 0,
-    genrepk: 0,
-    title: "string",
-    date: "string",
-    comment: "string",
-    star: 0,
-    pics: ["string"],
-  };
+export const putMedia = async obj => {
   try {
     const res = await axios.put(`${path}`, obj);
     console.log(res.data);
   } catch (error) {
     console.log(error);
-    fn(-500);
   }
 };
 

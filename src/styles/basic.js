@@ -162,7 +162,6 @@ export const FooterCopyRight = styled.div`
     padding: 0.7rem 2rem;
     margin-bottom: 1rem;
     font-size: 1.2rem;
-    border: 1px solid ${colors.placeholder};
     color: ${colors.placeholder};
     transition: 0.3s;
     border-radius: 4rem;
