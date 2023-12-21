@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoginBt, LoginInput, LoginLogo, LoginWrap } from "../styles/login";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { getUser, postSignin, postUser } from "../api/user_api";
 
-const Login = ({ iuser, password }) => {
+const Login = () => {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
@@ -16,14 +17,28 @@ const Login = ({ iuser, password }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const idResult = Number(id);
-    console.log(idResult, pw);
-    if (iuser === idResult && password === pw) {
-      navigate("/intro");
-    } else {
-      alert("아이디 또는 패스워드를 다시 입력해주세요.");
-    }
+    const obj = {
+      uid: id,
+      upw: pw,
+    };
+    const resultAction = result => {
+      if (result === -2) {
+        alert("아이디 또는 비밀번호를 확인해주세요.");
+        return;
+      } else if (result === -1) {
+        alert("비밀번호를 확인해주세요.");
+        return;
+      } else {
+        postUser(result);
+        navigate("/");
+        return;
+      }
+    };
+    postSignin(obj, resultAction);
   };
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <LoginWrap>

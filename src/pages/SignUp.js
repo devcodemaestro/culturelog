@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { LoginBt, LoginInput, LoginLogo, LoginWrap } from "../styles/login";
 import { useNavigate } from "react-router";
 import Header from "../components/Header";
+import { postSignup } from "../api/user_api";
 
-const SignUp = ({ iuser, password }) => {
+const SignUp = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -25,7 +26,17 @@ const SignUp = ({ iuser, password }) => {
       upw: pw,
       nm: name,
     };
-    console.log(obj);
+    const resultAction = result => {
+      if (result === 0) {
+        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+        return;
+      } else {
+        alert("회원가입에 성공했습니다." + result);
+        navigate("/login");
+        return;
+      }
+    };
+    postSignup(obj, resultAction);
   };
 
   return (

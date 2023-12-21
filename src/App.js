@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import "./styles/App.css";
 import { Wrap } from "./styles/basic";
 import NotFound from "./pages/NotFound";
@@ -10,12 +10,23 @@ import EditLog from "./pages/culturelog/EditLog";
 import WriteLog from "./pages/culturelog/WriteLog";
 import Login from "./pages/Login";
 import About from "./pages/About";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SignUp from "./pages/SignUp";
 import Error from "./pages/Error";
+import { getUser } from "./api/user_api";
 function App() {
-  const [iuser, setIuser] = useState(1);
+  const navigate = useNavigate();
+  const [iuser, setIuser] = useState(getUser());
   const [password, setPassword] = useState("1111");
+  const loginCheck = () => {
+    const loginUser = getUser();
+    if (!loginUser) {
+      alert("로그인 후 이용해주세요.");
+      navigate("/login");
+      return;
+    }
+  };
+
   return (
     <Wrap maxw="393">
       <Routes>
@@ -29,24 +40,39 @@ function App() {
         {/* 인트로 */}
         <Route path="/intro" element={<Intro></Intro>}></Route>
         {/* 메인 */}
-        <Route path="/" element={<Main></Main>}></Route>
+        <Route
+          path="/"
+          element={<Main iuser={iuser} loginCheck={loginCheck}></Main>}
+        ></Route>
         {/* 어바웃 */}
         <Route path="/about" element={<About></About>}></Route>
         {/* 컬쳐로그 기록 */}
         <Route path="/culturelog" element={<Outlet></Outlet>}>
-          <Route index element={<Main></Main>} />
+          <Route
+            index
+            element={<Main iuser={iuser} loginCheck={loginCheck}></Main>}
+          />
           <Route
             path="view/:imedia"
-            element={<ViewLog iuser={iuser}></ViewLog>}
+            element={<ViewLog iuser={iuser} loginCheck={loginCheck}></ViewLog>}
+          />
+          <Route
+            path="write"
+            element={
+              <WriteLog iuser={iuser} loginCheck={loginCheck}></WriteLog>
+            }
           />
           <Route path="write" element={<WriteLog iuser={iuser}></WriteLog>} />
           <Route path="edit/:imedia" element={<EditLog iuser={iuser}></EditLog>} />
         </Route>
         {/* 마이로그 */}
-        <Route path="/mylog" element={<MyLog />}></Route>
+        <Route
+          path="/mylog"
+          element={<MyLog iuser={iuser} loginCheck={loginCheck} />}
+        ></Route>
         {/* 잘못된 경로(404) */}
         <Route path="*" element={<NotFound />}></Route>
-        <Route path="/error " element={<Error />}></Route>
+        <Route path="/error" element={<Error />}></Route>
       </Routes>
     </Wrap>
   );

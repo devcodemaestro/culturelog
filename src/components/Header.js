@@ -1,7 +1,8 @@
 import React from "react";
-import { HeaderWrap, Inner } from "../styles/basic";
+import { HeaderWrap } from "../styles/basic";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { deleteUser } from "../api/user_api";
 
 const Header = ({ children, sub }) => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Header = ({ children, sub }) => {
     return;
   };
   const handleClickSignout = () => {
-    alert("로그아웃 완료");
+    deleteUser();
     navigate("/login");
     return;
   };

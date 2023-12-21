@@ -1,6 +1,5 @@
 import axios from "axios";
 import { SERVER_URL } from "./config";
-import Error from "../pages/Error";
 const path = `${SERVER_URL}/api/media`;
 
 // 메인페이지 가져오기
@@ -26,7 +25,7 @@ export const getDayMedia = async () => {
 // 마이로그(볼 거예요 / 봤어요) 가져오기
 export const getMedia = async (setLogList, iuser, isSaw) => {
   try {
-    const res = await axios.get(`${path}?dddiuser=${iuser}&isSaw=${isSaw}`);
+    const res = await axios.get(`${path}?iuser=${iuser}&isSaw=${isSaw}`);
     setLogList(res.data);
     // console.log(res.data);
   } catch (error) {
@@ -60,15 +59,6 @@ export const postMedia = async obj => {
   }
 };
 
-// 상태(볼 거예요 / 봤어요) 수정
-export const patchIsSaw = async () => {
-  try {
-    const res = await axios.patch(`${path}`);
-    console.log(res.data);
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 // 수정
 export const putMedia = async obj => {
