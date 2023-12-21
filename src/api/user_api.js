@@ -21,3 +21,23 @@ export const postSignin = async (obj, resultAction) => {
     console.log(error);
   }
 };
+
+// 로컬스토리지에 login 값 저장
+export const postUser = function (result) {
+  localStorage.setItem("iuser", result);
+  console.log(result);
+};
+
+// 로컬스토리지에 login 값 읽어오기
+export const getUser = function () {
+  const result = localStorage.getItem("iuser");
+  if (result) {
+    console.log("로그인중");
+  }
+  return result;
+};
+
+// 로컬스토리지에 로컬스토리지에 login 값 삭제
+export const deleteUser = function (result) {
+  localStorage.removeItem("iuser");
+};

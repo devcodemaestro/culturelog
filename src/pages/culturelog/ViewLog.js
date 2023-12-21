@@ -26,7 +26,7 @@ const initGetState = {
   star: 0,
 };
 
-const ViewLog = () => {
+const ViewLog = ({ loginCheck }) => {
   // imedia 가져오기
   const params = useParams();
   // iuser 가져오기
@@ -65,6 +65,7 @@ const ViewLog = () => {
   };
 
   useEffect(() => {
+    loginCheck();
     getDetailMedia(params.imedia, iuser, setViewData);
   }, []);
 
@@ -123,13 +124,13 @@ const ViewLog = () => {
               <dl>
                 <dt>장르</dt>
                 <dd>
-                  {viewData.genrepk === 1
+                  {viewData.genrePk === 1
                     ? "영화"
-                    : viewData.genrepk === 2
+                    : viewData.genrePk === 2
                     ? "드라마"
-                    : viewData.genrepk === 3
+                    : viewData.genrePk === 3
                     ? "공연"
-                    : viewData.genrepk === 4
+                    : viewData.genrePk === 4
                     ? "기타"
                     : ""}
                 </dd>
