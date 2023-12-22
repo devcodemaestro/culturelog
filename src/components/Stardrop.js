@@ -50,8 +50,8 @@ const StyledMenu = styled(Menu)`
   /* 메뉴에 추가적인 스타일링을 할 수 있습니다. */
 `;
 
-const Stardrop = ({ onChange }) => {
-  const [selectedItem, setSelectedItem] = useState(null);
+const Stardrop = ({ onChange, starpoint }) => {
+  const [selectedItem, setSelectedItem] = useState(starpoint);
 
   const handleMenuClick = value => {
     setSelectedItem(value.key);
@@ -69,9 +69,10 @@ const Stardrop = ({ onChange }) => {
   return (
     <BtDown>
       <Dropdown
+       
         overlay={menu}
         trigger={["click"]}
-        placement="bottomLeft"
+        placement="top"
         arrow
         className="custom-dropdown"
       >

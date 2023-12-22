@@ -19,7 +19,7 @@ import moment from "moment";
 import Upload from "antd/es/upload/Upload";
 import ImgCrop from "antd-img-crop";
 
-const WriteLog = ({ iuser }) => {
+const WriteLog = ({ loginCheck, iuser }) => {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
   const [text, setText] = useState("");
@@ -32,6 +32,7 @@ const WriteLog = ({ iuser }) => {
     e.preventDefault();
     fbUpload();
     fbNow();
+    navigate("/mylog")
   };
 
   const handleDropdownChange = e => {
@@ -130,6 +131,13 @@ const WriteLog = ({ iuser }) => {
 
   // console.log(obj);
 
+  useEffect(()=>{
+    loginCheck();
+  },[])
+
+
+
+
   return (
     <>
       <Header sub={true}>Write Log</Header>
@@ -157,20 +165,10 @@ const WriteLog = ({ iuser }) => {
               </>
             ))}
           </div>
-          <button
-            onClick={() => {
-              fbNow();
-            }}
-          >
-            보여줘
-          </button>
+    
         </div>
         <ImgUrl>
-          <input
-            type="text"
-            placeholder="이미지 URL을 추가해주세요."
-            className="imgurl"
-          ></input>
+  
           <input
             type="text"
             placeholder="제목을 입력하세요."
