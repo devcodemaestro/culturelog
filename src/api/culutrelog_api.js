@@ -3,20 +3,23 @@ import { SERVER_URL } from "./config";
 const path = `${SERVER_URL}/api/media`;
 
 // 메인페이지 가져오기
-export const getMediaAll = async () => {
+export const getMediaAll = async (ym, iuser, getMedia) => {
   try {
-    const res = await axios.get(`${path}`);
-    console.log(res.data);
+    const res = await axios.get(`${path}/ym?ym=${ym}&iuser=${iuser}`);
+    getMedia(res.data);
+    console.log("res.data : ", res.data);
   } catch (error) {
     console.log(error);
   }
 };
 
 // 날짜별 미디어 리스트 가져오기
-export const getDayMedia = async () => {
+export const getDayMedia = async (iuser, matchingData, getDayMedia) => {
   try {
-    const res = await axios.get(`${path}/day?iuser=1&date=1`);
-    console.log(res.data);
+    const res = await axios.get(
+      `${path}/day?iuser=${iuser}&date=${matchingData}`,
+    );
+    getDayMedia(res.data);
   } catch (error) {
     console.log(error);
   }
