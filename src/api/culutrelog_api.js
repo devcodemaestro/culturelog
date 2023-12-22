@@ -62,7 +62,6 @@ export const postMedia = async obj => {
   }
 };
 
-
 // 수정
 export const putMedia = async obj => {
   try {

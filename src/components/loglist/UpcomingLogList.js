@@ -12,10 +12,10 @@ const initUpcomingLog = [
     star: 0,
   },
 ];
-const UpcomingLogList = () => {
+const UpcomingLogList = ({ iuser }) => {
   const [loglist, setLogList] = useState(initUpcomingLog);
   useEffect(() => {
-    getMedia(setLogList, 1, 0);
+    getMedia(setLogList, iuser, 0);
   }, []);
   return (
     <>
@@ -29,7 +29,6 @@ const UpcomingLogList = () => {
             date={item.date}
             star={item.star}
             imedia={item.imedia}
-            iuser={1}
           ></LogListItem>
         ))}
       </LogListWrap>
