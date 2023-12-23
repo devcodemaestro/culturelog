@@ -20,6 +20,7 @@ const LogListItem = ({ on, pic, title, date, star, imedia, iuser }) => {
 
   const calcDDay = targetDate => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0); // 시간 정보를 00:00:00으로 설정
     const target = new Date(targetDate);
     const timeDiff = today - target;
     const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
@@ -31,8 +32,6 @@ const LogListItem = ({ on, pic, title, date, star, imedia, iuser }) => {
     setDDay(dDayValue);
   }, [targetDateStr]);
 
-  const defaultImg = process.env.PUBLIC_URL + "/images/icon_home.svg";
-
   return (
     <LogItem
       onClick={() => {
@@ -40,13 +39,24 @@ const LogListItem = ({ on, pic, title, date, star, imedia, iuser }) => {
       }}
     >
       <LogItemImg>
-        <img
-          className={on === "upcoming" ? "on" : ""}
-          src={pic === "string" ? defaultImg : pic}
-          alt={title}
-        />
+        {pic === "string" ? (
+          <span>
+            이미지 <br />
+            준비중
+          </span>
+        ) : (
+          <img
+            className={on === "upcoming" ? "on" : ""}
+            src={pic}
+            alt={title}
+          />
+        )}
 
-        {on === "upcoming" && <span>{`D${dDay > 0 ? "+" : ""}${dDay}`}</span>}
+        {on === "upcoming" && (
+          <span>{`D${
+            dDay !== 0 ? (dDay > 0 ? "+" : "") + dDay : "-Day"
+          }`}</span>
+        )}
       </LogItemImg>
 
       <LogText>
