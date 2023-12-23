@@ -56,7 +56,7 @@ export const getDetailMedia = async (imedia, iuser, setViewData) => {
 export const postMedia = async obj => {
   try {
     const res = await axios.post(`${path}`, obj);
-    console.log(res.data);
+    postMedia(res.data);
   } catch (error) {
     console.log(error);
   }
@@ -67,7 +67,7 @@ export const postMedia = async obj => {
 export const putMedia = async obj => {
   try {
     const res = await axios.put(`${path}`, obj);
-    console.log(res.data);
+    (res.data);
   } catch (error) {
     console.log(error);
   }
