@@ -17,7 +17,6 @@ const PastLogList = props => {
             date={item.date}
             star={item.star}
             imedia={item.imedia}
-            iuser={1}
           />
         ))}
       </LogListWrap>

@@ -16,17 +16,17 @@ const initLog = [
   },
 ];
 
-const MyLog = () => {
+const MyLog = ({ loginCheck, iuser }) => {
   const [loglist, setLogList] = useState(initLog);
   useEffect(() => {
-    getMedia(setLogList, 1, 1);
+    loginCheck();
+    getMedia(setLogList, iuser, 1);
   }, []);
 
   // 탭 기능
   const [tabClick, setTabClick] = useState(true);
 
   const tabClickOn = _clicked => {
-    // console.log(_flag);
     setTabClick(_clicked);
   };
 
@@ -38,9 +38,13 @@ const MyLog = () => {
       <Header sub={true}>My Log</Header>
       <LogTab tabClick={tabClick} tabClickOn={tabClickOn}></LogTab>
       {tabClick ? (
-        <UpcomingLogList loglist={loglist} />
+        <UpcomingLogList loglist={loglist} iuser={iuser} />
       ) : (
-        <PastLogList totalLogList={totalLogList} loglist={loglist} />
+        <PastLogList
+          totalLogList={totalLogList}
+          loglist={loglist}
+          iuser={iuser}
+        />
       )}
 
       <Footer />

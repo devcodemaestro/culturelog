@@ -231,6 +231,7 @@ const EditLog = ({ iuser, loginCheck }) => {
     });
   }, []);
 
+
   return (
     <>
       <Header sub={true}>Edit Log</Header>
@@ -277,6 +278,7 @@ const EditLog = ({ iuser, loginCheck }) => {
             className="imgurl"
             required
             value={viewData.title}
+
             onChange={e => {
               handleChangeTitle(e);
             }}
@@ -381,7 +383,6 @@ const EditLog = ({ iuser, loginCheck }) => {
           </WarningBox>
         </WarningWrap>
       </form>
-
       <Footer />
     </>
   );

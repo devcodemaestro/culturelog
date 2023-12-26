@@ -21,7 +21,7 @@ import { postMedia } from "../../api/culutrelog_api";
 import { deleteObject } from "firebase/storage";
 import { message } from "antd";
 
-const WriteLog = ({ iuser }) => {
+const WriteLog = ({ loginCheck, iuser }) => {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
   const [text, setText] = useState("");
@@ -29,7 +29,7 @@ const WriteLog = ({ iuser }) => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [star, setStar] = useState({});
-
+  
   const handleDropdownChange = e => {
     setSelectedOption(e.target.value);
   };
@@ -174,6 +174,13 @@ const WriteLog = ({ iuser }) => {
   };
 
   console.log(imageUrls);
+
+  useEffect(()=>{
+    loginCheck();
+  },[])
+
+
+
 
   return (
     <>
