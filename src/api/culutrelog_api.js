@@ -20,7 +20,7 @@ export const getDayMedia = async (iuser, findFullDate, getListMedia) => {
       `${path}/day?iuser=${iuser}&date=${findFullDate}`,
     );
     getListMedia(res.data);
-    console.log("listMedia res.data : ", res.data);
+    // console.log("listMedia res.data : ", res.data);
   } catch (error) {
     console.log("setTodayDate :", error);
   }
