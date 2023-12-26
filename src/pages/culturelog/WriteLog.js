@@ -14,7 +14,6 @@ import Stardrop from "../../components/Stardrop";
 import { useNavigate } from "react-router-dom";
 import { LogTabBt } from "../../styles/ui/logtabstyle";
 import { storage, ref, uploadBytes, getDownloadURL } from "../../fb/fbconfig";
-import moment from "moment";
 import Upload from "antd/es/upload/Upload";
 import ImgCrop from "antd-img-crop";
 import { postMedia } from "../../api/culutrelog_api";
@@ -28,7 +27,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
   const [look, setLook] = useState(false);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const [star, setStar] = useState("");
+  const [star, setStar] = useState({});
 
   const handleDropdownChange = e => {
     setSelectedOption(e.target.value);
@@ -51,9 +50,8 @@ const WriteLog = ({ loginCheck, iuser }) => {
   };
   const handleChangeStar = value => {
     setStar(value);
-    console.log(star);
   };
-  const starpoint = Number(star.key);
+
   const [fileList, setFileList] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
 
@@ -136,10 +134,9 @@ const WriteLog = ({ loginCheck, iuser }) => {
       await deleteObject(storageRef);
 
       // 이미지 URL 배열에서 삭제된 파일명 필터링
-      const getName = encodeURIComponent(`${deletedFileName}`);
+      const getName = encodeURIComponent(`images/${deletedFileName}`);
 
       const filteredImageUrls = imageUrls.filter(url => !url.includes(getName));
-      console.log(getName);
       console.log(filteredImageUrls);
       setImageUrls(filteredImageUrls);
 
@@ -160,7 +157,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
       title: title,
       date: date,
       comment: text,
-      star: isNaN(starpoint) ? 0 : starpoint,
+      star: isNaN(star) ? 0 : star,
       isSaw: look ? 1 : 0,
       pics: imageUrls,
     };
@@ -177,6 +174,8 @@ const WriteLog = ({ loginCheck, iuser }) => {
     };
     postMedia(obj, resultAction);
   };
+
+  console.log(imageUrls);
 
   useEffect(() => {
     loginCheck();
@@ -262,8 +261,8 @@ const WriteLog = ({ loginCheck, iuser }) => {
           <>
             <StarRate>
               <Stardrop
-                onChange={aaa => {
-                  handleChangeStar(aaa);
+                onChange={value => {
+                  handleChangeStar(value);
                 }}
               />
             </StarRate>
