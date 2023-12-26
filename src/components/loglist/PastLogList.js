@@ -2,13 +2,17 @@ import { LogListWrap, LogTotal } from "../../styles/ui/logliststyle";
 import LogListItem from "./LogListItem";
 
 const PastLogList = ({ totalLogList, loglist, iuser }) => {
+  const sortedLogList = loglist
+    .slice()
+    .sort((first, last) => new Date(last.date) - new Date(first.date));
+
   return (
     <>
       <LogTotal>
         총 기록 <em>{totalLogList}</em> 건
       </LogTotal>
       <LogListWrap>
-        {loglist.map(item => (
+        {sortedLogList.map(item => (
           <LogListItem
             on="past"
             key={item.imedia}
