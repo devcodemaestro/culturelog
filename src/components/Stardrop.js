@@ -46,26 +46,21 @@ const items = [
   },
 ];
 
-const StyledMenu = styled(Menu)`
-  /* 메뉴에 추가적인 스타일링을 할 수 있습니다. */
-`;
-
-const Stardrop = ({ onChange }) => {
-  const [selectedItem, setSelectedItem] = useState(null);
+const Stardrop = ({ onChange, valueStar }) => {
+  const [selectedItem, setSelectedItem] = useState(valueStar);
 
   const handleMenuClick = value => {
     setSelectedItem(value.key);
-    onChange(value);
+    onChange(Number(value.key));
   };
 
   const menu = (
-    <StyledMenu onClick={handleMenuClick}>
+    <Menu onClick={handleMenuClick}>
       {items.map(item => (
         <Menu.Item key={item.key}>{item.label}</Menu.Item>
       ))}
-    </StyledMenu>
+    </Menu>
   );
-
   return (
     <BtDown>
       <Dropdown
@@ -76,9 +71,11 @@ const Stardrop = ({ onChange }) => {
         className="custom-dropdown"
       >
         <Button>
-          {selectedItem
-            ? items.find(item => item.key === selectedItem)?.label
-            : "평점"}
+          {selectedItem || valueStar ? (
+            <Star num={selectedItem || valueStar} />
+          ) : (
+            "평점"
+          )}
         </Button>
       </Dropdown>
     </BtDown>

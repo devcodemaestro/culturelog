@@ -43,6 +43,7 @@ export const getDetailMedia = async (imedia, iuser, setViewData) => {
   try {
     // http://192.168.0.144:5211/api/media/0?iuser=0
     const res = await axios.get(`${path}/${imedia}?iuser=${iuser}`);
+    // const res = await axios.get(`/getview.json`);
     setViewData(res.data);
     console.log(res.data);
   } catch (error) {
@@ -53,23 +54,23 @@ export const getDetailMedia = async (imedia, iuser, setViewData) => {
 };
 
 // 로그 등록
-export const postMedia = async obj => {
+export const postMedia = async (obj, resultAction) => {
   try {
     const res = await axios.post(`${path}`, obj);
-    console.log(res.data);
+    resultAction(res.data.result);
   } catch (error) {
-    console.log(error);
+    resultAction(error);
   }
 };
 
-
 // 수정
-export const putMedia = async obj => {
+export const putMedia = async (obj, resultAction) => {
   try {
     const res = await axios.put(`${path}`, obj);
-    console.log(res.data);
+    // const res = await axios.get(`/getview.json`, obj);
+    resultAction(res.data.result);
   } catch (error) {
-    console.log(error);
+    resultAction(error);
   }
 };
 

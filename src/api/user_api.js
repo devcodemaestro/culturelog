@@ -31,9 +31,9 @@ export const postUser = function (result) {
 // 로컬스토리지에 login 값 읽어오기
 export const getUser = function () {
   const result = localStorage.getItem("iuser");
-  if (result) {
-    console.log("로그인중");
-  }
+  // if (result) {
+  //   console.log("로그인중");
+  // }
   return result;
 };
 
