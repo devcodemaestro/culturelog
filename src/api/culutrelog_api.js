@@ -14,12 +14,12 @@ export const getMediaAll = async (ym, iuser, getMainInfo) => {
 };
 
 // 날짜별 미디어 리스트 가져오기
-export const getDayMedia = async (iuser, findFullDate, getListMedia) => {
+export const getDayMedia = async (iuser, findFullDate, setListMedia) => {
   try {
     const res = await axios.get(
       `${path}/day?iuser=${iuser}&date=${findFullDate}`,
     );
-    getListMedia(res.data);
+    setListMedia(res.data);
     // console.log("listMedia res.data : ", res.data);
   } catch (error) {
     console.log("setTodayDate :", error);

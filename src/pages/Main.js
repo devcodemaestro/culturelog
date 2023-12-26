@@ -78,11 +78,15 @@ const Main = ({ loginCheck, iuser }) => {
   // }, [ym]);
 
   // 오늘의 년/월일 상태 추가
-  useEffect(() => {
-    const ClickedDate = listMedia;
-    ClickedDate && ClickedDate.length > 0 ? setOpen(true) : setOpen(false);
-  }, [listMedia]);
+  // useEffect(() => {
+  //   const ClickedDate = listMedia;
+  //   ClickedDate && ClickedDate.length > 0 ? setOpen(true) : setOpen(false);
+  // }, [listMedia]);
   // const isToday = dayjs().isSame(value, "date");
+
+  // useEffect(() => {
+  //   getDayMedia(7, findFullDate, setListMedia);
+  // }, [findFullDate]);
 
   // 캘린더 json과 연동해 첫 이미지 표시하는 기능.
   const dateCellRender = value => {
@@ -122,7 +126,7 @@ const Main = ({ loginCheck, iuser }) => {
           }
 
           .ant-picker-cell[title="${dateString}"] {
-            background-image: url(${result ? result.pic : ""});
+            background-image: url(${result ? `"${result.pic}"` : ""});
             background-size: cover;
             background-repeat: no-repeat;
 
@@ -140,32 +144,30 @@ const Main = ({ loginCheck, iuser }) => {
   };
 
   // 하단 Drawer 영역
+  // const handleSelect = value => {
+  //   const dateString = value.format("YYYY-MM-DD");
+  //   console.log("findFullDate :", dateString);
+
+  //   // 비동기적으로 데이터를 가져오고, 데이터가 업데이트되면 listMedia 상태를 업데이트
+  useEffect(() => {
+    getDayMedia(7, findFullDate, setListMedia);
+  }, [findFullDate]);
+
   const handleSelect = value => {
     const dateString = value.format("YYYY-MM-DD");
-    console.log("findFullDate :", dateString);
-
-    // 비동기적으로 데이터를 가져오고, 데이터가 업데이트되면 listMedia 상태를 업데이트
-    getDayMedia(7, dateString, setListMedia);
     setFindFullDate(dateString);
+    getDayMedia(7, findFullDate, setListMedia);
   };
-  // const handleSelect = value => {
-  //   let select = value.format("YYYY-MM-DD");
 
-  //   // 클릭한 날짜에 데이터가 있는지 비교해서 ClickedDate 담음.
-  //   const ClickedDate = mainInfo.filter(media =>
-  //     dayjs(media.date).isSame(value, "date"),
-  //   );
-  //   console.log("ClickedDate :", ClickedDate);
-  //   if (ClickedDate.length === 0) {
-  //     // matchingData가 없으면 Drawer를 열지 않음
-  //     setOpen(false);
-  //     // navigate(`/culturelog/write/${useParams.imedia}?iuser=${iuser}`);
-  //   } else {
-  //     setMatchingData(ClickedDate);
-  //     setOpen(true);
-  //   }
-  //   console.log("listMedia :", listMedia);
-  // };
+  useEffect(() => {
+    if (listMedia.length === 0) {
+      // matchingData가 없으면 Drawer를 열지 않음
+      setOpen(false);
+      // navigate(`/culturelog/write/${useParams.imedia}?iuser=${iuser}`);
+    } else {
+      setOpen(true);
+    }
+  }, [listMedia]); // findFullDate와 listMedia를 의존성으로 추가
 
   // Drawer 닫기 핸들러
   const handleCloseDrawer = () => {
@@ -184,27 +186,21 @@ const Main = ({ loginCheck, iuser }) => {
     >
       {listMedia ? (
         <List
+          key={listMedia.imedia}
           itemLayout="horizontal"
           dataSource={listMedia}
           pagination={{ position: "top", align: "center", pageSize: 3 }}
           renderItem={(item, index) => (
-            <Link
-              key={listMedia.imedia}
-              to={`culturelog/view/${listMedia.imedia}?iuser=1`}
-            >
+            <Link to={`culturelog/view/${item.imedia}?iuser=7`}>
               <List.Item
-                extra={
-                  <Button type="text" className="list-button">
-                    더보기
-                  </Button>
-                }
+                extra={<Button type="text">더보기</Button>}
                 className="list-item"
                 key={index}
               >
                 <List.Item.Meta
-                  avatar={<Avatar src={listMedia.pic} />}
-                  title={listMedia.title}
-                  description={listMedia.date}
+                  avatar={<Avatar shape="square" size="large" src={item.pic} />}
+                  title={item.title}
+                  description={item.date}
                 />
               </List.Item>
             </Link>
@@ -242,7 +238,6 @@ const Main = ({ loginCheck, iuser }) => {
     </Drawer>
   );
 
-  console.log("alsdkj listMedia :", listMedia);
   const decrementMonth = value => value.subtract(1, "month");
   const incrementMonth = value => value.add(1, "month");
 
@@ -324,7 +319,7 @@ const Main = ({ loginCheck, iuser }) => {
         />
         <Footer></Footer>
         <DrawerContent
-          matchingData={listMedia}
+          listMedia={listMedia}
           onCloseDrawer={handleCloseDrawer}
         />
       </ConfigProvider>
