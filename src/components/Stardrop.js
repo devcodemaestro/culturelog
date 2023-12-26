@@ -49,7 +49,6 @@ const items = [
 const Stardrop = ({ onChange, valueStar }) => {
   const [selectedItem, setSelectedItem] = useState(valueStar);
 
-
   const handleMenuClick = value => {
     setSelectedItem(value.key);
     onChange(Number(value.key));
@@ -65,7 +64,6 @@ const Stardrop = ({ onChange, valueStar }) => {
   return (
     <BtDown>
       <Dropdown
-       
         overlay={menu}
         trigger={["click"]}
         placement="top"

@@ -152,16 +152,27 @@ const EditLog = ({ iuser, loginCheck }) => {
   };
   // 이미지 삭제
   const handleRemove = async file => {
+    console.log("삭제", file);
     try {
-      const deletedFileName = `culturelog_${file.name}`;
+      // DB 저장된 파일명
+      const deletedFileName = `${file.name}`;
 
+      // FB 저장된 파일명
+      const deletedFileNameFB = deletedFileName.replace("%2F", "/");
+      console.log("수정 진행중 deletedFileName ", deletedFileNameFB);
       // Firebase Storage에서 파일 삭제
-      const storageRef = ref(storage, `images/${deletedFileName}`);
-      await deleteObject(storageRef);
+      const storageRef = ref(storage, `${deletedFileNameFB}`);
+      // await deleteObject(storageRef);
 
       // 이미지 URL 배열에서 삭제된 파일명 필터링
-      const getName = encodeURIComponent(`images/${deletedFileName}`);
-      const filteredImageUrls = imageUrls.filter(url => !url.includes(getName));
+      // const getName = encodeURIComponent(`${deletedFileName}`);
+      // 현재 어느 이미지를 지울지 순서 체크
+      // 현재 선택된 파일멸을 가지고서 인덱스 번호를 찾고 그번호를 전달ㅎ
+      // 배열을 돌면서
+      const filteredImageUrls = imageUrls.filter(
+        url => !url.includes(deletedFileName),
+      );
+
       console.log(filteredImageUrls);
       setImageUrls(filteredImageUrls);
 
@@ -231,7 +242,6 @@ const EditLog = ({ iuser, loginCheck }) => {
     });
   }, []);
 
-
   return (
     <>
       <Header sub={true}>Edit Log</Header>
@@ -278,7 +288,6 @@ const EditLog = ({ iuser, loginCheck }) => {
             className="imgurl"
             required
             value={viewData.title}
-
             onChange={e => {
               handleChangeTitle(e);
             }}

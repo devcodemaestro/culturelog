@@ -29,6 +29,7 @@ const UpcomingLogList = ({ iuser }) => {
             date={item.date}
             star={item.star}
             imedia={item.imedia}
+            iuser={iuser}
           ></LogListItem>
         ))}
       </LogListWrap>
