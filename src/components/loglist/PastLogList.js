@@ -5,6 +5,7 @@ const PastLogList = ({ totalLogList, loglist, iuser }) => {
   const sortedLogList = loglist
     .slice()
     .sort((first, last) => new Date(last.date) - new Date(first.date));
+
   return (
     <>
       <LogTotal>

@@ -28,8 +28,8 @@ const WriteLog = ({ loginCheck, iuser }) => {
   const [look, setLook] = useState(false);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const [star, setStar] = useState({});
-  
+  const [star, setStar] = useState("");
+
   const handleDropdownChange = e => {
     setSelectedOption(e.target.value);
   };
@@ -51,6 +51,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
   };
   const handleChangeStar = value => {
     setStar(value);
+    console.log(star);
   };
   const starpoint = Number(star.key);
   const [fileList, setFileList] = useState([]);
@@ -104,6 +105,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
             await uploadBytes(storageRef, resizedFile);
 
             const downloadURL = await getDownloadURL(storageRef);
+            console.log("downloadURL : ", downloadURL);
             setImageUrls(prevUrls => [...prevUrls, downloadURL]);
 
             const newFile = {
@@ -126,15 +128,18 @@ const WriteLog = ({ loginCheck, iuser }) => {
 
   const handleRemove = async file => {
     try {
-      const deletedFileName = `culturelog_${file.name}`;
+      const deletedFileName = `images/culturelog_${file.name}`;
+      console.log("쓰기 진행 중 deletedFileName ", deletedFileName);
 
       // Firebase Storage에서 파일 삭제
-      const storageRef = ref(storage, `images/${deletedFileName}`);
+      const storageRef = ref(storage, `${deletedFileName}`);
       await deleteObject(storageRef);
 
       // 이미지 URL 배열에서 삭제된 파일명 필터링
-      const getName = encodeURIComponent(`images/${deletedFileName}`);
+      const getName = encodeURIComponent(`${deletedFileName}`);
+
       const filteredImageUrls = imageUrls.filter(url => !url.includes(getName));
+      console.log(getName);
       console.log(filteredImageUrls);
       setImageUrls(filteredImageUrls);
 
@@ -173,14 +178,9 @@ const WriteLog = ({ loginCheck, iuser }) => {
     postMedia(obj, resultAction);
   };
 
-  console.log(imageUrls);
-
-  useEffect(()=>{
+  useEffect(() => {
     loginCheck();
-  },[])
-
-
-
+  }, []);
 
   return (
     <>
@@ -262,8 +262,8 @@ const WriteLog = ({ loginCheck, iuser }) => {
           <>
             <StarRate>
               <Stardrop
-                onChange={value => {
-                  handleChangeStar(value);
+                onChange={aaa => {
+                  handleChangeStar(aaa);
                 }}
               />
             </StarRate>

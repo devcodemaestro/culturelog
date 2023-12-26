@@ -6,11 +6,10 @@ const Star = ({ num, width }) => {
   const StarWrap = styled.div`
     overflow: hidden;
     width: ${starView};
-
+    zoom: ${width ? "0.8" : "1"};
     .point-star {
       z-index: 10;
-      height: 19px;
-      width: ${width ? width : "100"}px;
+      width: 100px;
     }
   `;
   return (
