@@ -64,10 +64,10 @@ const Main = ({ loginCheck, iuser }) => {
   const [imageUrl, setImageUrl] = useState([]);
 
   // List에 담아줄 데이터 변수 - 현재 listMedia는 빈 배열
-  const [listMedia, getListMedia] = useState([]);
+  const [listMedia, setListMedia] = useState([]);
 
   // 선택한 날짜. ex 2023-12-22
-  const [findFullDate, setfindFullDate] = useState(
+  const [findFullDate, setFindFullDate] = useState(
     dayjs().format("YYYY-MM-DD"),
   );
 
@@ -79,10 +79,9 @@ const Main = ({ loginCheck, iuser }) => {
 
   // 오늘의 년/월일 상태 추가
   useEffect(() => {
-    loginCheck();
-    getDayMedia(7, findFullDate, getListMedia);
-  }, [findFullDate]);
-
+    const ClickedDate = listMedia;
+    ClickedDate && ClickedDate.length > 0 ? setOpen(true) : setOpen(false);
+  }, [listMedia]);
   // const isToday = dayjs().isSame(value, "date");
 
   // 캘린더 json과 연동해 첫 이미지 표시하는 기능.
@@ -142,21 +141,12 @@ const Main = ({ loginCheck, iuser }) => {
 
   // 하단 Drawer 영역
   const handleSelect = value => {
-    // setfindFullDate(value.format("YYYY-MM-DD"));
     const dateString = value.format("YYYY-MM-DD");
-    // 바로 담지 말고 땡겨쓰기.
     console.log("findFullDate :", dateString);
-    getDayMedia(7, dateString, getListMedia);
-    const ClickedDate = listMedia;
-    console.log("ClickedDate :", listMedia);
-    if (ClickedDate === 0) {
-      // matchingData가 없으면 Drawer를 열지 않음
-      setOpen(false);
-      // navigate(`/culturelog/write/${useParams.imedia}?iuser=${iuser}`);
-    } else {
-      setOpen(true);
-    }
-    // console.log("listMedia :", listMedia);
+
+    // 비동기적으로 데이터를 가져오고, 데이터가 업데이트되면 listMedia 상태를 업데이트
+    getDayMedia(7, dateString, setListMedia);
+    setFindFullDate(dateString);
   };
   // const handleSelect = value => {
   //   let select = value.format("YYYY-MM-DD");
@@ -192,15 +182,15 @@ const Main = ({ loginCheck, iuser }) => {
       getContainer={false}
       height="50%"
     >
-      {getDayMedia ? (
+      {listMedia ? (
         <List
           itemLayout="horizontal"
           dataSource={listMedia}
           pagination={{ position: "top", align: "center", pageSize: 3 }}
           renderItem={(item, index) => (
             <Link
-              key={item.imedia}
-              to={`culturelog/view/${item.imedia}?iuser=1`}
+              key={listMedia.imedia}
+              to={`culturelog/view/${listMedia.imedia}?iuser=1`}
             >
               <List.Item
                 extra={
@@ -212,9 +202,9 @@ const Main = ({ loginCheck, iuser }) => {
                 key={index}
               >
                 <List.Item.Meta
-                  avatar={<Avatar src={item.pic} />}
-                  title={item.title}
-                  description={item.date}
+                  avatar={<Avatar src={listMedia.pic} />}
+                  title={listMedia.title}
+                  description={listMedia.date}
                 />
               </List.Item>
             </Link>
@@ -225,33 +215,34 @@ const Main = ({ loginCheck, iuser }) => {
       )}
       <style>
         {`
-    .list-item {
-      transition: background-color 0.3s;
-      cursor: pointer;
-    }
+          .list-item {
+            transition: background-color 0.3s;
+            cursor: pointer;
+          }
 
-    .list-item:hover {
-      background-color: #f0f0f0; /* 원하는 hover 시 배경색 */
-    }
+          .list-item:hover {
+            background-color: #f0f0f0; /* 원하는 hover 시 배경색 */
+          }
 
-    .list-item:active {
-      background-color: #d9d9d9; /* 원하는 click 시 배경색 */
-    }
+          .list-item:active {
+            background-color: #d9d9d9; /* 원하는 click 시 배경색 */
+          }
 
-    .list-item:hover .list-button,
-    .list-item:active .list-button {
-      background-color: #1890ff; /* 원하는 hover 및 click 시 배경색 */
-      color: #fff; /* 원하는 hover 및 click 시 텍스트 색상 */
-    }
+          .list-item:hover .list-button,
+          .list-item:active .list-button {
+            background-color: #1890ff; /* 원하는 hover 및 click 시 배경색 */
+            color: #fff; /* 원하는 hover 및 click 시 텍스트 색상 */
+          }
 
-    :where(.css-dev-only-do-not-override-x4zgyu).ant-drawer .ant-drawer-body{
-      padding:0 24px;
-    }
-  `}
+          :where(.css-dev-only-do-not-override-x4zgyu).ant-drawer .ant-drawer-body{
+            padding:0 24px;
+          }
+        `}
       </style>
     </Drawer>
   );
 
+  console.log("alsdkj listMedia :", listMedia);
   const decrementMonth = value => value.subtract(1, "month");
   const incrementMonth = value => value.add(1, "month");
 
