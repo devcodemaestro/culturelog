@@ -8,6 +8,7 @@ import locale from "antd/es/date-picker/locale/ko_KR";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { getDayMedia, getMediaAll } from "../api/culutrelog_api";
+import { MainWrap } from "../styles/basic";
 
 const Main = ({ loginCheck, iuser }) => {
   // 패널 변경시 오늘의 연/월일
@@ -69,13 +70,16 @@ const Main = ({ loginCheck, iuser }) => {
           <div
             style={{
               position: "absolute",
-              bottom: 0,
+              bottom: "5px",
               right: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.8)",
-              color: "yellow",
-              padding: "2px 6px",
-              borderRadius: "4px",
-              // background: "transparent",
+              width: "2rem",
+              height: "2rem",
+              background: "rgba(39, 63, 124, 0.6)",
+              color: "#fff",
+              fontSize: "1.2rem",
+              borderRadius: "50%",
+              lineHeight: "2rem",
+              textAlign: "center",
             }}
           >
             {result.mediaCnt}
@@ -203,6 +207,7 @@ const Main = ({ loginCheck, iuser }) => {
           :where(.css-dev-only-do-not-override-x4zgyu).ant-drawer .ant-drawer-body{
             padding:0 24px;
           }
+          
         `}
       </style>
     </Drawer>
@@ -223,25 +228,37 @@ const Main = ({ loginCheck, iuser }) => {
     <div
       style={{
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
-        margin: "20px 0px",
+        margin: "30px 0px 15px",
       }}
     >
       <Button
         onClick={() => onChange(handleCalendarChange("prev", value))}
-        icon={<LeftOutlined />}
+        icon={
+          <img
+            src={process.env.PUBLIC_URL + "/images/slide_btn_prev.svg"}
+            alt="이전"
+          />
+        }
         shape="circle"
         size="small"
+        style={{ border: 0 }}
       />
       <div style={{ fontSize: "16px", margin: "0 16px" }}>
         {dayjs(value).format("YYYY년 MM월")}
       </div>
       <Button
         onClick={() => onChange(handleCalendarChange("next", value))}
-        icon={<RightOutlined />}
+        icon={
+          <img
+            src={process.env.PUBLIC_URL + "/images/slide_btn_next.svg"}
+            alt="다음"
+          />
+        }
         shape="circle"
         size="small"
+        style={{ border: 0 }}
       />
     </div>
   );
@@ -265,6 +282,7 @@ const Main = ({ loginCheck, iuser }) => {
     fetchData();
   }, [panelDate]);
   // 디자인 토큰으로 상세 css 설정 하는 영역
+
   return (
     <>
       <ConfigProvider
@@ -291,14 +309,16 @@ const Main = ({ loginCheck, iuser }) => {
         }}
       >
         <Header sub={false}>Culture Log</Header>
-        <Calendar
-          defaultValue={dayjs()}
-          onPanelChange={onPanelChange}
-          locale={locale}
-          onSelect={handleSelect}
-          cellRender={dateCellRender}
-          headerRender={renderCalendarHeader}
-        />
+        <MainWrap>
+          <Calendar
+            defaultValue={dayjs()}
+            onPanelChange={onPanelChange}
+            locale={locale}
+            onSelect={handleSelect}
+            cellRender={dateCellRender}
+            headerRender={renderCalendarHeader}
+          />
+        </MainWrap>
         <Footer></Footer>
         <DrawerContent
           listMedia={listMedia}

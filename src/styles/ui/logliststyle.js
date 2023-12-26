@@ -16,6 +16,8 @@ export const LogTotal = styled.div`
 export const LogListWrap = styled.ul`
   margin-top: 10px;
   width: 100%;
+  max-height: 58vh;
+  overflow-y: auto;
 `;
 export const LogItem = styled.li`
   height: 90px;

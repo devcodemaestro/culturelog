@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { colors, shadow } from "./basic";
+import { animationFadeIn, animationFadeUp } from "./animation";
 
 export const LoginWrap = styled.div`
   position: absolute;
@@ -18,6 +19,9 @@ export const LoginWrap = styled.div`
 `;
 export const LoginLogo = styled.div`
   margin-bottom: 30px;
+
+  animation: ${animationFadeUp} 0.8s ease-in-out;
+
   p {
     font-size: 1.4rem;
     color: ${colors.gray};
@@ -25,6 +29,8 @@ export const LoginLogo = styled.div`
   }
 `;
 export const LoginInput = styled.div`
+  animation: ${animationFadeUp} 0.8s ease-in-out;
+
   input {
     width: 313px;
     height: 38px;

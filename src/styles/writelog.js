@@ -97,6 +97,7 @@ export const Loadicon = styled.div`
   margin-top: 2rem;
   width: 100%;
   height: 46px;
+  font-size: 1.4rem;
   .londing {
     display: flex;
     align-items: center;

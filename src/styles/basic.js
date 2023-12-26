@@ -31,6 +31,7 @@ export const Wrap = styled.div`
   overflow-x: auto;
   margin: 0 auto;
   padding: 6rem 1.5% 16rem;
+  background: #fff;
 
   input,
   textarea {
@@ -149,7 +150,7 @@ export const FooterCopyRight = styled.div`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 9rem;
+  bottom: 10rem;
   text-align: center;
   small {
     display: block;
@@ -169,5 +170,37 @@ export const FooterCopyRight = styled.div`
       border-color: ${colors.gray};
       color: ${colors.gray};
     }
+  }
+`;
+
+// 메인
+
+export const MainWrap = styled.main`
+  position: relative;
+  * {
+    font-family: "Hahmlet", "Noto Sans KR", "Segoe UI", Tahoma, Geneva, Verdana,
+      sans-serif;
+  }
+  .ant-picker-calendar.ant-picker-calendar-full .ant-picker-calendar-date {
+    height: 80px !important;
+  }
+  .ant-picker-calendar.ant-picker-calendar-full
+    .ant-picker-panel
+    .ant-picker-body {
+    font-size: 1.2rem;
+  }
+  .ant-picker-calendar.ant-picker-calendar-full
+    .ant-picker-panel
+    .ant-picker-body
+    th {
+    padding: 15px 0;
+    text-align: center !important;
+  }
+  .ant-picker-calendar.ant-picker-calendar-full
+    .ant-picker-panel
+    .ant-picker-body
+    td {
+    padding: 0;
+    text-align: center !important;
   }
 `;

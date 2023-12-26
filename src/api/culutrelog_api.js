@@ -1,5 +1,6 @@
 import axios from "axios";
 import { SERVER_URL } from "./config";
+import { useNavigate } from "react-router";
 const path = `${SERVER_URL}/api/media`;
 
 // 메인페이지 가져오기
@@ -40,17 +41,17 @@ export const getMedia = async (setLogList, iuser, is_saw) => {
 };
 
 // 로그 뷰(상세) 가져오기
-export const getDetailMedia = async (imedia, iuser, setViewData) => {
+export const getDetailMedia = async (imedia, iuser, setViewData, errorPage) => {
   try {
     // http://192.168.0.144:5211/api/media/0?iuser=0
     const res = await axios.get(`${path}/${imedia}?iuser=${iuser}`);
     // const res = await axios.get(`/getview.json`);
     setViewData(res.data);
-    console.log(res.data);
   } catch (error) {
-    const demo = await axios.get(`/getview.json`);
-    setViewData(demo.data);
-    alert("정보를 가져오지 못했습니다. \n임시데이터로 출력됩니다.");
+    // const demo = await axios.get(`/getview.json`);
+    // setViewData(demo.data);
+    // alert("정보를 가져오지 못했습니다. \n임시데이터로 출력됩니다.");
+    errorPage(error);
   }
 };
 

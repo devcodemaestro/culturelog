@@ -66,7 +66,13 @@ const ViewLog = ({ loginCheck }) => {
 
   useEffect(() => {
     loginCheck();
-    getDetailMedia(params.imedia, iuser, setViewData);
+    const errorPage = error => {
+      const name = error.name;
+      const message = error.message;
+      navigate(`/error?name=${name}&message=${message}`);
+      return;
+    };
+    getDetailMedia(params.imedia, iuser, setViewData, errorPage);
   }, []);
 
   return (

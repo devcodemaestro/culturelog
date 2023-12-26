@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import UpcomingLogList from "../../components/loglist/UpcomingLogList";
 import PastLogList from "../../components/loglist/PastLogList";
 import { getMedia } from "../../api/culutrelog_api";
+import styled from "@emotion/styled";
 
 const initLog = [
   {
@@ -33,20 +34,25 @@ const MyLog = ({ loginCheck, iuser }) => {
   const totalLogList = loglist.length;
   // console.log(tabClick);
 
+  const MyLogWrap = styled.div`
+    position: relative;
+  `;
+
   return (
     <>
       <Header sub={true}>My Log</Header>
-      <LogTab tabClick={tabClick} tabClickOn={tabClickOn}></LogTab>
-      {tabClick ? (
-        <UpcomingLogList loglist={loglist} iuser={iuser} />
-      ) : (
-        <PastLogList
-          totalLogList={totalLogList}
-          loglist={loglist}
-          iuser={iuser}
-        />
-      )}
-
+      <MyLogWrap>
+        <LogTab tabClick={tabClick} tabClickOn={tabClickOn}></LogTab>
+        {tabClick ? (
+          <UpcomingLogList loglist={loglist} iuser={iuser} />
+        ) : (
+          <PastLogList
+            totalLogList={totalLogList}
+            loglist={loglist}
+            iuser={iuser}
+          />
+        )}
+      </MyLogWrap>
       <Footer />
     </>
   );

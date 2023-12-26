@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import SignUp from "./pages/SignUp";
 import Error from "./pages/Error";
 import { getUser } from "./api/user_api";
-function App() {
+const App = () => {
   const navigate = useNavigate();
   const [iuser, setIuser] = useState(getUser());
   const [password, setPassword] = useState("1111");
@@ -85,6 +85,6 @@ function App() {
       </Routes>
     </Wrap>
   );
-}
+};
 
 export default App;
