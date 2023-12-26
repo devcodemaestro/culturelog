@@ -311,8 +311,10 @@ const EditLog = ({ iuser, loginCheck }) => {
             <select
               required
               id="dropdown"
-              defaultValue={selectedOption}
-              onChange={handleDropdownChange}
+              value={viewData.genrePk}
+              onChange={e => {
+                handleDropdownChange(e);
+              }}
             >
               <option value="0" disabled>
                 장르

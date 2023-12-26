@@ -160,7 +160,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
       title: title,
       date: date,
       comment: text,
-      star: isNaN(starpoint) ? 0 : starpoint,
+      star: isNaN(star) ? 0 : star,
       isSaw: look ? 1 : 0,
       pics: imageUrls,
     };
@@ -176,12 +176,12 @@ const WriteLog = ({ loginCheck, iuser }) => {
       }
     };
     postMedia(obj, resultAction);
+    // console.log(obj);
   };
 
   useEffect(() => {
     loginCheck();
   }, []);
-
   return (
     <>
       <Header sub={true}>Write Log</Header>
@@ -253,7 +253,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
               <option value="0">장르</option>
               <option value="1">영화</option>
               <option value="2">드라마</option>
-              <option value="3">뮤지컬</option>
+              <option value="3">공연</option>
               <option value="4">기타</option>
             </select>
           </label>
@@ -262,8 +262,8 @@ const WriteLog = ({ loginCheck, iuser }) => {
           <>
             <StarRate>
               <Stardrop
-                onChange={aaa => {
-                  handleChangeStar(aaa);
+                onChange={value => {
+                  handleChangeStar(value);
                 }}
               />
             </StarRate>

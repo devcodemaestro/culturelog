@@ -1,18 +1,14 @@
 import { LogListWrap, LogTotal } from "../../styles/ui/logliststyle";
 import LogListItem from "./LogListItem";
 
-const PastLogList = ({ totalLogList, loglist, iuser }) => {
-  const sortedLogList = loglist
-    .slice()
-    .sort((first, last) => new Date(last.date) - new Date(first.date));
-
+const PastLogList = props => {
   return (
     <>
       <LogTotal>
-        총 기록 <em>{totalLogList}</em> 건
+        총 기록 <em>{props.totalLogList}</em> 건
       </LogTotal>
       <LogListWrap>
-        {sortedLogList.map(item => (
+        {props.loglist.map(item => (
           <LogListItem
             on="past"
             key={item.imedia}
@@ -21,7 +17,6 @@ const PastLogList = ({ totalLogList, loglist, iuser }) => {
             date={item.date}
             star={item.star}
             imedia={item.imedia}
-            iuser={iuser}
           />
         ))}
       </LogListWrap>

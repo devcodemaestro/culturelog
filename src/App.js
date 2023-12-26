@@ -20,6 +20,7 @@ function App() {
   const [password, setPassword] = useState("1111");
   const loginCheck = () => {
     const loginUser = getUser();
+    setIuser(loginUser);
     if (!loginUser) {
       alert("로그인 후 이용해주세요.");
       navigate("/login");

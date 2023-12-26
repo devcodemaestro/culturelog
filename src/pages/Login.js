@@ -30,7 +30,7 @@ const Login = () => {
         return;
       } else {
         postUser(result);
-        navigate("/");
+        navigate("/intro");
         return;
       }
     };

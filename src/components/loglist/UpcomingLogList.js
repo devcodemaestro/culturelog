@@ -17,13 +17,10 @@ const UpcomingLogList = ({ iuser }) => {
   useEffect(() => {
     getMedia(setLogList, iuser, 0);
   }, []);
-  const sortedLogList = loglist
-    .slice()
-    .sort((first, last) => new Date(last.date) - new Date(first.date));
   return (
     <>
       <LogListWrap>
-        {sortedLogList.map(item => (
+        {loglist.map(item => (
           <LogListItem
             on="upcoming"
             key={item.imedia}
@@ -32,7 +29,6 @@ const UpcomingLogList = ({ iuser }) => {
             date={item.date}
             star={item.star}
             imedia={item.imedia}
-            iuser={iuser}
           ></LogListItem>
         ))}
       </LogListWrap>
