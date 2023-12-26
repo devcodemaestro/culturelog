@@ -7,128 +7,85 @@ import dayjs from "dayjs";
 import locale from "antd/es/date-picker/locale/ko_KR";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { getMediaAll } from "../api/culutrelog_api";
+import { getDayMedia, getMediaAll } from "../api/culutrelog_api";
 
-// JSON 테스트용 데이터
-// const jsonData = [
-//   {
-//     imedia: 1,
-//     title: "이게 바로 제목입니다.",
-//     comment: "이게 바로 코멘트 입니다.",
-//     date: "2023-12-28",
-//     isSaw: 0,
-//     genrePk: 1,
-//     star: 8,
-//     pics: [
-//       "https://img.wowtv.co.kr/wowtv_news/dnrs/20230720/2023072008522607175d3244b4fed182172185139.jpg",
-//     ],
-//   },
-//   {
-//     imedia: 2,
-//     title: "양갱",
-//     comment: "string",
-//     date: "2023-12-15",
-//     isSaw: 1,
-//     genrePk: 1,
-//     star: 0,
-//     pics: [
-//       "https://img.imbc.com/template/2023/07/program_91d1c748-cc1d-4493-b56d-0b2b06564ea2.jpg",
-//     ],
-//   },
-//   {
-//     imedia: 3,
-//     title: "양갱2",
-//     comment: "string",
-//     date: "2023-12-15",
-//     isSaw: 1,
-//     genrePk: 1,
-//     star: 0,
-//     pics: [
-//       "https://img.imbc.com/template/2023/07/program_91d1c748-cc1d-4493-b56d-0b2b06564ea2.jpg",
-//     ],
-//   },
-//   {
-//     imedia: 5,
-//     title: "string",
-//     comment: "string",
-//     date: "2023-12-22",
-//     isSaw: 0,
-//     genrePk: 1,
-//     star: 0,
-//     pics: [
-//       "https://img.wowtv.co.kr/wowtv_news/dnrs/20230720/2023072008522607175d3244b4fed182172185139.jpg",
-//     ],
-//   },
-//   {
-//     imedia: 6,
-//     title: "string",
-//     comment: "string",
-//     date: "2023-12-11",
-//     isSaw: 0,
-//     genrePk: 1,
-//     star: 0,
-//     pics: [
-//       "https://img.imbc.com/template/2023/07/program_91d1c748-cc1d-4493-b56d-0b2b06564ea2.jpg",
-//     ],
-//   },
-//   {
-//     id: 7,
-//     title: "일정 4",
-//     date: "2023-12-12",
-//     pics: [
-//       "https://img.imbc.com/template/2023/07/program_91d1c748-cc1d-4493-b56d-0b2b06564ea2.jpg",
-//     ],
-//   },
-//   {
-//     id: 8,
-//     title: "일정 4",
-//     date: "2023-12-31",
-//     pics: [
-//       "https://img.wowtv.co.kr/wowtv_news/dnrs/20230720/2023072008522607175d3244b4fed182172185139.jpg",
-//     ],
-//   },
-//   {
-//     id: 9,
-//     title: "일정 5",
-//     date: "2023-12-12",
-//     pics: [
-//       "https://img.wowtv.co.kr/wowtv_news/dnrs/20230720/2023072008522607175d3244b4fed182172185139.jpg",
-//     ],
-//   },
-//   {
-//     id: 10,
-//     title: "일정 5",
-//     date: "2023-12-31",
-//     pics: [
-//       "https://img.imbc.com/template/2023/07/program_91d1c748-cc1d-4493-b56d-0b2b06564ea2.jpg",
-//     ],
-//   },
-//   // ... 기타 데이터
-// ];
+const Main = ({ loginCheck, iuser }) => {
+  // 패널 변경시 오늘의 연/월일
+  const ym = dayjs().format("YYYY-MM");
 
-const Main = () => {
+  // getMediaAll을 통해 정보를 가져오기 위한 변수
+
+  const [mainInfo, getMainInfo] = useState([]);
+
+  // 서버와의 연동 결과로
+  // 아래처럼 월 기준으로 데이터가 있는 날짜(date)와 하나의 이미지(pic), 일정 갯수(mediaCnt)를 반환한다.
+
+  // [
+  //   {
+  //     "imedia": 35,
+  //     "date": "2023-12-22",
+  //     "pic": "https://firebasestorage.googleapis.com/v0/b/culture-log-d1536.appspot.com/o/images%2Fculturelog_%E1%84%83%E1%85%A1%E1%86%AF%E1%84%8B%E1%85%B5%E1%84%8C%E1%85%B5%E1%84%82%E1%85%B3%E1%86%AB%E1%84%87%E1%85%A1%E1%86%B7.jpg?alt=media&token=5504fc9a-6d8a-45c8-acaf-324ef269d323",
+  //     "mediaCnt": 2
+  //   },
+  //   {
+  //     "imedia": 37,
+  //     "date": "2023-12-26",
+  //     "pic": "https://firebasestorage.googleapis.com/v0/b/culture-log-d1536.appspot.com/o/images%2Fculturelog_%E1%84%86%E1%85%A1%E1%84%82%E1%85%A71.jpg?alt=media&token=d9ef8bfc-083f-477a-8fc1-69a3047a2abb",
+  //     "mediaCnt": 1
+  //   },
+  //   {
+  //     "imedia": 36,
+  //     "date": "2023-12-27",
+  //     "pic": "https://firebasestorage.googleapis.com/v0/b/culture-log-d1536.appspot.com/o/images%2Fculturelog_%E1%84%85%E1%85%B5%E1%84%87%E1%85%A1%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%83%E1%85%B3.jpg?alt=media&token=fea82445-a63b-4c02-b5c5-5c4f19b537f9",
+  //     "mediaCnt": 1
+  //   }
+  // ]
+  useEffect(() => {
+    loginCheck();
+    // 패널의 날짜와 iuser, 데이터를 담을 변수 전달
+    // 오늘의 년/월일 과 차이가 있으면 panelDate를 다시 전달.
+    getMediaAll(panelDate, 7, getMainInfo);
+  }, [ym]);
+
+  // 패널 변경시 변경된 날짜 데이터를 담을 변수.
+  // 서버에서 데이터를 가져온 후
+  const [panelDate, setPanelDate] = useState(dayjs().format("YYYY-MM"));
+
+  // 위의 상황으로 getMediaAll은 완료. 데이터는 mainInfo에 담김.
+
+  //Drawer open 처리를 위한 변수
   const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(dayjs());
+  //
   const [matchingData, setMatchingData] = useState(null); // 이미지 주소 상태 추가
-  const [date, setDate] = useState(dayjs().format("YYYY-MM"));
+  // 오늘의 날짜. ex 2023-12
+  const [todayDate, setTodayDate] = useState(dayjs().format("YYYY-MM"));
 
-  const [media, getMedia] = useState([]);
+  // 메인에 표시될 이미지 하나의 주소를 담을 변수. 초기에는 빈 배열에 갱신될 떄마다 하나의 배열값이 담긴다.
+  const [imageUrl, setImageUrl] = useState([]);
 
-  const [dayMedia, getDayMedia] = useState([]);
+  // List에 담아줄 데이터 변수
+  const [listMedia, getListMedia] = useState([]);
+
+  useEffect(() => {
+    loginCheck();
+    getDayMedia(7, panelDate, getListMedia);
+  }, []);
 
   // const isToday = dayjs().isSame(value, "date");
 
-  // 캘린더 json과 연동해 첫 이미지 표시 기능
+  // 캘린더 json과 연동해 첫 이미지 표시하는 기능.
   const dateCellRender = value => {
     const dateString = value.format("YYYY-MM-DD");
-    const findMedia = media.find(item => item.date === dateString);
-    console.log("find matchingData : ", matchingData);
-
-    const countDate = 1;
+    const result = mainInfo.find(item => item.date === dateString);
+    console.log("dateCellRender result : ", result);
+    console.log("listMedia", listMedia);
+    // setImageUrl(result);
+    // console.log("imageUrl : ", imageUrl);
+    // const countDate = 1;
     // 오늘 날짜 색상 고정
     return (
       <div>
-        {countDate.length > 0 && (
+        {result ? (
           <div
             style={{
               position: "absolute",
@@ -141,23 +98,34 @@ const Main = () => {
               // background: "transparent",
             }}
           >
-            {countDate.length}
+            {result.mediaCnt}
           </div>
-        )}
+        ) : null}
+
         <style>
-          {`.ant-picker-cell-today{
+          {`
+          
+          .ant-picker-calendar-date-value {
+            color: ${listMedia.length > 0 ? "white" : "black"};
+          }
+          
+          
+          .ant-picker-cell-today{
             border:1px solid #273F7C;
  
           }
+
           .ant-picker-cell[title="${dateString}"] {
-            background-image: url(${findMedia ? findMedia.pic : ""});
+            background-image: url(${result ? result.pic : ""});
             background-size: cover;
             background-repeat: no-repeat;
+
 
 
             .ant-picker-calendar-date-content{
               height:60px;
             }
+
 
         `}
         </style>
@@ -167,17 +135,18 @@ const Main = () => {
 
   // 하단 Drawer 영역
   const handleSelect = value => {
-    const matchingDateData = media.filter(media =>
+    // 클릭한 날짜에 데이터가 있는지 비교해서 ClickedDate 담음.
+    console.log("handleSelect: ", handleSelect);
+    const ClickedDate = mainInfo.filter(media =>
       dayjs(media.date).isSame(value, "date"),
     );
-    console.log("filter matchingDateData : ", matchingDateData);
-    if (matchingDateData.length === 0) {
+    console.log("ClickedDate : ", ClickedDate);
+    if (ClickedDate.length === 0) {
       // matchingData가 없으면 Drawer를 열지 않음
       setOpen(false);
       // navigate(`/culturelog/write/${useParams.imedia}?iuser=${iuser}`);
     } else {
-      setSelectedDate(value);
-      setMatchingData(matchingDateData);
+      setMatchingData(ClickedDate);
       setOpen(true);
     }
   };
@@ -187,7 +156,7 @@ const Main = () => {
     setOpen(false);
   };
 
-  const DrawerContent = ({ matchingData, onCloseDrawer }) => (
+  const DrawerContent = ({ listMedia, onCloseDrawer }) => (
     <Drawer
       title={<>기록을 선택해주세요!</>}
       placement="bottom"
@@ -197,15 +166,15 @@ const Main = () => {
       getContainer={false}
       height="50%"
     >
-      {matchingData ? (
+      {getDayMedia ? (
         <List
           itemLayout="horizontal"
-          dataSource={dayMedia}
+          dataSource={listMedia}
           pagination={{ position: "top", align: "center", pageSize: 3 }}
           renderItem={(item, index) => (
             <Link
-              to={`culturelog/view/${item.imedia}?iuser=1`}
               key={item.imedia}
+              to={`culturelog/view/${item.imedia}?iuser=1`}
             >
               <List.Item
                 extra={
@@ -214,6 +183,7 @@ const Main = () => {
                   </Button>
                 }
                 className="list-item"
+                key={index}
               >
                 <List.Item.Meta
                   avatar={<Avatar src={item.pic} />}
@@ -297,18 +267,9 @@ const Main = () => {
 
   const onPanelChange = (value, mode) => {
     // 패널 변경 시 date 상태 업데이트
-    setDate(value.format("YYYY년 MM월"));
+    setPanelDate(value.format("YYYY년 MM월"));
   };
 
-  useEffect(() => {
-    getMediaAll(date, 1, getMedia);
-  }, [date]);
-
-  useEffect(() => {
-    getDayMedia(1, matchingData, getDayMedia);
-  }, []);
-
-  console.log("matchingData media :", matchingData);
   // 디자인 토큰으로 상세 css 설정 하는 영역
   return (
     <>
@@ -321,14 +282,6 @@ const Main = () => {
             Calendar: {
               // 배경색 삭제.
               controlItemBgActive: "none",
-              // controlItemColorActive: "white",
-              // 여기 위치 맞음
-              // itemActiveBg: "green",
-              // itemHoverBg: "white",
-              // itemActiveTextColor: "green",
-              // itemTextColor: "green",
-              // dateCellRender: {
-              //   itemActiveBg: "green",
               // },
             },
             Button: {
@@ -345,7 +298,7 @@ const Main = () => {
       >
         <Header sub={false}>Culture Log</Header>
         <Calendar
-          defaultValue={selectedDate}
+          defaultValue={dayjs()}
           onPanelChange={onPanelChange}
           locale={locale}
           onSelect={handleSelect}
@@ -354,7 +307,7 @@ const Main = () => {
         />
         <Footer></Footer>
         <DrawerContent
-          matchingData={matchingData}
+          matchingData={listMedia}
           onCloseDrawer={handleCloseDrawer}
         />
       </ConfigProvider>
