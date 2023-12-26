@@ -7,22 +7,22 @@ export const getMediaAll = async (ym, iuser, getMainInfo) => {
   try {
     const res = await axios.get(`${path}/ym?ym=${ym}&iuser=${iuser}`);
     getMainInfo(res.data);
-    console.log("res.data : ", res.data);
+    // console.log("res.data : ", res.data);
   } catch (error) {
     console.log("getMediaAll", error);
   }
 };
 
 // 날짜별 미디어 리스트 가져오기
-export const getDayMedia = async (iuser, matchingData, getListMedia) => {
+export const getDayMedia = async (iuser, findFullDate, getListMedia) => {
   try {
     const res = await axios.get(
-      `${path}/day?iuser=${iuser}&date=${matchingData}`,
+      `${path}/day?iuser=${iuser}&date=${findFullDate}`,
     );
     getListMedia(res.data);
-    console.log("getListMedia : ", res.data);
+    console.log("listMedia res.data : ", res.data);
   } catch (error) {
-    console.log("getDayMedia :", error);
+    console.log("setTodayDate :", error);
   }
 };
 

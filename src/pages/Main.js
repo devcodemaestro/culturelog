@@ -13,7 +13,7 @@ const Main = ({ loginCheck, iuser }) => {
   // 패널 변경시 오늘의 연/월일
   const ym = dayjs().format("YYYY-MM");
 
-  // getMediaAll을 통해 정보를 가져오기 위한 변수
+  // getMediaAll을 통해 메인페이지 json 정보를 담기 위한 변수
 
   const [mainInfo, getMainInfo] = useState([]);
 
@@ -51,25 +51,37 @@ const Main = ({ loginCheck, iuser }) => {
   // 서버에서 데이터를 가져온 후
   const [panelDate, setPanelDate] = useState(dayjs().format("YYYY-MM"));
 
-  // 위의 상황으로 getMediaAll은 완료. 데이터는 mainInfo에 담김.
-
   //Drawer open 처리를 위한 변수
   const [open, setOpen] = useState(false);
-  //
-  const [matchingData, setMatchingData] = useState(null); // 이미지 주소 상태 추가
-  // 오늘의 날짜. ex 2023-12
-  const [todayDate, setTodayDate] = useState(dayjs().format("YYYY-MM"));
 
-  // 메인에 표시될 이미지 하나의 주소를 담을 변수. 초기에는 빈 배열에 갱신될 떄마다 하나의 배열값이 담긴다.
+  // 이미지 주소 상태 추가
+  const [matchingData, setMatchingData] = useState(null);
+
+  // 선택한 날짜. ex 2023-12-22
+  // const [todayDate, setTodayDate] = useState("");
+
+  // 초기에는 빈 배열에 갱신될 때마다 하나의 배열값이 담긴다.
   const [imageUrl, setImageUrl] = useState([]);
 
-  // List에 담아줄 데이터 변수
+  // List에 담아줄 데이터 변수 - 현재 listMedia는 빈 배열
   const [listMedia, getListMedia] = useState([]);
 
+  // 선택한 날짜. ex 2023-12-22
+  const [findFullDate, setfindFullDate] = useState(
+    dayjs().format("YYYY-MM-DD"),
+  );
+
+  // 패널의 날짜와 iuser, 데이터를 담을 변수 전달
+  // 오늘의 년/월일 과 차이가 있으면 panelDate를 다시 전달.
+
+  //   getMediaAll(panelDate, 7, getMainInfo);
+  // }, [ym]);
+
+  // 오늘의 년/월일 상태 추가
   useEffect(() => {
     loginCheck();
-    getDayMedia(7, panelDate, getListMedia);
-  }, []);
+    getDayMedia(7, findFullDate, getListMedia);
+  }, [findFullDate]);
 
   // const isToday = dayjs().isSame(value, "date");
 
@@ -77,12 +89,7 @@ const Main = ({ loginCheck, iuser }) => {
   const dateCellRender = value => {
     const dateString = value.format("YYYY-MM-DD");
     const result = mainInfo.find(item => item.date === dateString);
-    console.log("dateCellRender result : ", result);
-    console.log("listMedia", listMedia);
-    // setImageUrl(result);
-    // console.log("imageUrl : ", imageUrl);
-    // const countDate = 1;
-    // 오늘 날짜 색상 고정
+
     return (
       <div>
         {result ? (
@@ -106,7 +113,7 @@ const Main = ({ loginCheck, iuser }) => {
           {`
           
           .ant-picker-calendar-date-value {
-            color: ${listMedia.length > 0 ? "white" : "black"};
+            // color: ${listMedia.length > 0 ? "white" : "black"};
           }
           
           
@@ -135,21 +142,40 @@ const Main = ({ loginCheck, iuser }) => {
 
   // 하단 Drawer 영역
   const handleSelect = value => {
-    // 클릭한 날짜에 데이터가 있는지 비교해서 ClickedDate 담음.
-    console.log("handleSelect: ", handleSelect);
-    const ClickedDate = mainInfo.filter(media =>
-      dayjs(media.date).isSame(value, "date"),
-    );
-    console.log("ClickedDate : ", ClickedDate);
-    if (ClickedDate.length === 0) {
+    // setfindFullDate(value.format("YYYY-MM-DD"));
+    const dateString = value.format("YYYY-MM-DD");
+    // 바로 담지 말고 땡겨쓰기.
+    console.log("findFullDate :", dateString);
+    getDayMedia(7, dateString, getListMedia);
+    const ClickedDate = listMedia;
+    console.log("ClickedDate :", listMedia);
+    if (ClickedDate === 0) {
       // matchingData가 없으면 Drawer를 열지 않음
       setOpen(false);
       // navigate(`/culturelog/write/${useParams.imedia}?iuser=${iuser}`);
     } else {
-      setMatchingData(ClickedDate);
       setOpen(true);
     }
+    // console.log("listMedia :", listMedia);
   };
+  // const handleSelect = value => {
+  //   let select = value.format("YYYY-MM-DD");
+
+  //   // 클릭한 날짜에 데이터가 있는지 비교해서 ClickedDate 담음.
+  //   const ClickedDate = mainInfo.filter(media =>
+  //     dayjs(media.date).isSame(value, "date"),
+  //   );
+  //   console.log("ClickedDate :", ClickedDate);
+  //   if (ClickedDate.length === 0) {
+  //     // matchingData가 없으면 Drawer를 열지 않음
+  //     setOpen(false);
+  //     // navigate(`/culturelog/write/${useParams.imedia}?iuser=${iuser}`);
+  //   } else {
+  //     setMatchingData(ClickedDate);
+  //     setOpen(true);
+  //   }
+  //   console.log("listMedia :", listMedia);
+  // };
 
   // Drawer 닫기 핸들러
   const handleCloseDrawer = () => {
@@ -302,7 +328,7 @@ const Main = ({ loginCheck, iuser }) => {
           onPanelChange={onPanelChange}
           locale={locale}
           onSelect={handleSelect}
-          cellRender={value => dateCellRender(value)}
+          cellRender={dateCellRender}
           headerRender={renderCalendarHeader}
         />
         <Footer></Footer>
