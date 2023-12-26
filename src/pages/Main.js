@@ -11,41 +11,11 @@ import { getDayMedia, getMediaAll } from "../api/culutrelog_api";
 
 const Main = ({ loginCheck, iuser }) => {
   // 패널 변경시 오늘의 연/월일
-  const ym = dayjs().format("YYYY-MM");
+  const [ym, setYm] = useState(dayjs().format("YYYY-MM"));
 
   // getMediaAll을 통해 메인페이지 json 정보를 담기 위한 변수
 
   const [mainInfo, getMainInfo] = useState([]);
-
-  // 서버와의 연동 결과로
-  // 아래처럼 월 기준으로 데이터가 있는 날짜(date)와 하나의 이미지(pic), 일정 갯수(mediaCnt)를 반환한다.
-
-  // [
-  //   {
-  //     "imedia": 35,
-  //     "date": "2023-12-22",
-  //     "pic": "https://firebasestorage.googleapis.com/v0/b/culture-log-d1536.appspot.com/o/images%2Fculturelog_%E1%84%83%E1%85%A1%E1%86%AF%E1%84%8B%E1%85%B5%E1%84%8C%E1%85%B5%E1%84%82%E1%85%B3%E1%86%AB%E1%84%87%E1%85%A1%E1%86%B7.jpg?alt=media&token=5504fc9a-6d8a-45c8-acaf-324ef269d323",
-  //     "mediaCnt": 2
-  //   },
-  //   {
-  //     "imedia": 37,
-  //     "date": "2023-12-26",
-  //     "pic": "https://firebasestorage.googleapis.com/v0/b/culture-log-d1536.appspot.com/o/images%2Fculturelog_%E1%84%86%E1%85%A1%E1%84%82%E1%85%A71.jpg?alt=media&token=d9ef8bfc-083f-477a-8fc1-69a3047a2abb",
-  //     "mediaCnt": 1
-  //   },
-  //   {
-  //     "imedia": 36,
-  //     "date": "2023-12-27",
-  //     "pic": "https://firebasestorage.googleapis.com/v0/b/culture-log-d1536.appspot.com/o/images%2Fculturelog_%E1%84%85%E1%85%B5%E1%84%87%E1%85%A1%E1%84%8B%E1%85%AE%E1%86%AB%E1%84%83%E1%85%B3.jpg?alt=media&token=fea82445-a63b-4c02-b5c5-5c4f19b537f9",
-  //     "mediaCnt": 1
-  //   }
-  // ]
-  useEffect(() => {
-    loginCheck();
-    // 패널의 날짜와 iuser, 데이터를 담을 변수 전달
-    // 오늘의 년/월일 과 차이가 있으면 panelDate를 다시 전달.
-    getMediaAll(panelDate, 7, getMainInfo);
-  }, [ym]);
 
   // 패널 변경시 변경된 날짜 데이터를 담을 변수.
   // 서버에서 데이터를 가져온 후
@@ -149,17 +119,15 @@ const Main = ({ loginCheck, iuser }) => {
   //   console.log("findFullDate :", dateString);
 
   //   // 비동기적으로 데이터를 가져오고, 데이터가 업데이트되면 listMedia 상태를 업데이트
-  useEffect(() => {
-    getDayMedia(7, findFullDate, setListMedia);
-  }, [findFullDate]);
+  // useEffect(() => {
+  //   getDayMedia(7, findFullDate, setListMedia);
+  // }, [findFullDate]);
 
   const handleSelect = value => {
     const dateString = value.format("YYYY-MM-DD");
     setFindFullDate(dateString);
     getDayMedia(7, findFullDate, setListMedia);
-  };
 
-  useEffect(() => {
     if (listMedia.length === 0) {
       // matchingData가 없으면 Drawer를 열지 않음
       setOpen(false);
@@ -167,7 +135,9 @@ const Main = ({ loginCheck, iuser }) => {
     } else {
       setOpen(true);
     }
-  }, [listMedia]); // findFullDate와 listMedia를 의존성으로 추가
+  };
+
+  useEffect(() => {}, [listMedia]); // findFullDate와 listMedia를 의존성으로 추가
 
   // Drawer 닫기 핸들러
   const handleCloseDrawer = () => {
@@ -280,8 +250,20 @@ const Main = ({ loginCheck, iuser }) => {
   const onPanelChange = (value, mode) => {
     // 패널 변경 시 date 상태 업데이트
     setPanelDate(value.format("YYYY년 MM월"));
+    console.log("value :", value.format("YYYY-MM"));
+    setYm(value.format("YYYY-MM"));
   };
 
+  useEffect(() => {
+    loginCheck();
+    // 패널의 날짜와 iuser, 데이터를 담을 변수 전달
+    // 오늘의 년/월일 과 차이가 있으면 panelDate를 다시 전달.
+    const fetchData = async () => {
+      await getMediaAll(ym, 7, getMainInfo);
+    };
+
+    fetchData();
+  }, [panelDate]);
   // 디자인 토큰으로 상세 css 설정 하는 영역
   return (
     <>

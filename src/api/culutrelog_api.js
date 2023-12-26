@@ -7,7 +7,7 @@ export const getMediaAll = async (ym, iuser, getMainInfo) => {
   try {
     const res = await axios.get(`${path}/ym?ym=${ym}&iuser=${iuser}`);
     getMainInfo(res.data);
-    // console.log("res.data : ", res.data);
+    console.log("res.data : ", res.data);
   } catch (error) {
     console.log("getMediaAll", error);
   }
