@@ -13,11 +13,13 @@ import {
 import Stardrop from "../../components/Stardrop";
 import { useNavigate } from "react-router-dom";
 import { LogTabBt } from "../../styles/ui/logtabstyle";
-import { postMedia } from "../../api/culutrelog_api";
 import { storage, ref, uploadBytes, getDownloadURL } from "../../fb/fbconfig";
 import moment from "moment";
 import Upload from "antd/es/upload/Upload";
 import ImgCrop from "antd-img-crop";
+import { postMedia } from "../../api/culutrelog_api";
+import { deleteObject } from "firebase/storage";
+import { message } from "antd";
 
 const WriteLog = ({ loginCheck, iuser }) => {
   const navigate = useNavigate();
@@ -27,16 +29,8 @@ const WriteLog = ({ loginCheck, iuser }) => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [star, setStar] = useState({});
-  const [fbImgUrl, setFbImgUrl] = useState([]);
-  const handleSubmit = e => {
-    e.preventDefault();
-    fbUpload();
-    fbNow();
-    navigate("/mylog")
-  };
-
+  
   const handleDropdownChange = e => {
-    console.log(e.target.value);
     setSelectedOption(e.target.value);
   };
 
@@ -46,90 +40,140 @@ const WriteLog = ({ loginCheck, iuser }) => {
   const handleNoLookClick = () => {
     setLook(true);
   };
-  const hadleClickEdit = () => {
-    navigate("/mylog");
-  };
   const handleChangeTitle = e => {
-    // console.log(e.target.value)
     setTitle(e.target.value);
   };
   const handleChangeDate = e => {
-    // console.log(e.target.value)
     setDate(e.target.value);
   };
   const handleTextChange = e => {
-    // console.log(e.target.value);
     setText(e.target.value);
   };
   const handleChangeStar = value => {
-    // console.log(e.target.value);
     setStar(value);
   };
   const starpoint = Number(star.key);
-
   const [fileList, setFileList] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);
+
+  const beforeUpload = async file => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      message.error("이미지파일만 업로드 가능합니다.");
+    }
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async () => {
+        const img = new Image();
+        img.src = reader.result;
+        img.onload = async () => {
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 200; // 원하는 최대 가로 크기
+          const MAX_HEIGHT = 200; // 원하는 최대 세로 크기
+
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          canvas.toBlob(async blob => {
+            const resizedFile = new File([blob], file.name, {
+              type: file.type,
+            });
+
+            // const currentDate = moment().format("YYYYMMDDhhmmss");
+            const fileName = `culturelog_${file.name}`;
+
+            const storageRef = ref(storage, `images/${fileName}`);
+            await uploadBytes(storageRef, resizedFile);
+
+            const downloadURL = await getDownloadURL(storageRef);
+            setImageUrls(prevUrls => [...prevUrls, downloadURL]);
+
+            const newFile = {
+              uid: file.uid,
+              name: fileName,
+              status: "done",
+              url: downloadURL,
+            };
+
+            setFileList(prevList => [...prevList, newFile]);
+            resolve(false);
+          }, file.type);
+        };
+      };
+    });
+  };
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
-  const onPreview = async file => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise(resolve => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
-  const path = "images/";
-  const fbUpload = async () => {
+
+  const handleRemove = async file => {
     try {
-      const arr = await Promise.all(
-        fileList.map(async item => {
-          const tempName = moment().format("YYYYMMDDhhmmss");
-          const fileName = `${path}${tempName}_${item.originFileObj.name}`;
-          const fbState = await uploadImage(fileName, item.originFileObj);
-          return fbState;
-        }),
-      );
+      const deletedFileName = `culturelog_${file.name}`;
 
-      setFbImgUrl(arr);
-      console.log("업로드 성공", arr);
+      // Firebase Storage에서 파일 삭제
+      const storageRef = ref(storage, `images/${deletedFileName}`);
+      await deleteObject(storageRef);
+
+      // 이미지 URL 배열에서 삭제된 파일명 필터링
+      const getName = encodeURIComponent(`images/${deletedFileName}`);
+      const filteredImageUrls = imageUrls.filter(url => !url.includes(getName));
+      console.log(filteredImageUrls);
+      setImageUrls(filteredImageUrls);
+
+      // 파일 목록에서 삭제된 파일 필터링
+      const filteredFileList = fileList.filter(f => f.uid !== file.uid);
+      setFileList(filteredFileList);
+      console.log(`${file.name} 파일이 삭제되었습니다.`);
     } catch (error) {
-      console.error("업로드 실패", error);
-      // 실패할 경우에 대한 처리를 추가할 수 있습니다.
-    }
-  };
-  // console.log("왜");
-  const [rememberArr, setRememebrArr] = useState([]);
-  const uploadImage = async (_fileName, _file) => {
-    // console.log(_fileName, _file);
-
-    try {
-      const imageRef = ref(storage, _fileName);
-      const fbRes = await uploadBytes(imageRef, _file);
-      const url = await getDownloadURL(fbRes.ref);
-      console.log("gogogo ", url);
-      // rememberArr.push(url);
-      // console.log(rememberArr);
-
-      setRememebrArr(prev => [...prev, url]);
-      return url;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      // Handle error, e.g., show an error message to the user
+      console.log("파일 삭제 중 오류가 발생했습니다.");
     }
   };
 
-  const fbNow = () => {
-    console.log(rememberArr);
+  const handleSubmitPost = e => {
+    e.preventDefault();
+    const obj = {
+      iuser: iuser,
+      genrePk: selectedOption,
+      title: title,
+      date: date,
+      comment: text,
+      star: isNaN(starpoint) ? 0 : starpoint,
+      isSaw: look ? 1 : 0,
+      pics: imageUrls,
+    };
+
+    const resultAction = result => {
+      if (result === 0) {
+        alert("실패");
+        return;
+      } else {
+        alert("성공");
+        navigate(`/culturelog/view/${result}?iuser=${iuser}`);
+        return;
+      }
+    };
+    postMedia(obj, resultAction);
   };
 
-  // console.log(obj);
+  console.log(imageUrls);
 
   useEffect(()=>{
     loginCheck();
@@ -141,69 +185,11 @@ const WriteLog = ({ loginCheck, iuser }) => {
   return (
     <>
       <Header sub={true}>Write Log</Header>
-      <ImgWrite>이미지 등록</ImgWrite>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginTop: "10px" }}>
-          <ImgCrop rotationSlider aspect={71 / 102}>
-            <Upload
-              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-              listType="picture-card"
-              fileList={fileList}
-              onChange={onChange}
-              onPreview={onPreview}
-            >
-              {fileList.length < 4 && "+ Upload"}
-            </Upload>
-          </ImgCrop>
-
-          <div>
-            {rememberArr.map(item => (
-              <>
-                {/* // <img key={item} src={item} alt="" /> */}
-                <div key={item}>{item}</div>
-                <br />
-              </>
-            ))}
-          </div>
-    
-        </div>
-        <ImgUrl>
-  
-          <input
-            type="text"
-            placeholder="제목을 입력하세요."
-            className="imgurl"
-            onChange={e => {
-              handleChangeTitle(e);
-            }}
-          ></input>
-        </ImgUrl>
-        <DateDiary>
-          <div className="date-wrap">
-            <input
-              type="date"
-              className="date"
-              onChange={e => {
-                handleChangeDate(e);
-              }}
-            />
-          </div>
-        </DateDiary>
-        <Dropdown>
-          <label htmlFor="dropdown">
-            <select
-              id="dropdown"
-              value={selectedOption}
-              onChange={handleDropdownChange}
-            >
-              <option value="1">장르</option>
-              <option value="2">영화</option>
-              <option value="3">드라마</option>
-              <option value="4">뮤지컬</option>
-              <option value="5">기타</option>
-            </select>
-          </label>
-        </Dropdown>
+      <form
+        onSubmit={e => {
+          handleSubmitPost(e);
+        }}
+      >
         <LogTabBt>
           <button
             className={!look ? "on" : ""}
@@ -220,6 +206,58 @@ const WriteLog = ({ loginCheck, iuser }) => {
             봤어요
           </button>
         </LogTabBt>
+        <ImgWrite>이미지 등록</ImgWrite>
+        <ImgUrl>
+          <ImgCrop rotationSlider aspect={71 / 102}>
+            <Upload
+              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+              listType="picture-card"
+              fileList={fileList}
+              beforeUpload={beforeUpload}
+              onChange={onChange}
+              onRemove={handleRemove} // 파일 삭제 이벤트 핸들러
+            >
+              {fileList.length < 4 && "+ Upload"}
+            </Upload>
+          </ImgCrop>
+          <input
+            type="text"
+            placeholder="제목을 입력하세요."
+            className="imgurl"
+            required
+            onChange={e => {
+              handleChangeTitle(e);
+            }}
+          ></input>
+        </ImgUrl>
+        <DateDiary>
+          <div className="date-wrap">
+            <input
+              type="date"
+              className="date"
+              required
+              onChange={e => {
+                handleChangeDate(e);
+              }}
+            />
+          </div>
+        </DateDiary>
+        <Dropdown>
+          <label htmlFor="dropdown">
+            <select
+              required
+              id="dropdown"
+              value={selectedOption}
+              onChange={handleDropdownChange}
+            >
+              <option value="0">장르</option>
+              <option value="1">영화</option>
+              <option value="2">드라마</option>
+              <option value="3">뮤지컬</option>
+              <option value="4">기타</option>
+            </select>
+          </label>
+        </Dropdown>
         {look && (
           <>
             <StarRate>
