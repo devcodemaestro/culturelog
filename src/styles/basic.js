@@ -1,5 +1,23 @@
 /* eslint-disable no-undef */
 import styled from "@emotion/styled";
+import { ConfigProvider } from "antd";
+
+const configCalender = {
+  token: {
+    colorSplit: "none",
+  },
+  components: {
+    Calendar: {
+      controlItemBgActive: "none",
+    },
+    Button: {
+      textHoverBg: "none",
+    },
+    Drawer: {
+      textHoverBg: "rgba(0, 0, 0, 0.06)",
+    },
+  },
+};
 
 // 기본색상
 export const colors = {
@@ -203,4 +221,79 @@ export const MainWrap = styled.main`
     padding: 0;
     text-align: center !important;
   }
+
+  .list-item {
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+
+  .list-item:hover {
+    background-color: #f0f0f0; /* 원하는 hover 시 배경색 */
+  }
+
+  .list-item:active {
+    background-color: #d9d9d9; /* 원하는 click 시 배경색 */
+  }
+
+  .list-item:hover .list-button,
+  .list-item:active .list-button {
+    background-color: #1890ff; /* 원하는 hover 및 click 시 배경색 */
+    color: #fff; /* 원하는 hover 및 click 시 텍스트 색상 */
+  }
+
+  :where(.css-dev-only-do-not-override-x4zgyu).ant-drawer .ant-drawer-body {
+    padding: 0 24px;
+  }
+
+  .ant-picker-cell-today {
+    border: 1px solid #273f7c;
+  }
+
+  .ant-picker-calendar-date-content {
+    height: 60px;
+  }
+  .ant-picker-calendar.ant-picker-calendar-full
+    .ant-picker-calendar-date-content {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    left: 0;
+    top: 0;
+  }
 `;
+
+export const ConfigCalender = ({ children }) => (
+  <ConfigProvider theme={configCalender}>{children}</ConfigProvider>
+);
+
+export const CircleBadge = ({ count }) => (
+  <div
+    style={{
+      position: "absolute",
+      bottom: "5px",
+      right: 0,
+      width: "2rem",
+      height: "2rem",
+      background: "rgba(39, 63, 124, 0.6)",
+      color: "#fff",
+      fontSize: "1.2rem",
+      borderRadius: "50%",
+      lineHeight: "2rem",
+      textAlign: "center",
+    }}
+  >
+    {count}
+  </div>
+);
+
+export const CellStyle = ({ dateString, result }) => (
+  <style>
+    {`
+      .ant-picker-cell[title="${dateString}"] {
+        background-image: url(${result ? `"${result.pic}"` : ""});
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    `}
+  </style>
+);
