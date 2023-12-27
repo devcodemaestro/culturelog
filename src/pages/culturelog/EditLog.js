@@ -284,7 +284,8 @@ const EditLog = ({ iuser, loginCheck }) => {
           </ImgCrop>
           <input
             type="text"
-            placeholder="제목을 입력하세요."
+            maxLength={50}
+            placeholder="제목을 입력하세요. (50자 내외)"
             className="imgurl"
             required
             value={viewData.title}
@@ -340,6 +341,7 @@ const EditLog = ({ iuser, loginCheck }) => {
               <label htmlFor="textArea"></label>
               <textarea
                 id="textArea"
+                maxLength={500}
                 placeholder="감상평을 남겨주세요. (500자 내외)"
                 defaultValue={viewData.comment}
                 onChange={e => {
