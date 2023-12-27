@@ -1,6 +1,5 @@
 import axios from "axios";
 import { SERVER_URL } from "./config";
-import { useNavigate } from "react-router";
 const path = `${SERVER_URL}/api/media`;
 
 // 메인페이지 가져오기
@@ -28,30 +27,30 @@ export const getDayMedia = async (iuser, findFullDate, setListMedia) => {
 };
 
 // 마이로그(볼 거예요 / 봤어요) 가져오기
-export const getMedia = async (setLogList, iuser, is_saw) => {
+export const getMedia = async (setLogList, iuser, is_saw, resultAction) => {
   try {
     const res = await axios.get(`${path}?is_saw=${is_saw}&iuser=${iuser}`);
     setLogList(res.data);
     // console.log(res.data);
   } catch (error) {
-    const demo = await axios.get(`/getloglist.json`);
-    setLogList(demo.data);
-    console.log("로그 리스트 에러", error);
+    // const demo = await axios.get(`/getloglist.json`);
+    // setLogList(demo.data);
+    resultAction(5555);
   }
 };
 
 // 로그 뷰(상세) 가져오기
-export const getDetailMedia = async (imedia, iuser, setViewData, errorPage) => {
+export const getDetailMedia = async (
+  imedia,
+  iuser,
+  setViewData,
+  resultAction,
+) => {
   try {
-    // http://192.168.0.144:5211/api/media/0?iuser=0
     const res = await axios.get(`${path}/${imedia}?iuser=${iuser}`);
-    // const res = await axios.get(`/getview.json`);
     setViewData(res.data);
   } catch (error) {
-    // const demo = await axios.get(`/getview.json`);
-    // setViewData(demo.data);
-    // alert("정보를 가져오지 못했습니다. \n임시데이터로 출력됩니다.");
-    errorPage(error);
+    resultAction(5555);
   }
 };
 
@@ -61,7 +60,7 @@ export const postMedia = async (obj, resultAction) => {
     const res = await axios.post(`${path}`, obj);
     resultAction(res.data.result);
   } catch (error) {
-    resultAction(error);
+    resultAction(5555);
   }
 };
 
@@ -72,7 +71,7 @@ export const putMedia = async (obj, resultAction) => {
     // const res = await axios.get(`/getview.json`, obj);
     resultAction(res.data.result);
   } catch (error) {
-    resultAction(error);
+    resultAction(5555);
   }
 };
 
@@ -83,6 +82,6 @@ export const delMedia = async (imedia, iuser, resultAction) => {
     const res = await axios.delete(`${path}?iuser=${iuser}&imedia=${imedia}`);
     resultAction(res.data.result);
   } catch (error) {
-    resultAction(-5555);
+    resultAction(5555);
   }
 };

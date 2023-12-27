@@ -19,6 +19,8 @@ import ImgCrop from "antd-img-crop";
 import { postMedia } from "../../api/culutrelog_api";
 import { deleteObject } from "firebase/storage";
 import { message } from "antd";
+import { WarningWrap } from "../../styles/ui/warning";
+import WarningAlert from "../../components/ui/WarningAlert";
 
 const WriteLog = ({ loginCheck, iuser }) => {
   const navigate = useNavigate();
@@ -44,7 +46,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
   };
   const handleChangeDate = e => {
     setDate(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   const handleTextChange = e => {
@@ -105,7 +107,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
             await uploadBytes(storageRef, resizedFile);
 
             const downloadURL = await getDownloadURL(storageRef);
-            console.log("downloadURL : ", downloadURL);
+            // console.log("downloadURL : ", downloadURL);
             setImageUrls(prevUrls => [...prevUrls, downloadURL]);
 
             const newFile = {
@@ -129,7 +131,6 @@ const WriteLog = ({ loginCheck, iuser }) => {
   const handleRemove = async file => {
     try {
       const deletedFileName = `images/culturelog_${file.name}`;
-      console.log("쓰기 진행 중 deletedFileName ", deletedFileName);
 
       // Firebase Storage에서 파일 삭제
       const storageRef = ref(storage, `${deletedFileName}`);
@@ -139,20 +140,25 @@ const WriteLog = ({ loginCheck, iuser }) => {
       const getName = encodeURIComponent(`images/${deletedFileName}`);
 
       const filteredImageUrls = imageUrls.filter(url => !url.includes(getName));
-      console.log(filteredImageUrls);
+      // console.log(filteredImageUrls);
       setImageUrls(filteredImageUrls);
 
       // 파일 목록에서 삭제된 파일 필터링
       const filteredFileList = fileList.filter(f => f.uid !== file.uid);
       setFileList(filteredFileList);
-      console.log(`${file.name} 파일이 삭제되었습니다.`);
+      // console.log(`${file.name} 파일이 삭제되었습니다.`);
     } catch (error) {
-      console.log("파일 삭제 중 오류가 발생했습니다.");
+      // console.log("파일 삭제 중 오류가 발생했습니다.");
     }
   };
-
+  // 등록버튼 클릭
   const handleSubmitPost = e => {
     e.preventDefault();
+
+    if (fileList.length === 0) {
+      message.error("최소 1개의 이미지를 업로드해주세요.");
+      return;
+    }
     const obj = {
       iuser: iuser,
       genrePk: selectedOption,
@@ -165,11 +171,10 @@ const WriteLog = ({ loginCheck, iuser }) => {
     };
 
     const resultAction = result => {
-      if (result === 0) {
-        alert("실패");
+      if (result === 0 || result === 5555) {
+        document.getElementById("warning-wrap").style.left = "0";
         return;
       } else {
-        alert("성공");
         navigate(`/culturelog/view/${result}?iuser=${iuser}`);
         return;
       }
@@ -178,7 +183,11 @@ const WriteLog = ({ loginCheck, iuser }) => {
     // console.log(obj);
   };
 
-  console.log(imageUrls);
+  const handleClickClose = e => {
+    document.getElementById("warning-wrap").style.left = "-100%";
+    return;
+  };
+  // console.log(imageUrls);
 
   useEffect(() => {
     loginCheck();
@@ -217,13 +226,14 @@ const WriteLog = ({ loginCheck, iuser }) => {
               beforeUpload={beforeUpload}
               onChange={onChange}
               onRemove={handleRemove} // 파일 삭제 이벤트 핸들러
+              required
             >
               {fileList.length < 4 && "+ Upload"}
             </Upload>
           </ImgCrop>
           <input
             type="text"
-            placeholder="제목을 입력하세요. (50자 내외)"
+            placeholder="제목을 입력하세요. (50자 이내)"
             className="imgurl"
             required
             maxLength={50}
@@ -275,7 +285,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
               <textarea
                 id="textArea"
                 maxLength={500}
-                placeholder="감상평을 남겨주세요. (500자 내외)"
+                placeholder="감상평을 남겨주세요. (500자 이내 )"
                 value={text}
                 onChange={e => {
                   handleTextChange(e);
@@ -292,6 +302,12 @@ const WriteLog = ({ loginCheck, iuser }) => {
         </Loadicon>
       </form>
       <Footer />
+      <WarningWrap id="warning-wrap">
+        <WarningAlert handleClickClose={handleClickClose}>
+          <h5>등록 실패</h5>
+          <p>기록을 작성하는데 실패했습니다. 다시 시도해주세요.</p>
+        </WarningAlert>
+      </WarningWrap>
     </>
   );
 };

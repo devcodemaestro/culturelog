@@ -20,6 +20,7 @@ import { message } from "antd";
 import { WarningBox, WarningWrap } from "../../styles/ui/warning";
 import { BlueBtn, BtnWrap, GrayBtn, RedBtn } from "../../styles/ui/buttons";
 import { getDetailMedia, putMedia } from "../../api/culutrelog_api";
+import WarningAlert from "../../components/ui/WarningAlert";
 
 const initGetState = {
   imedia: 0,
@@ -201,11 +202,10 @@ const EditLog = ({ iuser, loginCheck }) => {
     };
 
     const resultAction = result => {
-      if (result === 0) {
-        alert("실패");
+      if (result === 0 || result === 5555) {
+        document.getElementById("warning-wrap2").style.left = "0";
         return;
       } else {
-        alert("성공");
         navigate(`/culturelog/view/${viewData.imedia}?iuser=${iuser}`);
         return;
       }
@@ -213,14 +213,18 @@ const EditLog = ({ iuser, loginCheck }) => {
     putMedia(obj, resultAction);
     console.log("수정내용 : ", obj);
   };
-
-  // 취소버튼 클릭 시 경고창 노출
+  // 수정실패 경고창
+  const handleClickClose = e => {
+    document.getElementById("warning-wrap1").style.left = "-100%";
+    return;
+  };
+  // 취소버튼 클릭 시 경고창
   const handleClickWarning = () => {
-    document.getElementById("warning-wrap").style.left = "0";
+    document.getElementById("warning-wrap1").style.left = "0";
   };
   // 다시작성 시 경고창 제거
   const handleClickCancel = () => {
-    document.getElementById("warning-wrap").style.left = "-100%";
+    document.getElementById("warning-wrap1").style.left = "-100%";
   };
   // 취소확인 시 뷰페이지로 이동
   const handleClickBack = () => {
@@ -366,7 +370,7 @@ const EditLog = ({ iuser, loginCheck }) => {
           <BlueBtn>수정완료</BlueBtn>
         </BtnWrap>
 
-        <WarningWrap id="warning-wrap">
+        <WarningWrap id="warning-wrap1">
           <WarningBox>
             <i>
               <img src={process.env.PUBLIC_URL + "/images/icon_info.svg"} />
@@ -382,7 +386,7 @@ const EditLog = ({ iuser, loginCheck }) => {
                   handleClickCancel();
                 }}
               >
-                다시작성
+                돌아가기
               </BlueBtn>
               <RedBtn
                 type="button"
@@ -390,13 +394,20 @@ const EditLog = ({ iuser, loginCheck }) => {
                   handleClickBack();
                 }}
               >
-                취소확인
+                작성취소
               </RedBtn>
             </BtnWrap>
           </WarningBox>
         </WarningWrap>
       </form>
       <Footer />
+
+      <WarningWrap id="warning-wrap2">
+        <WarningAlert handleClickClose={handleClickClose}>
+          <h5>수정 실패</h5>
+          <p>기록을 수정하는데 실패했습니다. 다시 시도해주세요.</p>
+        </WarningAlert>
+      </WarningWrap>
     </>
   );
 };

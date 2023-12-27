@@ -206,7 +206,7 @@ const Intro = () => {
         </svg>
       </IntroLogo>
       <IntroCopyRight>
-        <small>copyright Team-Name</small>
+        <small>copyright 행복한 떡잎</small>
       </IntroCopyRight>
     </IntroWrap>
   );

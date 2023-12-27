@@ -60,7 +60,7 @@ export const HeaderWrap = styled.header`
   width: 100%;
   height: 6rem;
   background: url(${process.env.PUBLIC_URL + "/images/nav_bg.jpg"}) center/cover;
-  z-index: 99999;
+  z-index: 999;
   h3 {
     font-size: 1.8rem;
     text-align: center;

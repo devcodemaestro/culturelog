@@ -21,7 +21,13 @@ const MyLog = ({ loginCheck, iuser }) => {
   const [loglist, setLogList] = useState(initLog);
   useEffect(() => {
     loginCheck();
-    getMedia(setLogList, iuser, 1);
+    const resultAction = result => {
+      if (result === 0 || result === 5555) {
+        document.getElementById("warning-wrap1").style.left = "-100%";
+        return;
+      }
+    };
+    getMedia(setLogList, iuser, 1, resultAction);
   }, []);
 
   // 탭 기능

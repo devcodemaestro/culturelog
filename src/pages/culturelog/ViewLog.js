@@ -15,6 +15,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { WarningBox, WarningWrap } from "../../styles/ui/warning";
 import { useEffect, useState } from "react";
 import { delMedia, getDetailMedia } from "../../api/culutrelog_api";
+import WarningAlert from "../../components/ui/WarningAlert";
 
 const initGetState = {
   imedia: 0,
@@ -41,23 +42,31 @@ const ViewLog = ({ loginCheck }) => {
 
   // 삭제버튼 클릭 시 경고창 노출
   const handleClickWarning = () => {
-    document.getElementById("warning-wrap").style.left = "0";
+    document.getElementById("warning-wrap1").style.left = "0";
   };
 
   // 삭제 취소 시 경고창 제거
   const handleClickCancel = () => {
-    document.getElementById("warning-wrap").style.left = "-100%";
+    document.getElementById("warning-wrap1").style.left = "-100%";
+  };
+  const handleClickClose = () => {
+    document.getElementById("warning-wrap2").style.left = "-100%";
+  };
+  const handleClickHome = () => {
+    navigate("/");
+    return;
   };
 
   //기록삭제 후 메인 화면으로 이동
   const handleClickDelete = () => {
     const resultAction = result => {
-      if (result === 0) {
-        alert("기록을 삭제하지 못했습니다. \n다시 시도해주세요.");
+      if (result === 0 || result === 5555) {
+        document.getElementById("warning-wrap1").style.left = "-100%";
+        document.getElementById("warning-wrap2").style.left = "0";
+        console.log(result);
         return;
       } else {
-        alert("삭제가 완료되었습니다. \n메인페이지로 이동합니다.");
-        navigate("/");
+        document.getElementById("warning-wrap3").style.left = "0";
         return;
       }
     };
@@ -66,13 +75,11 @@ const ViewLog = ({ loginCheck }) => {
 
   useEffect(() => {
     loginCheck();
-    const errorPage = error => {
-      const name = error.name;
-      const message = error.message;
-      navigate(`/error?name=${name}&message=${message}`);
+    const resultAction = error => {
+      navigate(`/notfound`);
       return;
     };
-    getDetailMedia(params.imedia, iuser, setViewData, errorPage);
+    getDetailMedia(params.imedia, iuser, setViewData, resultAction);
   }, []);
 
   return (
@@ -181,7 +188,7 @@ const ViewLog = ({ loginCheck }) => {
           </BtnWrap>
         </ViewInfo>
       </ViewLogWrap>
-      <WarningWrap id="warning-wrap">
+      <WarningWrap id="warning-wrap1">
         <WarningBox>
           <i>
             <img src={process.env.PUBLIC_URL + "/images/icon_info.svg"} />
@@ -205,6 +212,18 @@ const ViewLog = ({ loginCheck }) => {
             </RedBtn>
           </BtnWrap>
         </WarningBox>
+      </WarningWrap>
+      <WarningWrap id="warning-wrap2">
+        <WarningAlert handleClickClose={handleClickClose}>
+          <h5>삭제 실패</h5>
+          <p>기록을 삭제하지 못했습니다. 다시 시도해주세요.</p>
+        </WarningAlert>
+      </WarningWrap>
+      <WarningWrap id="warning-wrap3">
+        <WarningAlert handleClickClose={handleClickHome}>
+          <h5>삭제 완료</h5>
+          <p>삭제가 완료되었습니다. 메인페이지로 이동합니다.</p>
+        </WarningAlert>
       </WarningWrap>
       <Footer />
     </>

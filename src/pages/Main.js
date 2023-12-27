@@ -17,7 +17,6 @@ import {
 
 const Main = ({ loginCheck, iuser }) => {
   const navigate = useNavigate();
-
   // 패널 변경시 오늘의 연/월일
   const [ym, setYm] = useState(dayjs().format("YYYY-MM"));
 
