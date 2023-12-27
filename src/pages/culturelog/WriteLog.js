@@ -26,7 +26,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
   const [text, setText] = useState("");
   const [look, setLook] = useState(false);
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [star, setStar] = useState({});
 
   const handleDropdownChange = e => {
@@ -44,7 +44,9 @@ const WriteLog = ({ loginCheck, iuser }) => {
   };
   const handleChangeDate = e => {
     setDate(e.target.value);
+    console.log(e.target.value);
   };
+
   const handleTextChange = e => {
     setText(e.target.value);
   };
@@ -155,7 +157,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
       iuser: iuser,
       genrePk: selectedOption,
       title: title,
-      date: date,
+      date: date ,
       comment: text,
       star: isNaN(star) ? 0 : star,
       isSaw: look ? 1 : 0,
@@ -221,9 +223,10 @@ const WriteLog = ({ loginCheck, iuser }) => {
           </ImgCrop>
           <input
             type="text"
-            placeholder="제목을 입력하세요."
+            placeholder="제목을 입력하세요. (50자 내외)"
             className="imgurl"
             required
+            maxLength={50}
             onChange={e => {
               handleChangeTitle(e);
             }}
@@ -235,6 +238,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
               type="date"
               className="date"
               required
+              defaultValue={new Date().toISOString().split("T")[0]}
               onChange={e => {
                 handleChangeDate(e);
               }}
@@ -270,6 +274,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
               <label htmlFor="textArea"></label>
               <textarea
                 id="textArea"
+                maxLength={500}
                 placeholder="감상평을 남겨주세요. (500자 내외)"
                 value={text}
                 onChange={e => {
