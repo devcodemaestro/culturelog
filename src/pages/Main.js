@@ -5,17 +5,18 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import dayjs from "dayjs";
 import locale from "antd/es/date-picker/locale/ko_KR";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getDayMedia, getMediaAll } from "../api/culutrelog_api";
 import {
   CellStyle,
   CircleBadge,
   ConfigCalender,
+  DrawerWrap,
   MainWrap,
-} from "../styles/basic";
+} from "../styles/main";
 
 const Main = ({ loginCheck, iuser }) => {
-  // imedia 가져오기\
+  const navigate = useNavigate();
 
   // 패널 변경시 오늘의 연/월일
   const [ym, setYm] = useState(dayjs().format("YYYY-MM"));
@@ -42,7 +43,6 @@ const Main = ({ loginCheck, iuser }) => {
   const dateCellRender = value => {
     const dateString = value.format("YYYY-MM-DD");
     const result = mainInfo.find(item => item.date === dateString);
-
     return (
       <div
         style={{ width: "100%", height: "100%", background: "none" }}
@@ -50,7 +50,9 @@ const Main = ({ loginCheck, iuser }) => {
           handleClickShowDrawWin(dateString);
         }}
       >
-        {result ? <CircleBadge count={result.mediaCnt} /> : null}
+        {result && result.mediaCnt > 1 ? (
+          <CircleBadge count={result.mediaCnt} />
+        ) : null}
         <CellStyle dateString={dateString} result={result} />
       </div>
     );
@@ -68,7 +70,12 @@ const Main = ({ loginCheck, iuser }) => {
 
   const successGetDayMedia = resData => {
     setListMedia(resData);
-    setOpen(true);
+    if (resData.length !== 0) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+      navigate(`/culturelog/write`);
+    }
   };
 
   // findFullDate와 listMedia를 의존성으로 추가
@@ -98,7 +105,11 @@ const Main = ({ loginCheck, iuser }) => {
           renderItem={(item, index) => (
             <Link to={`culturelog/view/${item.imedia}?iuser=${iuser}`}>
               <List.Item
-                extra={<Button type="text">더보기</Button>}
+                extra={
+                  <Button className="liste-item-button" type="text">
+                    더보기
+                  </Button>
+                }
                 className="list-item"
                 key={index}
               >
@@ -118,11 +129,9 @@ const Main = ({ loginCheck, iuser }) => {
   );
 
   const decrementMonth = value => {
-    setOpen(false);
     return value.subtract(1, "month");
   };
   const incrementMonth = value => {
-    setOpen(false);
     return value.add(1, "month");
   };
 
@@ -205,7 +214,9 @@ const Main = ({ loginCheck, iuser }) => {
           />
         </MainWrap>
         <Footer></Footer>
-        <DrawerContent onCloseDrawer={handleCloseDrawer} />
+        <DrawerWrap>
+          <DrawerContent onCloseDrawer={handleCloseDrawer} />
+        </DrawerWrap>
       </ConfigCalender>
     </>
   );

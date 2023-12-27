@@ -157,7 +157,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
       iuser: iuser,
       genrePk: selectedOption,
       title: title,
-      date: date ,
+      date: date,
       comment: text,
       star: isNaN(star) ? 0 : star,
       isSaw: look ? 1 : 0,
