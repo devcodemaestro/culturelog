@@ -40,6 +40,10 @@ export const BtnWrap = styled.div`
       width: 48%;
       border-radius: 5px;
     }
+    &.wd100 button {
+      width: 100%;
+      border-radius: 5px;
+    }
   }
 `;
 

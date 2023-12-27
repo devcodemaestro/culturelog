@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoginBt, LoginInput, LoginLogo, LoginWrap } from "../styles/login";
 import { useNavigate } from "react-router";
 import Header from "../components/Header";
-import { postSignup } from "../api/user_api";
+import { getUser, postSignup } from "../api/user_api";
+import { WarningWrap } from "../styles/ui/warning";
+import WarningAlert from "../components/ui/WarningAlert";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
+  const loginCheck = () => {
+    const loginUser = getUser();
+    if (loginUser) {
+      document.getElementById("warning-wrap").style.left = "0";
+    }
+  };
+  const handleClickClose = e => {
+    document.getElementById("warning-wrap").style.left = "-100%";
+    navigate("/");
+    return;
+  };
   const handleChangeName = e => {
     setName(e.target.value);
   };
@@ -38,7 +51,9 @@ const SignUp = () => {
     };
     postSignup(obj, resultAction);
   };
-
+  useEffect(() => {
+    loginCheck();
+  }, []);
   return (
     <>
       <Header sub="signup">Culture Log</Header>
@@ -88,6 +103,14 @@ const SignUp = () => {
           </form>
         </LoginInput>
       </LoginWrap>
+      <WarningWrap id="warning-wrap">
+        <WarningAlert handleClickClose={handleClickClose}>
+          <h5>페이지를 이용할 수 없습니다.</h5>
+          <p>
+            이미 로그인 되어있습니다. <br /> 로그아웃 후 다시 시도해주세요.
+          </p>
+        </WarningAlert>
+      </WarningWrap>
     </>
   );
 };

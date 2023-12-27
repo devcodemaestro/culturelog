@@ -24,7 +24,16 @@ const About = () => {
         <TeamWrap>
           <h2>
             <img src={process.env.PUBLIC_URL + "/images/frontend_logo.svg"} />
+            <br />
+            <a
+              href="https://github.com/kimsomi0126/culturelog.git"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Team GitHub
+            </a>
           </h2>
+
           <AboutList>
             <AboutItem>
               <AboutIcon className="about_icon">
@@ -35,7 +44,11 @@ const About = () => {
               <AboutInfo className="about_info">
                 <dt>김소미(팀장)</dt>
                 <dd>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://github.com/kimsomi0126"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     GitHub Link
                   </a>
                 </dd>
@@ -50,7 +63,11 @@ const About = () => {
               <AboutInfo className="about_info">
                 <dt>이상재(팀원)</dt>
                 <dd>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://github.com/devcodemaestro"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     GitHub Link
                   </a>
                 </dd>
@@ -65,7 +82,11 @@ const About = () => {
               <AboutInfo className="about_info">
                 <dt>도선경(팀원)</dt>
                 <dd>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://github.com/do-sg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     GitHub Link
                   </a>
                 </dd>
@@ -80,7 +101,11 @@ const About = () => {
               <AboutInfo className="about_info">
                 <dt>최동환(팀원)</dt>
                 <dd>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://github.com/codefinger10"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     GitHub Link
                   </a>
                 </dd>
@@ -92,6 +117,14 @@ const About = () => {
         <TeamWrap>
           <h2>
             <img src={process.env.PUBLIC_URL + "/images/backend_logo.svg"} />
+            <br />
+            <a
+              href="https://github.com/GYEONGROK11/culture-log"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Team GitHub
+            </a>
           </h2>
           <AboutList>
             <AboutItem>
@@ -103,7 +136,11 @@ const About = () => {
               <AboutInfo className="about_info">
                 <dt>곽경록(팀장)</dt>
                 <dd>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://github.com/GYEONGROK11"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     GitHub Link
                   </a>
                 </dd>

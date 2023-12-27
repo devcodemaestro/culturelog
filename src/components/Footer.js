@@ -40,7 +40,7 @@ const Footer = () => {
         </Inner>
       </FooterWrap>
       <FooterCopyRight>
-        <Link to="/about">copyright Team-Name</Link>
+        <Link to="/about">copyright 행복한 떡잎</Link>
       </FooterCopyRight>
     </>
   );

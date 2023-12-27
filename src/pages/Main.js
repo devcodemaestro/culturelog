@@ -15,7 +15,7 @@ import {
 } from "../styles/basic";
 
 const Main = ({ loginCheck, iuser }) => {
-  // imedia 가져오기\
+  // imedia 가져오기
 
   // 패널 변경시 오늘의 연/월일
   const [ym, setYm] = useState(dayjs().format("YYYY-MM"));
