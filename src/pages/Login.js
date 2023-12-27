@@ -22,12 +22,18 @@ const Login = () => {
     navigate("/");
     return;
   };
+  const handleClickCheck = e => {
+    document.getElementById("warning-wrap2").style.left = "-100%";
+    document.getElementById("warning-wrap3").style.left = "-100%";
+    document.getElementById("warning-wrap4").style.left = "-100%";
+  };
   const handleChangeId = e => {
     setId(e.target.value);
   };
   const handleChangePw = e => {
     setPw(e.target.value);
   };
+
   const handleSubmit = e => {
     e.preventDefault();
     const obj = {
@@ -36,10 +42,13 @@ const Login = () => {
     };
     const resultAction = result => {
       if (result === -2) {
-        alert("아이디 또는 비밀번호를 확인해주세요.");
+        document.getElementById("warning-wrap2").style.left = "0%";
         return;
       } else if (result === -1) {
-        alert("비밀번호를 확인해주세요.");
+        document.getElementById("warning-wrap3").style.left = "0%";
+        return;
+      } else if (result === 5555) {
+        document.getElementById("warning-wrap4").style.left = "0%";
         return;
       } else {
         postUser(result);
@@ -99,6 +108,24 @@ const Login = () => {
           <p>
             이미 로그인 되어있습니다. <br /> 로그아웃 후 다시 시도해주세요.
           </p>
+        </WarningAlert>
+      </WarningWrap>
+      <WarningWrap id="warning-wrap2">
+        <WarningAlert handleClickClose={handleClickCheck}>
+          <h5>로그인 실패</h5>
+          <p>아이디 또는 비밀번호를 확인해주세요.</p>
+        </WarningAlert>
+      </WarningWrap>
+      <WarningWrap id="warning-wrap3">
+        <WarningAlert handleClickClose={handleClickCheck}>
+          <h5>로그인 실패</h5>
+          <p>비밀번호를 확인해주세요.</p>
+        </WarningAlert>
+      </WarningWrap>
+      <WarningWrap id="warning-wrap4">
+        <WarningAlert handleClickClose={handleClickCheck}>
+          <h5>로그인 실패</h5>
+          <p>로그인에 실패했습니다. 다시 시도해주세요.</p>
         </WarningAlert>
       </WarningWrap>
     </>

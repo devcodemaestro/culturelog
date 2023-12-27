@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { ConfigProvider } from "antd";
+import { colors } from "./basic";
 
 const configCalender = {
   token: {
@@ -143,7 +144,7 @@ export const DrawerWrap = styled.div`
   }
 
   .list-item:hover {
-    background-color: #f0f0f0; /* 원하는 hover 시 배경색 */
+    background-color: #fff; /* 원하는 hover 시 배경색 */
   }
 
   .list-item:active {
@@ -154,5 +155,65 @@ export const DrawerWrap = styled.div`
   }
   .ant-drawer-body {
     padding: 0 24px;
+  }
+  /* 메인 날짜리스트 */
+  .ant-list .ant-list-pagination {
+    margin-top: 10px !important;
+  }
+  .ant-list-split .ant-list-item {
+    border: 1px solid ${colors.secondary} !important;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    padding: 0 !important;
+    overflow: hidden;
+    transition: 0.2s;
+  }
+  .ant-list-split .ant-list-item:hover {
+    border-color: ${colors.point} !important;
+  }
+  .ant-list-split .ant-list-item:hover .liste-item-button {
+    background: ${colors.point} !important;
+    color: #fff;
+  }
+  .liste-item-button {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    font-size: 10px;
+    font-weight: 300;
+    border-radius: 50%;
+    color: #555555;
+    background-color: #f7f7f7;
+    padding: 0 !important;
+  }
+  .ant-drawer-title {
+    font-weight: 400 !important;
+  }
+  .ant-list-item-meta-title {
+    font-weight: 500;
+  }
+
+  .ant-avatar-lg {
+    width: 63px;
+    height: 88px;
+    border-radius: 0;
+    margin: -1px 0 0 -1px;
+  }
+  .ant-list-item-meta {
+    align-items: center !important;
+  }
+  .ant-pagination .ant-pagination-item {
+    border-radius: 50% !important;
+  }
+
+  .ant-pagination .ant-pagination-item-active {
+    border-color: ${colors.point} !important;
+    a {
+      color: ${colors.point} !important;
+    }
+  }
+  .ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-description {
+    color: ${colors.gray} !important;
+    font-size: 1.2rem !important;
   }
 `;

@@ -9,7 +9,8 @@ export const getMediaAll = async (ym, iuser, getMainInfo) => {
     getMainInfo(res.data);
     // console.log("res.data : ", res.data);
   } catch (error) {
-    console.log("getMediaAll", error);
+    // console.log("getMediaAll", error);
+    window.location.href = "/error";
   }
 };
 
@@ -22,7 +23,8 @@ export const getDayMedia = async (iuser, findFullDate, setListMedia) => {
     setListMedia(res.data);
     // console.log("listMedia res.data : ", res.data);
   } catch (error) {
-    console.log("setTodayDate :", error);
+    // console.log("setTodayDate :", error);
+    window.location.href = "/error";
   }
 };
 
@@ -35,7 +37,8 @@ export const getMedia = async (setLogList, iuser, is_saw, resultAction) => {
   } catch (error) {
     // const demo = await axios.get(`/getloglist.json`);
     // setLogList(demo.data);
-    resultAction(5555);
+    // resultAction(5555);
+    window.location.href = "/error";
   }
 };
 

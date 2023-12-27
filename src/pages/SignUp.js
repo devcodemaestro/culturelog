@@ -22,6 +22,14 @@ const SignUp = () => {
     navigate("/");
     return;
   };
+  const handleClickCheck = e => {
+    document.getElementById("warning-wrap2").style.left = "-100%";
+  };
+  const handleClickLogin = e => {
+    document.getElementById("warning-wrap3").style.left = "-100%";
+    navigate("/intro");
+    return;
+  };
   const handleChangeName = e => {
     setName(e.target.value);
   };
@@ -40,13 +48,10 @@ const SignUp = () => {
       nm: name,
     };
     const resultAction = result => {
-      if (result === 0) {
-        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
-        return;
+      if (result === 0 || result === 5555) {
+        document.getElementById("warning-wrap2").style.left = "0%";
       } else {
-        alert("회원가입에 성공했습니다." + result);
-        navigate("/login");
-        return;
+        document.getElementById("warning-wrap3").style.left = "0%";
       }
     };
     postSignup(obj, resultAction);
@@ -109,6 +114,18 @@ const SignUp = () => {
           <p>
             이미 로그인 되어있습니다. <br /> 로그아웃 후 다시 시도해주세요.
           </p>
+        </WarningAlert>
+      </WarningWrap>
+      <WarningWrap id="warning-wrap2">
+        <WarningAlert handleClickClose={handleClickCheck}>
+          <h5>회원가입 실패</h5>
+          <p>회원가입에 실패했습니다. 다시 시도해주세요.</p>
+        </WarningAlert>
+      </WarningWrap>
+      <WarningWrap id="warning-wrap3">
+        <WarningAlert handleClickClose={handleClickLogin}>
+          <h5>회원가입 성공</h5>
+          <p>회원가입에 성공했습니다. 로그인페이지로 이동합니다.</p>
         </WarningAlert>
       </WarningWrap>
     </>

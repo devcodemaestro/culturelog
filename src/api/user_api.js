@@ -8,7 +8,7 @@ export const postSignup = async (obj, resultAction) => {
     const res = await axios.post(`${path}/signup`, obj);
     resultAction(res.data);
   } catch (error) {
-    console.log(error);
+    resultAction(5555);
   }
 };
 
@@ -18,14 +18,14 @@ export const postSignin = async (obj, resultAction) => {
     const res = await axios.post(`${path}/signin`, obj);
     resultAction(res.data.result);
   } catch (error) {
-    console.log(error);
+    resultAction(5555);
   }
 };
 
 // 로컬스토리지에 login 값 저장
 export const postUser = function (result) {
   localStorage.setItem("iuser", result);
-  console.log(result);
+  // console.log(result);
 };
 
 // 로컬스토리지에 login 값 읽어오기

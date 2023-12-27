@@ -12,12 +12,12 @@ const Error = () => {
     <ErrorWrap>
       <ErrorTop>
         <img src={process.env.PUBLIC_URL + "/images/error_logo.svg"}></img>
-        <h4>{name}</h4>
+        <h4>Server Error</h4>
       </ErrorTop>
       <ErrorBot>
         <p>
-          현재 요청을 처리할 수 없습니다.
-          <br />( {message} )
+          서버 에러가 발생하여 페이지를 표시할 수 없습니다. <br />
+          잠시 후 다시 시도해주세요.
         </p>
         <Link to="/" className="submit-btn">
           홈으로 돌아가기

@@ -93,7 +93,7 @@ const Main = ({ loginCheck, iuser }) => {
       onClose={onCloseDrawer}
       open={open}
       getContainer={false}
-      height="50%"
+      height="60vh"
     >
       {listMedia ? (
         <List
@@ -106,7 +106,7 @@ const Main = ({ loginCheck, iuser }) => {
               <List.Item
                 extra={
                   <Button className="liste-item-button" type="text">
-                    더보기
+                    More
                   </Button>
                 }
                 className="list-item"
