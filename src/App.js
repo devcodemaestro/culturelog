@@ -64,12 +64,6 @@ const App = () => {
             }
           />
           <Route
-            path="write"
-            element={
-              <WriteLog iuser={iuser} loginCheck={loginCheck}></WriteLog>
-            }
-          />
-          <Route
             path="edit/:imedia"
             element={<EditLog iuser={iuser} loginCheck={loginCheck}></EditLog>}
           />
