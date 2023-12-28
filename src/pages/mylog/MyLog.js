@@ -6,6 +6,9 @@ import UpcomingLogList from "../../components/loglist/UpcomingLogList";
 import PastLogList from "../../components/loglist/PastLogList";
 import { getMedia } from "../../api/culutrelog_api";
 import styled from "@emotion/styled";
+import { WarningWrap } from "../../styles/ui/warning";
+import WarningAlert from "../../components/ui/WarningAlert";
+import { useNavigate } from "react-router";
 
 const initLog = [
   {
@@ -18,12 +21,13 @@ const initLog = [
 ];
 
 const MyLog = ({ loginCheck, iuser }) => {
+  const navigate = useNavigate();
   const [loglist, setLogList] = useState(initLog);
   useEffect(() => {
     loginCheck();
     const resultAction = result => {
       if (result === 0 || result === 5555) {
-        document.getElementById("warning-wrap1").style.left = "-100%";
+        navigate("/error");
         return;
       }
     };

@@ -184,7 +184,7 @@ const WriteLog = ({ loginCheck, iuser }) => {
   };
 
   const handleClickClose = e => {
-    document.getElementById("warning-wrap").style.left = "-100%";
+    document.getElementById("warning-wrap").style.left = "-300%";
     return;
   };
   // console.log(imageUrls);

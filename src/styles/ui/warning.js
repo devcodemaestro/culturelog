@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 // 경고창
 export const WarningWrap = styled.div`
   position: fixed;
-  left: -100%;
+  left: -300%;
   top: 0;
   width: 100%;
   height: 100%;

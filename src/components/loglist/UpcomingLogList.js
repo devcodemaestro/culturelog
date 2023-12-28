@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { LogListWrap } from "../../styles/ui/logliststyle";
 import LogListItem from "./LogListItem";
 import { getMedia } from "../../api/culutrelog_api";
+import { useNavigate } from "react-router";
 
 const initUpcomingLog = [
   {
@@ -13,9 +14,16 @@ const initUpcomingLog = [
   },
 ];
 const UpcomingLogList = ({ iuser }) => {
+  const navigate = useNavigate();
   const [loglist, setLogList] = useState(initUpcomingLog);
   useEffect(() => {
-    getMedia(setLogList, iuser, 0);
+    const resultAction = result => {
+      if (result === 0 || result === 5555) {
+        navigate("/error");
+        return;
+      }
+    };
+    getMedia(setLogList, iuser, 0, resultAction);
   }, []);
   const sortedLogList = loglist
     .slice()

@@ -28,3 +28,8 @@
   img {
   object-fit: cover;
 }
+
+:where(.css-dev-only-do-not-override-6j9yrn).ant-upload-wrapper
+  .ant-upload-list {
+  display: flex;
+}

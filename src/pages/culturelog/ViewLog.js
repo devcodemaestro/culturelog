@@ -47,10 +47,10 @@ const ViewLog = ({ loginCheck }) => {
 
   // 삭제 취소 시 경고창 제거
   const handleClickCancel = () => {
-    document.getElementById("warning-wrap1").style.left = "-100%";
+    document.getElementById("warning-wrap1").style.left = "-300%";
   };
   const handleClickClose = () => {
-    document.getElementById("warning-wrap2").style.left = "-100%";
+    document.getElementById("warning-wrap2").style.left = "-300%";
   };
   const handleClickHome = () => {
     navigate("/");
@@ -61,7 +61,7 @@ const ViewLog = ({ loginCheck }) => {
   const handleClickDelete = () => {
     const resultAction = result => {
       if (result === 0 || result === 5555) {
-        document.getElementById("warning-wrap1").style.left = "-100%";
+        document.getElementById("warning-wrap1").style.left = "-300%";
         document.getElementById("warning-wrap2").style.left = "0";
         console.log(result);
         return;

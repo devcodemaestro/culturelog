@@ -18,14 +18,14 @@ const Login = () => {
     }
   };
   const handleClickClose = e => {
-    document.getElementById("warning-wrap").style.left = "-100%";
+    document.getElementById("warning-wrap").style.left = "-300%";
     navigate("/");
     return;
   };
   const handleClickCheck = e => {
-    document.getElementById("warning-wrap2").style.left = "-100%";
-    document.getElementById("warning-wrap3").style.left = "-100%";
-    document.getElementById("warning-wrap4").style.left = "-100%";
+    document.getElementById("warning-wrap2").style.left = "-300%";
+    document.getElementById("warning-wrap3").style.left = "-300%";
+    document.getElementById("warning-wrap4").style.left = "-300%";
   };
   const handleChangeId = e => {
     setId(e.target.value);

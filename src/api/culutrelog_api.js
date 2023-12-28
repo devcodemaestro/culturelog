@@ -9,8 +9,8 @@ export const getMediaAll = async (ym, iuser, getMainInfo) => {
     getMainInfo(res.data);
     // console.log("res.data : ", res.data);
   } catch (error) {
-    // console.log("getMediaAll", error);
-    window.location.href = "/error";
+    console.log(error);
+    // window.location.href = "/";
   }
 };
 
@@ -24,21 +24,20 @@ export const getDayMedia = async (iuser, findFullDate, setListMedia) => {
     // console.log("listMedia res.data : ", res.data);
   } catch (error) {
     // console.log("setTodayDate :", error);
-    window.location.href = "/error";
+    window.location.href = "/";
   }
 };
 
 // 마이로그(볼 거예요 / 봤어요) 가져오기
 export const getMedia = async (setLogList, iuser, is_saw, resultAction) => {
   try {
-    const res = await axios.get(`${path}?is_saw=${is_saw}&iuser=${iuser}`);
+    const res = await axios.get(`${path}ss?is_saw=${is_saw}&iuser=${iuser}`);
     setLogList(res.data);
     // console.log(res.data);
   } catch (error) {
     // const demo = await axios.get(`/getloglist.json`);
     // setLogList(demo.data);
-    // resultAction(5555);
-    window.location.href = "/error";
+    resultAction(5555);
   }
 };
 

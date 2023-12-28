@@ -206,7 +206,7 @@ const EditLog = ({ iuser, loginCheck }) => {
         document.getElementById("warning-wrap2").style.left = "0";
         return;
       } else {
-        navigate(`/culturelog/view/${viewData.imedia}?iuser=${iuser}`);
+        document.getElementById("warning-wrap3").style.left = "0";
         return;
       }
     };
@@ -215,7 +215,7 @@ const EditLog = ({ iuser, loginCheck }) => {
   };
   // 수정실패 경고창
   const handleClickClose = e => {
-    document.getElementById("warning-wrap1").style.left = "-100%";
+    document.getElementById("warning-wrap1").style.left = "-300%";
     return;
   };
   // 취소버튼 클릭 시 경고창
@@ -224,7 +224,7 @@ const EditLog = ({ iuser, loginCheck }) => {
   };
   // 다시작성 시 경고창 제거
   const handleClickCancel = () => {
-    document.getElementById("warning-wrap1").style.left = "-100%";
+    document.getElementById("warning-wrap1").style.left = "-300%";
   };
   // 취소확인 시 뷰페이지로 이동
   const handleClickBack = () => {
@@ -406,6 +406,13 @@ const EditLog = ({ iuser, loginCheck }) => {
         <WarningAlert handleClickClose={handleClickClose}>
           <h5>수정 실패</h5>
           <p>기록을 수정하는데 실패했습니다. 다시 시도해주세요.</p>
+        </WarningAlert>
+      </WarningWrap>
+
+      <WarningWrap id="warning-wrap3">
+        <WarningAlert handleClickClose={handleClickBack}>
+          <h5>수정 완료</h5>
+          <p>수정이 완료되었습니다.</p>
         </WarningAlert>
       </WarningWrap>
     </>
