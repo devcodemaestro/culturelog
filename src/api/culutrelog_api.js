@@ -31,7 +31,7 @@ export const getDayMedia = async (iuser, findFullDate, setListMedia) => {
 // 마이로그(볼 거예요 / 봤어요) 가져오기
 export const getMedia = async (setLogList, iuser, is_saw, resultAction) => {
   try {
-    const res = await axios.get(`${path}ss?is_saw=${is_saw}&iuser=${iuser}`);
+    const res = await axios.get(`${path}?is_saw=${is_saw}&iuser=${iuser}`);
     setLogList(res.data);
     // console.log(res.data);
   } catch (error) {
