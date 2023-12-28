@@ -155,7 +155,11 @@ const About = () => {
               <AboutInfo className="about_info">
                 <dt>이영웅(팀원)</dt>
                 <dd>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://github.com/lhero0105"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     GitHub Link
                   </a>
                 </dd>
@@ -170,7 +174,11 @@ const About = () => {
               <AboutInfo className="about_info">
                 <dt>김현빈(팀원)</dt>
                 <dd>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://github.com/gusqls3329"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     GitHub Link
                   </a>
                 </dd>
@@ -185,7 +193,11 @@ const About = () => {
               <AboutInfo className="about_info">
                 <dt>박동현(팀원)</dt>
                 <dd>
-                  <a href="#" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://github.com/dongki08"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     GitHub Link
                   </a>
                 </dd>
