@@ -35,8 +35,4 @@
           <img src="https://img.shields.io/badge/StyledComponents-DB7093?style=for-the-badge&logo=StyledComponents&logoColor=white">
           </div>
     </div>
-    <div style="text-align: left;">
-    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🧑‍💻 시연 영상 </h2> <br> 
-    <div style="text-align: left;"> <iframe width="100%" height="315" src="https://www.youtube.com/embed/sox6EovMV6k?si=MNk5ISnfsyzWCUvt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>  <br> 
-    <div style="text-align: left;">  </div> 
-    </div>
+    
