@@ -33,3 +33,6 @@
   .ant-upload-list {
   display: flex;
 }
+.ant-upload-list-item-actions > a {
+  display: none !important;
+}

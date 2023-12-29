@@ -153,14 +153,14 @@ const EditLog = ({ iuser, loginCheck }) => {
   };
   // 이미지 삭제
   const handleRemove = async file => {
-    console.log("삭제", file);
+    // console.log("삭제", file);
     try {
       // DB 저장된 파일명
       const deletedFileName = `${file.name}`;
 
       // FB 저장된 파일명
       const deletedFileNameFB = deletedFileName.replace("%2F", "/");
-      console.log("수정 진행중 deletedFileName ", deletedFileNameFB);
+      // console.log("수정 진행중 deletedFileName ", deletedFileNameFB);
       // Firebase Storage에서 파일 삭제
       const storageRef = ref(storage, `${deletedFileNameFB}`);
       // await deleteObject(storageRef);
@@ -174,15 +174,15 @@ const EditLog = ({ iuser, loginCheck }) => {
         url => !url.includes(deletedFileName),
       );
 
-      console.log(filteredImageUrls);
+      // console.log(filteredImageUrls);
       setImageUrls(filteredImageUrls);
 
       // 파일 목록에서 삭제된 파일 필터링
       const filteredFileList = fileList.filter(f => f.uid !== file.uid);
       setFileList(filteredFileList);
-      console.log(`${file.name} 파일이 삭제되었습니다.`);
+      // console.log(`${file.name} 파일이 삭제되었습니다.`);
     } catch (error) {
-      console.log("파일 삭제 중 오류가 발생했습니다.");
+      // console.log("파일 삭제 중 오류가 발생했습니다.");
     }
   };
 
@@ -211,7 +211,7 @@ const EditLog = ({ iuser, loginCheck }) => {
       }
     };
     putMedia(obj, resultAction);
-    console.log("수정내용 : ", obj);
+    // console.log("수정내용 : ", obj);
   };
   // 수정실패 경고창
   const handleClickClose = e => {
