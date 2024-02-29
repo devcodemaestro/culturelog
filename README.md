@@ -6,7 +6,8 @@
     <div style="font-weight: 700; font-size: 15px; text-align: left; color: #282d33;">
     - OTT, 영화, 드라마, 연극, 뮤지컬, 콘서트 등 내가 본 컨텐츠와 볼 컨텐츠를 함께 기록하는 일정관리 서비스 </br>
     - <a href="https://alert-stomach-4e6.notion.site/Culture-Log-412423e6ea6440e9a564825e49ead871" terget="_blank">Notion</a><br/>
-    - <a href="https://www.figma.com/file/Fd6V0DURKbiw4VOts3uMNd/%EC%BB%AC%EC%B3%90%EB%A1%9C%EA%B7%B8-%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%94%94%EC%9E%90%EC%9D%B8?type=design&node-id=0%3A1&mode=design&t=KtTdYckJceqrOriH-1" terget="_blank">Figma</a>
+    - <a href="https://www.figma.com/file/Fd6V0DURKbiw4VOts3uMNd/%EC%BB%AC%EC%B3%90%EB%A1%9C%EA%B7%B8-%ED%8E%98%EC%9D%B4%EC%A7%80-%EB%94%94%EC%9E%90%EC%9D%B8?type=design&node-id=0%3A1&mode=design&t=KtTdYckJceqrOriH-1" terget="_blank">Figma</a> <br/>
+    - <a href="https://culturelog.vercel.app/" terget="_blank">배포 사이트 바로가기</a>
     </div> 
     </div><div style="text-align: left;"> 
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;">🤼 팀원 소개 </h2>  
@@ -37,9 +38,7 @@
     </div>
     <div style="text-align: left;">
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 💻 시연 영상 </h2> <br> 
-    <div style="margin: 0; text-align: center;">
-    <a href="https://www.youtube.com/watch?v=sox6EovMV6k" terget="_blank">    
-<img src="https://private-user-images.githubusercontent.com/148413962/293304779-2132e1d1-8646-4339-895b-7b267180e6e5.gif?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDM4MjA1ODEsIm5iZiI6MTcwMzgyMDI4MSwicGF0aCI6Ii8xNDg0MTM5NjIvMjkzMzA0Nzc5LTIxMzJlMWQxLTg2NDYtNDMzOS04OTViLTdiMjY3MTgwZTZlNS5naWY_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjMxMjI5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIyOVQwMzI0NDFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00NThjMjA2N2Y2OGQ0Yzk0OWI0NDM5OWVjNGI2ZTUyZTA1NjZkMzJhNzIxYzBmNzQ3ZDRiOTU0MTIxN2IzZmQxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.xVrKwMJJTphrgplHc687bqmELTGCwdlWSagfqzNLtFo" alt="컬쳐로그 미리보기" style="width:100%; max-width:500px;"></a>
-          </div>
+    <div style="margin: 0; ">
+    <a href="https://www.youtube.com/watch?v=sox6EovMV6k" terget="_blank"> 시연영상 바로가기
+</a></div>
     </div>
-    
